@@ -1,0 +1,25 @@
+{
+  "id": "hard14_add_months_clamp",
+  "category": "boundary",
+  "repo": "flowkit",
+  "issue": "Scheduling a monthly job that starts on 2024-01-31 crashes with \"ValueError: day is out of range for month\" when computing the next run.",
+  "fail_to_pass": [
+    "tests/test_hidden_dates.py::test_clamps_to_month_end",
+    "tests/test_hidden_dates.py::test_leap_years",
+    "tests/test_hidden_dates.py::test_negative_months_clamp",
+    "tests/test_hidden_dates.py::test_datetime_clamp_keeps_time"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_dates.py::test_year_wrap_negative",
+    "tests/test_hidden_dates.py::test_short_day_not_extended"
+  ]
+}

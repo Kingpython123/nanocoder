@@ -1,0 +1,26 @@
+{
+  "id": "hard12_cron_range_step",
+  "category": "spec",
+  "repo": "flowkit",
+  "issue": "CronSpec('10-30/10 * * * *') raises CronError: bad cron item '10-30/10'. That's standard cron syntax (should fire at minutes 10, 20 and 30).",
+  "fail_to_pass": [
+    "tests/test_hidden_cron.py::test_range_with_step",
+    "tests/test_hidden_cron.py::test_hour_range_step",
+    "tests/test_hidden_cron.py::test_weekday_range_step",
+    "tests/test_hidden_cron.py::test_list_of_ranges_with_steps"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_cron.py::test_range_step_out_of_bounds",
+    "tests/test_hidden_cron.py::test_step_on_single_value_rejected",
+    "tests/test_hidden_cron.py::test_star_step_still_works"
+  ]
+}

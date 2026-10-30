@@ -1,0 +1,23 @@
+{
+  "id": "hard16_zero_retries_config",
+  "category": "multi_file",
+  "repo": "flowkit",
+  "issue": "We set config={'retry': {'max_retries': 0}} on a Pipeline because the step is not idempotent, but a failing step is still retried 3 times. Setting it to 5 works.",
+  "fail_to_pass": [
+    "tests/test_hidden_pipeline_config.py::test_zero_retries_from_config",
+    "tests/test_hidden_pipeline_config.py::test_zero_base_delay_from_config"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_pipeline_config.py::test_five_retries_from_config",
+    "tests/test_hidden_pipeline_config.py::test_defaults_without_config"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "hard05_tax_exempt",
+  "category": "logic",
+  "repo": "ledgerlite",
+  "issue": "We are under-charging VAT: lines with category 'e-books' and 'seafood' come out with zero tax. Only the categories listed in the tax rules should be exempt.",
+  "fail_to_pass": [
+    "tests/test_hidden_tax.py::test_similar_categories_are_taxed"
+  ],
+  "pass_to_pass": [
+    "tests/test_aging.py",
+    "tests/test_currency.py",
+    "tests/test_discounts.py",
+    "tests/test_importer.py",
+    "tests/test_invoice.py",
+    "tests/test_money.py",
+    "tests/test_report.py",
+    "tests/test_tax.py",
+    "tests/test_hidden_tax.py::test_case_and_whitespace_still_exempt",
+    "tests/test_hidden_tax.py::test_empty_category_taxed"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "toy07_ttl_cache",
+  "category": "logic",
+  "issue": "`TTLCache` behaves backwards: right after `set()` the value is missing (`get` returns the default),\nbut once the TTL has passed, `get` starts returning the stale value.\n",
+  "fail_to_pass": [
+    "tests/test_ttl.py::test_fresh_value_returned",
+    "tests/test_ttl.py::test_expired_value_hidden"
+  ],
+  "pass_to_pass": [
+    "tests/test_ttl.py::test_missing_key_default"
+  ]
+}

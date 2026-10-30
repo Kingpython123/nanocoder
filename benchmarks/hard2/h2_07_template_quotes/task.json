@@ -1,0 +1,25 @@
+{
+  "id": "h2_07_template_quotes",
+  "category": "edge_cases",
+  "repo": "flowkit",
+  "issue": "`{{ status | default('n/a | unknown') }}` raises `TemplateError: bad filter syntax`. And `{{ x | default('}}') }}` renders garbage.",
+  "fail_to_pass": [
+    "tests/test_hidden_template_quotes.py::test_pipe_inside_single_quotes",
+    "tests/test_hidden_template_quotes.py::test_pipe_inside_double_quotes",
+    "tests/test_hidden_template_quotes.py::test_closing_braces_inside_quotes",
+    "tests/test_hidden_template_quotes.py::test_escaped_quote_in_arg"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_template_quotes.py::test_chain_and_multiple_expressions",
+    "tests/test_hidden_template_quotes.py::test_adjacent_expressions_and_plain_text"
+  ]
+}

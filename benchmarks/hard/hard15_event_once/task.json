@@ -1,0 +1,24 @@
+{
+  "id": "hard15_event_once",
+  "category": "state",
+  "repo": "flowkit",
+  "issue": "When a `once=True` subscriber fires, the next subscriber for the same event doesn't get that event. Same thing if a handler unsubscribes itself while handling an event.",
+  "fail_to_pass": [
+    "tests/test_hidden_events.py::test_once_does_not_skip_next",
+    "tests/test_hidden_events.py::test_self_unsubscribe_does_not_skip_next",
+    "tests/test_hidden_events.py::test_emit_count_with_once",
+    "tests/test_hidden_events.py::test_subscribe_during_emit"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_events.py::test_unsubscribe_unknown_is_noop"
+  ]
+}

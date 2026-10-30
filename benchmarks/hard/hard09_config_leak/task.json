@@ -1,0 +1,24 @@
+{
+  "id": "hard09_config_leak",
+  "category": "state",
+  "repo": "flowkit",
+  "issue": "Creating one Pipeline with config={'retry': {'max_retries': 5}} changes the retry settings of every Pipeline created afterwards in the same process. Also, setting just logging.handlers.console.enabled=False loses the console format setting.",
+  "fail_to_pass": [
+    "tests/test_hidden_config.py::test_defaults_not_mutated",
+    "tests/test_hidden_config.py::test_pipelines_isolated",
+    "tests/test_hidden_config.py::test_three_level_merge"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_config.py::test_override_not_mutated",
+    "tests/test_hidden_config.py::test_merge_new_and_replaced_keys"
+  ]
+}

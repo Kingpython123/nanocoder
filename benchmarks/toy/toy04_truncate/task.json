@@ -1,0 +1,12 @@
+{
+  "id": "toy04_truncate",
+  "category": "boundary",
+  "issue": "`truncate(text, width)` returns strings longer than `width`.\n\n`truncate(\"hello world\", 8)` returns `'hello wo...'` (11 chars). The docs say the result,\nincluding the suffix, must never exceed `width` characters.\n",
+  "fail_to_pass": [
+    "tests/test_shorten.py::test_respects_width",
+    "tests/test_shorten.py::test_custom_suffix"
+  ],
+  "pass_to_pass": [
+    "tests/test_shorten.py::test_fits_unchanged"
+  ]
+}

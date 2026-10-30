@@ -1,0 +1,24 @@
+{
+  "id": "hard04_csv_quotes",
+  "category": "robustness",
+  "repo": "ledgerlite",
+  "issue": "Importing a line-item CSV exported from Excel fails:\n\n    ValueError: row 2: invalid literal for int() with base 10: '2m\"'\n\nThe row is `C-7,\"Cable, 2m\",3,4.99` (sku, description, quantity, unit_price). Excel quotes fields that contain commas, quotes or line breaks.",
+  "fail_to_pass": [
+    "tests/test_hidden_importer.py::test_quoted_comma",
+    "tests/test_hidden_importer.py::test_escaped_quotes",
+    "tests/test_hidden_importer.py::test_newline_inside_quotes"
+  ],
+  "pass_to_pass": [
+    "tests/test_aging.py",
+    "tests/test_currency.py",
+    "tests/test_discounts.py",
+    "tests/test_importer.py",
+    "tests/test_invoice.py",
+    "tests/test_money.py",
+    "tests/test_report.py",
+    "tests/test_tax.py",
+    "tests/test_hidden_importer.py::test_crlf_line_endings",
+    "tests/test_hidden_importer.py::test_trailing_empty_cell",
+    "tests/test_hidden_importer.py::test_blank_and_whitespace_lines"
+  ]
+}

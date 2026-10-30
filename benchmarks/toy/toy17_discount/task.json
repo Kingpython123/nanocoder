@@ -1,0 +1,13 @@
+{
+  "id": "toy17_discount",
+  "category": "regression_trap",
+  "issue": "`apply_discount(200, 15)` returns -2800.0. A 15 means 15 percent off, so I expect 170.0.\nThe function is documented to take a percentage between 0 and 100.\n",
+  "fail_to_pass": [
+    "tests/test_pricing.py::test_percent",
+    "tests/test_pricing.py::test_zero_and_full"
+  ],
+  "pass_to_pass": [
+    "tests/test_checkout.py::test_no_discount",
+    "tests/test_checkout.py::test_discount"
+  ]
+}

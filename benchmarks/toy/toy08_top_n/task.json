@@ -1,0 +1,12 @@
+{
+  "id": "toy08_top_n",
+  "category": "logic",
+  "issue": "The leaderboard shows the worst players. `top_n({\"ann\": 90, \"bob\": 70, \"cy\": 85}, 2)` returns\n`[(\"bob\", 70), (\"cy\", 85)]`; I expected the two highest scores, best first: `[(\"ann\", 90), (\"cy\", 85)]`.\nPlayers with equal scores should be ordered by name.\n",
+  "fail_to_pass": [
+    "tests/test_ranking.py::test_best_first",
+    "tests/test_ranking.py::test_ties_by_name"
+  ],
+  "pass_to_pass": [
+    "tests/test_ranking.py::test_n_larger_than_len"
+  ]
+}

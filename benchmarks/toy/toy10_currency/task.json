@@ -1,0 +1,13 @@
+{
+  "id": "toy10_currency",
+  "category": "multi_file",
+  "issue": "Two problems with currency conversion:\n\n1. Converting in the \"reverse\" direction is wildly wrong: `convert(100, \"CNY\", \"USD\")` returns 720.0;\n   it should be about 13.89.\n2. Amounts lose cents: `convert(10, \"USD\", \"EUR\")` returns 9.0 but should be 9.2 (rounded to 2 decimals).\n",
+  "fail_to_pass": [
+    "tests/test_convert.py::test_reverse_rate",
+    "tests/test_convert.py::test_keeps_cents"
+  ],
+  "pass_to_pass": [
+    "tests/test_convert.py::test_forward",
+    "tests/test_convert.py::test_unknown"
+  ]
+}

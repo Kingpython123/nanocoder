@@ -1,0 +1,24 @@
+{
+  "id": "hard10_retry_attempts",
+  "category": "regression_trap",
+  "repo": "flowkit",
+  "issue": "retry(fn, max_retries=3) gives up after the 3rd call. According to its docstring it should retry 3 times after the first failure. With max_retries=0 it crashes with \"TypeError: exceptions must derive from BaseException\" instead of raising fn's error.",
+  "fail_to_pass": [
+    "tests/test_hidden_retry.py::test_total_calls",
+    "tests/test_hidden_retry.py::test_sleeps_between_attempts_only",
+    "tests/test_hidden_retry.py::test_zero_retries",
+    "tests/test_hidden_retry.py::test_succeeds_on_last_attempt"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_retry.py::test_max_delay_cap"
+  ]
+}

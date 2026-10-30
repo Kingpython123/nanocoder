@@ -1,0 +1,25 @@
+{
+  "id": "h2_10_pipeline_only",
+  "category": "logic",
+  "repo": "flowkit",
+  "issue": "`pipeline.run(only=['report'])` fails with `KeyError: 'fetch'`. report depends on load, and load depends on fetch.",
+  "fail_to_pass": [
+    "tests/test_hidden_pipeline_only.py::test_only_runs_transitive_deps",
+    "tests/test_hidden_pipeline_only.py::test_only_multiple_targets_shared_deps",
+    "tests/test_hidden_pipeline_only.py::test_only_with_diamond"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_pipeline_only.py::test_only_unknown_name",
+    "tests/test_hidden_pipeline_only.py::test_only_direct_deps_order",
+    "tests/test_hidden_pipeline_only.py::test_run_all_unchanged"
+  ]
+}

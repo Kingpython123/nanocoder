@@ -1,0 +1,13 @@
+{
+  "id": "toy09_leap_year",
+  "category": "logic",
+  "issue": "`is_leap(2024)` returns False, and `days_in_month(2024, 2)` returns 28. 2024 is a leap year.\nMeanwhile `is_leap(1900)` returns True, but 1900 was not a leap year.\n",
+  "fail_to_pass": [
+    "tests/test_leap.py::test_common_leap",
+    "tests/test_leap.py::test_century_not_leap"
+  ],
+  "pass_to_pass": [
+    "tests/test_leap.py::test_400_is_leap",
+    "tests/test_leap.py::test_regular_month"
+  ]
+}

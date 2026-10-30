@@ -1,0 +1,24 @@
+{
+  "id": "h2_01_float_amounts",
+  "category": "root_cause",
+  "repo": "ledgerlite",
+  "issue": "Our POS integration sends prices as Python floats. `inv.add_line('A', 1, 1.005)` gives a line total of 1.00, but `inv.add_line('A', 1, '1.005')` gives 1.01. A float should behave exactly like the number it prints as, wherever we pass amounts into ledgerlite.",
+  "fail_to_pass": [
+    "tests/test_hidden_floats.py::test_to_decimal_float",
+    "tests/test_hidden_floats.py::test_add_line_float",
+    "tests/test_hidden_floats.py::test_line_item_float",
+    "tests/test_hidden_floats.py::test_discount_float",
+    "tests/test_hidden_floats.py::test_rates_float"
+  ],
+  "pass_to_pass": [
+    "tests/test_aging.py",
+    "tests/test_currency.py",
+    "tests/test_discounts.py",
+    "tests/test_importer.py",
+    "tests/test_invoice.py",
+    "tests/test_money.py",
+    "tests/test_report.py",
+    "tests/test_tax.py",
+    "tests/test_hidden_floats.py::test_non_float_inputs_unchanged"
+  ]
+}

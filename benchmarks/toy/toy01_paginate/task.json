@@ -1,0 +1,14 @@
+{
+  "id": "toy01_paginate",
+  "category": "boundary",
+  "issue": "`page_count` and `get_page` disagree with each other for the last page.\n\nWith 11 items and `per_page=5` I expect 3 pages (5 + 5 + 1), but `page_count` says 2 and\n`get_page(items, 3, 5)` raises `ValueError: page out of range`, so the last item is unreachable.\n",
+  "fail_to_pass": [
+    "tests/test_pager.py::test_last_partial_page"
+  ],
+  "pass_to_pass": [
+    "tests/test_pager.py::test_exact_multiple",
+    "tests/test_pager.py::test_first_page",
+    "tests/test_pager.py::test_empty",
+    "tests/test_pager.py::test_out_of_range"
+  ]
+}

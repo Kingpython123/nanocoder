@@ -1,0 +1,14 @@
+{
+  "id": "toy15_csv_line",
+  "category": "spec",
+  "issue": "`parse_line('a,\"b,c\",d')` returns `['a', '\"b', 'c\"', 'd']` instead of `['a', 'b,c', 'd']`.\nQuoted fields are not handled at all. The function's docstring describes the format we need\nto support (including escaped quotes) — please implement it without using the `csv` module\n(this code also runs in an environment where we keep dependencies minimal and want explicit rules).\n",
+  "fail_to_pass": [
+    "tests/test_parse.py::test_quoted_comma",
+    "tests/test_parse.py::test_escaped_quote",
+    "tests/test_parse.py::test_quoted_empty"
+  ],
+  "pass_to_pass": [
+    "tests/test_parse.py::test_plain",
+    "tests/test_parse.py::test_empty_fields"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "hard08_self_dependency",
+  "category": "logic",
+  "repo": "flowkit",
+  "issue": "A pipeline step that lists itself in depends_on (a typo in our YAML) is silently accepted and runs normally. Any other circular dependency is rejected with a CycleError, and this should be too.",
+  "fail_to_pass": [
+    "tests/test_hidden_graph.py::test_self_loop_is_cycle",
+    "tests/test_hidden_graph.py::test_pipeline_rejects_self_dependency"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_graph.py::test_three_cycle_reported",
+    "tests/test_hidden_graph.py::test_valid_graph_unchanged"
+  ]
+}

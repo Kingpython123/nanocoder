@@ -1,0 +1,25 @@
+{
+  "id": "hard11_template_filters",
+  "category": "spec",
+  "repo": "flowkit",
+  "issue": "`{{ name | default('anonymous') | upper }}` renders 'anonymous' when name is missing, but I expected 'ANONYMOUS'. Chained filters in general behave strangely.",
+  "fail_to_pass": [
+    "tests/test_hidden_template.py::test_default_then_upper",
+    "tests/test_hidden_template.py::test_default_then_truncate",
+    "tests/test_hidden_template.py::test_trim_then_truncate",
+    "tests/test_hidden_template.py::test_lower_then_default"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_template.py::test_unknown_filter_in_chain",
+    "tests/test_hidden_template.py::test_multiple_expressions"
+  ]
+}

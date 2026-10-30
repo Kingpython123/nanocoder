@@ -1,0 +1,21 @@
+{
+  "id": "hard07_report_direction",
+  "category": "multi_file",
+  "repo": "ledgerlite",
+  "issue": "The receivables report in EUR lists a 110.00 USD invoice as 121.00 EUR. With EUR/USD at 1.10 it should be 100.00 EUR. The grand total is wrong as a result.",
+  "fail_to_pass": [
+    "tests/test_hidden_report.py::test_foreign_invoice_converted_to_base",
+    "tests/test_hidden_report.py::test_render_mixed_currencies"
+  ],
+  "pass_to_pass": [
+    "tests/test_aging.py",
+    "tests/test_currency.py",
+    "tests/test_discounts.py",
+    "tests/test_importer.py",
+    "tests/test_invoice.py",
+    "tests/test_money.py",
+    "tests/test_report.py",
+    "tests/test_tax.py",
+    "tests/test_hidden_report.py::test_rate_fetched_once_per_pair"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "toy02_chunked",
+  "category": "boundary",
+  "issue": "`chunked()` silently drops data.\n\n```python\n>>> from seqtools import chunked\n>>> chunked([1, 2, 3, 4, 5, 6, 7], 3)\n[[1, 2, 3], [4, 5, 6]]\n```\nThe trailing `7` is lost. The last chunk should just be shorter: `[[1, 2, 3], [4, 5, 6], [7]]`.\n",
+  "fail_to_pass": [
+    "tests/test_chunks.py::test_remainder_kept",
+    "tests/test_chunks.py::test_shorter_than_size"
+  ],
+  "pass_to_pass": [
+    "tests/test_chunks.py::test_even",
+    "tests/test_chunks.py::test_windows"
+  ]
+}

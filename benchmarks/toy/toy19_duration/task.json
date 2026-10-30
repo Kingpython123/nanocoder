@@ -1,0 +1,13 @@
+{
+  "id": "toy19_duration",
+  "category": "regression_trap",
+  "issue": "`parse_duration(\"90s\")` raises `ValueError: bad duration: '90s'`, and so does `parse_duration(\"1h30m15s\")`.\nSeconds should be supported as a unit, just like `h` and `m`.\n",
+  "fail_to_pass": [
+    "tests/test_duration.py::test_seconds"
+  ],
+  "pass_to_pass": [
+    "tests/test_duration.py::test_hours_minutes",
+    "tests/test_duration.py::test_bare_number_is_minutes",
+    "tests/test_duration.py::test_garbage"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "h2_09_cache_expired_first",
+  "category": "multi_location",
+  "repo": "flowkit",
+  "issue": "With ttl set, a full LRUCache evicted an entry I had set a few seconds earlier, while several long-expired entries were still sitting in it.",
+  "fail_to_pass": [
+    "tests/test_hidden_cache_ttl.py::test_expired_dropped_before_live",
+    "tests/test_hidden_cache_ttl.py::test_len_counts_live_only",
+    "tests/test_hidden_cache_ttl.py::test_keys_live_only"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_cache_ttl.py::test_lru_eviction_without_ttl",
+    "tests/test_hidden_cache_ttl.py::test_live_entries_still_evicted_lru",
+    "tests/test_hidden_cache_ttl.py::test_purge_does_not_touch_counters",
+    "tests/test_hidden_cache_ttl.py::test_peek_does_not_refresh"
+  ]
+}

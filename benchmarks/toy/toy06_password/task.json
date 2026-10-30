@@ -1,0 +1,13 @@
+{
+  "id": "toy06_password",
+  "category": "logic",
+  "issue": "Password validation rejects good passwords. `validate_password(\"Secret123!\")` returns\n`['must contain a digit']` even though the password obviously contains digits, while\n`validate_password(\"Secretttt!\")` (no digits) is accepted.\n",
+  "fail_to_pass": [
+    "tests/test_password.py::test_good_password",
+    "tests/test_password.py::test_missing_digit",
+    "tests/test_password.py::test_missing_upper"
+  ],
+  "pass_to_pass": [
+    "tests/test_password.py::test_too_short"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "toy16_semver",
+  "category": "spec",
+  "issue": "Version comparison is wrong: `compare(\"1.10.0\", \"1.9.0\")` returns -1 (says 1.10.0 is older).\nPre-release ordering is also off: `compare(\"1.0.0-alpha\", \"1.0.0\")` should be -1 but returns 1.\nSee the docstring of `compare` for the intended rules.\n",
+  "fail_to_pass": [
+    "tests/test_semver.py::test_numeric_not_lexical",
+    "tests/test_semver.py::test_prerelease_lower"
+  ],
+  "pass_to_pass": [
+    "tests/test_semver.py::test_equal",
+    "tests/test_semver.py::test_simple_order",
+    "tests/test_semver.py::test_prerelease_order"
+  ]
+}

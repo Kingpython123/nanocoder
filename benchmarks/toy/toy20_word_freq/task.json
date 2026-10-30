@@ -1,0 +1,13 @@
+{
+  "id": "toy20_word_freq",
+  "category": "regression_trap",
+  "issue": "`word_freq(\"The cat and the hat\")` counts `The` and `the` as different words. By default counting\nshould be case-insensitive (`{\"the\": 2, \"cat\": 1, \"and\": 1, \"hat\": 1}`), as the signature suggests.\nPunctuation attached to words should not matter either: `word_freq(\"Hi, hi!\")` -> `{\"hi\": 2}`.\n",
+  "fail_to_pass": [
+    "tests/test_freq.py::test_default_case_insensitive",
+    "tests/test_freq.py::test_punctuation"
+  ],
+  "pass_to_pass": [
+    "tests/test_freq.py::test_case_sensitive_flag",
+    "tests/test_freq.py::test_apostrophe"
+  ]
+}

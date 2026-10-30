@@ -1,0 +1,13 @@
+{
+  "id": "toy11_config_loader",
+  "category": "multi_file",
+  "issue": "Loading this config file fails and, once that is worked around, gives wrong values:\n\n```\n# service settings\nNAME = demo\nDEBUG=false\n\nPORT=8080\n```\n\n- `load_config(text)` crashes with `ValueError: not enough values to unpack` on the comment and blank lines.\n  Comments (`#`) and blank lines should be ignored, and whitespace around keys/values stripped.\n- `DEBUG=false` ends up as `True`. Booleans should accept true/false, yes/no, 1/0 (case-insensitive).\n",
+  "fail_to_pass": [
+    "tests/test_loader.py::test_comments_and_blanks",
+    "tests/test_loader.py::test_bool",
+    "tests/test_loader.py::test_bool_from_file"
+  ],
+  "pass_to_pass": [
+    "tests/test_loader.py::test_simple"
+  ]
+}

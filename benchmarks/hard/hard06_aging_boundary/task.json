@@ -1,0 +1,22 @@
+{
+  "id": "hard06_aging_boundary",
+  "category": "multi_location",
+  "repo": "ledgerlite",
+  "issue": "Collections complained that an invoice that is exactly 30 days past due shows up as 31-60 in the aging numbers, so it gets the second dunning letter too early. I suspect 60 and 90 days are off as well.",
+  "fail_to_pass": [
+    "tests/test_hidden_aging.py::test_summary_boundaries",
+    "tests/test_hidden_aging.py::test_overdue_list_boundaries"
+  ],
+  "pass_to_pass": [
+    "tests/test_aging.py",
+    "tests/test_currency.py",
+    "tests/test_discounts.py",
+    "tests/test_importer.py",
+    "tests/test_invoice.py",
+    "tests/test_money.py",
+    "tests/test_report.py",
+    "tests/test_tax.py",
+    "tests/test_hidden_aging.py::test_one_day_and_current",
+    "tests/test_hidden_aging.py::test_paid_excluded"
+  ]
+}

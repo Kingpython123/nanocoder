@@ -1,0 +1,26 @@
+{
+  "id": "h2_11_env_config",
+  "category": "multi_location",
+  "repo": "flowkit",
+  "issue": "We deploy with FLOWKIT_RETRY__MAX_RETRIES=5 in the environment and pass environ=os.environ to Pipeline, but failing steps are still retried only 3 times.",
+  "fail_to_pass": [
+    "tests/test_hidden_env_config.py::test_nested_int",
+    "tests/test_hidden_env_config.py::test_types_parsed",
+    "tests/test_hidden_env_config.py::test_three_levels_bool",
+    "tests/test_hidden_env_config.py::test_pipeline_uses_env_retries"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_env_config.py::test_explicit_config_beats_env",
+    "tests/test_hidden_env_config.py::test_non_json_string_kept",
+    "tests/test_hidden_env_config.py::test_unrelated_vars_ignored"
+  ]
+}

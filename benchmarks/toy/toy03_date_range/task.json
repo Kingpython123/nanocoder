@@ -1,0 +1,12 @@
+{
+  "id": "toy03_date_range",
+  "category": "boundary",
+  "issue": "`days_between(start, end)` is documented as inclusive on both ends, but the end date is never included.\n`days_between(date(2024, 1, 1), date(2024, 1, 3))` gives 2 dates instead of 3, and when start == end\nit returns an empty list instead of `[start]`.\n",
+  "fail_to_pass": [
+    "tests/test_ranges.py::test_inclusive",
+    "tests/test_ranges.py::test_single_day"
+  ],
+  "pass_to_pass": [
+    "tests/test_ranges.py::test_reversed_is_empty"
+  ]
+}

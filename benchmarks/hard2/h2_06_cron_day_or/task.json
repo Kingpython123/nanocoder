@@ -1,0 +1,26 @@
+{
+  "id": "h2_06_cron_day_or",
+  "category": "spec",
+  "repo": "flowkit",
+  "issue": "`CronSpec('0 9 1 * 1')` should fire on the 1st of every month and on every Monday, like crontab does. Right now it only fires when the 1st happens to be a Monday.",
+  "fail_to_pass": [
+    "tests/test_hidden_cron_days.py::test_both_restricted_is_or",
+    "tests/test_hidden_cron_days.py::test_next_after_or",
+    "tests/test_hidden_cron_days.py::test_lists_ranges_or"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_cron_days.py::test_star_step_day_is_unrestricted",
+    "tests/test_hidden_cron_days.py::test_only_weekday_restricted",
+    "tests/test_hidden_cron_days.py::test_only_day_restricted",
+    "tests/test_hidden_cron_days.py::test_month_and_time_always_required"
+  ]
+}

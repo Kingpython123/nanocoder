@@ -1,0 +1,12 @@
+{
+  "id": "toy14_roman",
+  "category": "spec",
+  "issue": "`to_roman(4)` returns `IIII` and `to_roman(1994)` returns `MDCCCCLXXXXIIII`. Please follow the\nstandard notation described in the module docstring.\n",
+  "fail_to_pass": [
+    "tests/test_roman.py::test_subtractive"
+  ],
+  "pass_to_pass": [
+    "tests/test_roman.py::test_simple",
+    "tests/test_roman.py::test_range"
+  ]
+}

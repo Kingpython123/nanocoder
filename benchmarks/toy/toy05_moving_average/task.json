@@ -1,0 +1,12 @@
+{
+  "id": "toy05_moving_average",
+  "category": "boundary",
+  "issue": "`moving_average([1, 2, 3, 4], 2)` returns `[1.5, 2.5]`, but there are three windows of size 2\n(`[1,2]`, `[2,3]`, `[3,4]`), so the result should be `[1.5, 2.5, 3.5]`. Also, when the window\nequals the length of the data I get an empty list instead of the single overall mean.\n",
+  "fail_to_pass": [
+    "tests/test_smoothing.py::test_all_windows",
+    "tests/test_smoothing.py::test_window_equals_length"
+  ],
+  "pass_to_pass": [
+    "tests/test_smoothing.py::test_window_too_large"
+  ]
+}

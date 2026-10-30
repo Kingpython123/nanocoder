@@ -1,0 +1,22 @@
+{
+  "id": "hard02_currency_cache",
+  "category": "state",
+  "repo": "ledgerlite",
+  "issue": "In a long-running worker, after converting EUR to USD, converting EUR to GBP returns the USD figure (100 EUR -> 110.00 'GBP'). Restarting the worker makes the first conversion correct again. Note the rate provider is a paid API, so we can't afford to call it more than once per currency pair.",
+  "fail_to_pass": [
+    "tests/test_hidden_currency.py::test_same_source_different_targets",
+    "tests/test_hidden_currency.py::test_one_provider_call_per_pair"
+  ],
+  "pass_to_pass": [
+    "tests/test_aging.py",
+    "tests/test_currency.py",
+    "tests/test_discounts.py",
+    "tests/test_importer.py",
+    "tests/test_invoice.py",
+    "tests/test_money.py",
+    "tests/test_report.py",
+    "tests/test_tax.py",
+    "tests/test_hidden_currency.py::test_clear_refetches",
+    "tests/test_hidden_currency.py::test_case_insensitive_cache"
+  ]
+}

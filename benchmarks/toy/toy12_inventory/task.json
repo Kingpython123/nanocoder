@@ -1,0 +1,13 @@
+{
+  "id": "toy12_inventory",
+  "category": "multi_file",
+  "issue": "Inventory bugs reported by the warehouse team:\n\n- `store.remove(\"A1\", 5)` when only 3 are in stock leaves the quantity at -2. It should raise\n  `InsufficientStock` and leave the quantity unchanged.\n- The stock value report (`total_value`) is far too low: 3 items at 2.50 each are counted as 2.50 instead of 7.50.\n",
+  "fail_to_pass": [
+    "tests/test_inventory.py::test_remove_too_many",
+    "tests/test_inventory.py::test_total_value"
+  ],
+  "pass_to_pass": [
+    "tests/test_inventory.py::test_add_merges",
+    "tests/test_inventory.py::test_remove_ok"
+  ]
+}

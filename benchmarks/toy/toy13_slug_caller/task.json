@@ -1,0 +1,12 @@
+{
+  "id": "toy13_slug_caller",
+  "category": "multi_file",
+  "issue": "Creating a blog post crashes:\n\n```\n>>> from blog.post import Post\n>>> Post(\"Hello World!\").slug\nTypeError: slugify() got an unexpected keyword argument 'separator'\n```\nPost slugs should look like `hello_world`. Note that other code already depends on the current\n`slugify(text, sep=\"-\")` signature, so please don't change that function's interface.\n",
+  "fail_to_pass": [
+    "tests/test_post.py::test_post_slug"
+  ],
+  "pass_to_pass": [
+    "tests/test_slug.py::test_default_sep",
+    "tests/test_slug.py::test_custom_sep"
+  ]
+}

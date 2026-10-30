@@ -1,0 +1,24 @@
+{
+  "id": "hard13_lru_recency",
+  "category": "regression_trap",
+  "repo": "flowkit",
+  "issue": "Our hot keys keep getting evicted from LRUCache even though they are read on every request. It behaves like a FIFO queue instead of an LRU.",
+  "fail_to_pass": [
+    "tests/test_hidden_cache.py::test_get_refreshes_recency",
+    "tests/test_hidden_cache.py::test_keys_order_after_get"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_cache.py::test_peek_does_not_refresh",
+    "tests/test_hidden_cache.py::test_contains_does_not_refresh",
+    "tests/test_hidden_cache.py::test_expired_get_counts_miss"
+  ]
+}

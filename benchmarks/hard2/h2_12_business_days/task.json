@@ -1,0 +1,25 @@
+{
+  "id": "h2_12_business_days",
+  "category": "edge_cases",
+  "repo": "flowkit",
+  "issue": "`add_business_days(date(2024, 6, 3), -1)` returns 2024-06-03. I expected the previous business day, Friday 2024-05-31.",
+  "fail_to_pass": [
+    "tests/test_hidden_business_days.py::test_backwards_simple",
+    "tests/test_hidden_business_days.py::test_backwards_over_weekend_and_holiday",
+    "tests/test_hidden_business_days.py::test_backwards_from_weekend",
+    "tests/test_hidden_business_days.py::test_datetime_with_holidays"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_business_days.py::test_forward_unchanged",
+    "tests/test_hidden_business_days.py::test_zero_on_business_day"
+  ]
+}

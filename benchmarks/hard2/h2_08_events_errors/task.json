@@ -1,0 +1,25 @@
+{
+  "id": "h2_08_events_errors",
+  "category": "spec",
+  "repo": "flowkit",
+  "issue": "If one event handler raises, the remaining handlers for that event never run. One misbehaving plugin breaks all the others.",
+  "fail_to_pass": [
+    "tests/test_hidden_event_errors.py::test_remaining_handlers_run",
+    "tests/test_hidden_event_errors.py::test_all_handlers_run_with_several_errors"
+  ],
+  "pass_to_pass": [
+    "tests/test_cache.py",
+    "tests/test_config.py",
+    "tests/test_cron.py",
+    "tests/test_dates.py",
+    "tests/test_events.py",
+    "tests/test_graph.py",
+    "tests/test_pipeline.py",
+    "tests/test_retry.py",
+    "tests/test_template.py",
+    "tests/test_hidden_event_errors.py::test_first_error_reraised",
+    "tests/test_hidden_event_errors.py::test_keyboard_interrupt_propagates_immediately",
+    "tests/test_hidden_event_errors.py::test_once_removed_even_if_raises",
+    "tests/test_hidden_event_errors.py::test_no_errors_returns_count"
+  ]
+}
