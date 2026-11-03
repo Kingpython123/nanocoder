@@ -33,11 +33,15 @@ from .. import CODINGAGENT_ROOT
 from ..agent import AgentConfig, CodingAgent
 from ..patch import get_patch
 from ..prompts import PROMPT_VERSION, SYSTEM_PROMPTS
+from ..responses_llm import ResponsesLLM
 from ..sandbox import LocalSandbox
 from .evaluate import evaluate_patch, validate_task
 from .tasks import SUITES, Task, load_tasks
 
 RUNS_DIR = CODINGAGENT_ROOT / "runs"
+# 中转站限流（429）有时持续几十秒：退避 2,4,8,16,32 秒，避免把基础设施故障记成模型失败
+LLM_RETRY = {"max_retries": 5, "retry_backoff": 2.0}
+INFRA_FAILURES = ("llm_error", "harness_error")
 _lock = threading.Lock()
 
 
@@ -66,6 +70,7 @@ def run_one(task: Task, attempt: int, llm: LLM, cfg: AgentConfig, run_dir: Path,
             prompt_tokens=result.prompt_tokens,
             completion_tokens=result.completion_tokens,
             cached_tokens=result.cached_tokens,
+            reasoning_tokens=result.reasoning_tokens,
             cost=round(result.cost, 6),
             wall_time=round(result.wall_time, 1),
             tool_calls=result.tool_calls,
@@ -91,6 +96,16 @@ def load_results(run_dir: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def drop_infra_failures(run_dir: Path) -> None:
+    """从 results.jsonl 删掉因基础设施故障结束的运行，让断点续跑把它们重跑一遍。"""
+    results = load_results(run_dir)
+    keep = [r for r in results if r.get("exit_reason") not in INFRA_FAILURES]
+    if len(keep) < len(results):
+        print(f"重跑 {len(results) - len(keep)} 次基础设施故障的运行（{', '.join(INFRA_FAILURES)}）")
+        text = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in keep)
+        (run_dir / "results.jsonl").write_text(text, encoding="utf-8")
 
 
 def summarize(results: list[dict[str, Any]], k: int) -> str:
@@ -143,6 +158,8 @@ def main() -> int:
     p.add_argument("--max-steps", type=int, default=AgentConfig.max_steps)
     p.add_argument("--cost-limit", type=float, default=AgentConfig.cost_limit, help="单题成本上限（美元）")
     p.add_argument("--reasoning-effort", default="none", help="gpt-6-luna 在 chat/completions 下用工具必须是 none")
+    p.add_argument("--retry-errors", action="store_true", help="重跑因 llm_error / harness_error 结束的运行（基础设施故障，不算模型失败）")
+    p.add_argument("--api", default="chat", choices=["chat", "responses"], help="responses = E7，可以开着推理用工具")
     p.add_argument("--prompt", default=PROMPT_VERSION, choices=sorted(SYSTEM_PROMPTS), help="系统提示词版本（消融用）")
     p.add_argument("-v", "--verbose", action="store_true", help="终端打印每一步（建议配合 --workers 1）")
     args = p.parse_args()
@@ -168,7 +185,14 @@ def main() -> int:
         return 1
     effort = None if args.reasoning_effort in ("", "omit") else args.reasoning_effort
     settings = dataclasses.replace(settings, reasoning_effort=effort, timeout=180.0)
-    llm = LLM(settings)
+    if args.api == "responses":
+        # E7：Responses API 下可以开着推理用工具；--reasoning-effort 默认值 none 在这里没意义，改成 medium
+        llm = ResponsesLLM(
+            settings, reasoning_effort=effort if effort not in (None, "none") else "medium", **LLM_RETRY
+        )
+        effort = llm.reasoning_effort
+    else:
+        llm = LLM(settings, **LLM_RETRY)
     cfg = AgentConfig(max_steps=args.max_steps, cost_limit=args.cost_limit, prompt=args.prompt)
 
     run_id = args.run_id or datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -182,12 +206,16 @@ def main() -> int:
         "agent": dataclasses.asdict(cfg),
         "k": args.k,
     }
+    if args.api != "chat":  # 只在非默认时记录，老的 run 目录还能断点续跑
+        config["api"] = args.api
     config_path = run_dir / "config.json"
     if config_path.exists() and json.loads(config_path.read_text(encoding="utf-8")) != config:
         print(f"❌ runs/{run_id} 已存在且配置不同，换一个 --run-id，避免把两种配置的结果混在一起")
         return 1
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    if args.retry_errors:
+        drop_infra_failures(run_dir)
     done = {(r["instance_id"], r["attempt"]) for r in load_results(run_dir)}
     todo = [(t, a) for a in range(1, args.k + 1) for t in tasks if (t.id, a) not in done]
     print(f"run_id={run_id}  模型={settings.model}  待跑 {len(todo)} 次（已完成 {len(done)}）")

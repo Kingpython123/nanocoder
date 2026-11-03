@@ -40,6 +40,7 @@ class AgentResult:
     prompt_tokens: int = 0
     completion_tokens: int = 0
     cached_tokens: int = 0
+    reasoning_tokens: int = 0  # 只有 Responses API（E7）会返回；已包含在 completion_tokens 里
     cost: float = 0.0
     wall_time: float = 0.0
     tool_calls: int = 0
@@ -144,4 +145,5 @@ class CodingAgent:
         result.prompt_tokens += prompt
         result.completion_tokens += completion
         result.cached_tokens += cached
+        result.reasoning_tokens += getattr(usage, "reasoning_tokens", 0) or 0
         result.cost += (prompt * self.config.price_input + completion * self.config.price_output) / 1e6

@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from .. import CODINGAGENT_ROOT
 
-BENCH_DIR = CODINGAGENT_ROOT / "benchmarks"
-SUITES = ("toy", "hard", "hard2")  # benchmarks/<suite>/<id>/task.json
-TOY_DIR = BENCH_DIR / "toy"
+BENCH_DIR = Path(os.getenv("NANOCODER_BENCH_DIR") or CODINGAGENT_ROOT / "benchmarks")  # realpr 的仓库太大，放在项目目录外
+SUITES = ("toy", "hard", "hard2", "realpr")  # <BENCH_DIR>/<suite>/<id>/task.json
+TOY_DIR = CODINGAGENT_ROOT / "benchmarks" / "toy"
 
 
 @dataclass

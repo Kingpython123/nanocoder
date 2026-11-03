@@ -17,13 +17,17 @@ from collections import defaultdict
 
 from miniagent.console import setup_console
 
-from .__main__ import RUNS_DIR, load_results
+from .__main__ import INFRA_FAILURES, RUNS_DIR, load_results
 
 
 def per_task(run_id: str) -> dict[str, list[bool]]:
     results = load_results(RUNS_DIR / run_id)
     if not results:
         raise SystemExit(f"runs/{run_id} 没有结果")
+    infra = [r for r in results if r.get("exit_reason") in INFRA_FAILURES]
+    if infra:
+        print(f"⚠ runs/{run_id} 有 {len(infra)} 次基础设施故障（{', '.join(INFRA_FAILURES)}），"
+              f"结果不可靠；先用 --retry-errors 重跑")
     by_task: dict[str, list[bool]] = defaultdict(list)
     for r in results:
         by_task[r["instance_id"]].append(bool(r.get("resolved")))

@@ -369,3 +369,82 @@ v1 保留不动，作为固定的对照。
    - 让清单的每一项都对应一条可执行的检查，提交守卫检查清单是否全部勾选；
    - 或者在提交前加一次"自我审查"的 LLM 调用。
 3. hard2 在 E8 下已经到 86%，再往上改进的空间不大了。之后的消融要么扩充 hard2（更多隐含约束、组合型的题），要么上 M2（SWE-bench）。
+
+### 2026-10-30 · E7：开推理（Responses API）
+
+**做法**：新增 `responses_llm.py`（`--api responses`），对外接口和 `miniagent.llm.LLM` 一样，agent loop 不改。每次调用把 chat 格式的 messages 转成 Responses 的 input（`store=False`）。加密的 reasoning item 按它后面第一个 `function_call` 的 `call_id` 记下来，重建 input 时插回原位，这样模型在多步之间能接上自己的推理。工具要设 `strict=False`（Responses API 默认 strict，而我们的工具有可选参数）。中转站的 `/v1/responses` 支持"推理 + 工具"。
+
+**踩坑：基础设施故障被算成了模型失败**。第一次跑"推理 high + E8"得到 66.7%，比基线还低。查下来，12 次失败全是中转站 429 限流（`llm_error`），E7 medium / high 两次运行也各有 6 / 2 次。修复：
+- LLM 重试改成 5 次，指数退避 2 到 32 秒；
+- 新增 `--retry-errors`，把 `llm_error` / `harness_error` 从 results.jsonl 删掉后重跑；
+- `compare` 遇到含基础设施故障的运行会给出警告。
+以后**每次比较前都要先看结束原因的分布**。
+
+**结果**（hard2，k=3，均为重跑后的数字；E7 medium 和 E7 high+E8 各残留 1～2 次 llm_error）：
+
+| 配置 | pass@1 | pass^3 | 单题成本 | 平均推理 token | 对比基线 Δ（95% CI） |
+|---|---|---|---|---|---|
+| 基线（chat，推理关，prompt v1） | 72.2% | 7/12 | $0.0038 | 0 | — |
+| E8（推理关，v2_spec） | 86.1% | 10/12 | $0.0089 | 0 | +13.9（+2.8 ~ +27.8） |
+| E7 medium（v1） | 86.1% | 9/12 | $0.0056 | 597 | +13.9（-2.8 ~ +33.3） |
+| E7 high（v1） | 91.7% | 11/12 | $0.0063 | 869 | +19.4（+2.8 ~ +38.9） |
+| E7 high + E8 | 97.2% | 11/12 | $0.0108 | 1773 | +25.0（+5.6 ~ +47.2） |
+
+**结论**：
+1. 开推理是性价比最高的改进：E7 high 比 E8 高 5.6 个百分点，成本却只有 E8 的约 70%。推理能自己发现隐含要求，例如 cache 题 0/3 → 3/3。
+2. 推理和规格清单可以叠加：只有两者都开时，business days 题才从 0/3 变成 3/3，"datetime + 节假日"的组合情况终于被验证到了。
+3. hard2 在最佳配置下已到 97%，**本地任务集饱和**。后续实验转到 SWE-bench（M2）。
+4. M2 的默认配置：Responses API + 推理 high + prompt v2_spec；同时保留"推理关 / v1"作为对照。
+
+### 2026-10-31 · M1 Docker 沙箱 + M2 SWE-bench 流水线打通
+
+**环境**：WSL2（Ubuntu-22.04，systemd）里装了 Docker Engine 29.9.2（官方 apt 源），没有用 Docker Desktop。WSL 里有单独的 Linux venv `~/venvs/nanocoder`（Python 3.12，可编辑安装的是 E 盘上同一份代码，另装 swebench 5.0.2、datasets 5.1.0）。Docker Hub 偶尔在认证阶段断开，拉镜像要带重试。
+
+**M1 `DockerSandbox`**（`src/nanocoder/docker_sandbox.py`）：接口和 LocalSandbox 一样。每个任务一个 `sleep infinity` 容器，命令通过 `docker exec` 执行；断网（`--network none`），限内存 / CPU / 进程数；超时由容器内的 `timeout -s KILL` 执行。冒烟测试 13 项全部通过：读写（含 UTF-8）、断网、3 秒超时杀进程、路径越界拦截、edit / view / search 工具、关闭后删除容器。
+
+**M2 流水线**（`src/nanocoder/bench/swebench_run.py`）：
+- 数据集用 `SWE-bench/SWE-bench_Verified`，它带 `image` 字段，直接对应官方预构建镜像。
+- 子集 `benchmarks/swebench/verified50.txt`：按仓库分层抽 50 题，seed=42，由 `make_subset.py` 生成。分布为 django 23、sympy 8、sphinx 5、matplotlib 3、sklearn 3、astropy 2、xarray 2、pytest 2、pylint 1、requests 1。
+- 按批执行：拉镜像 → agent 在镜像里工作 → 写 predictions.jsonl → 官方 harness 评测 → 删除这一批镜像。每个镜像约 4.2GB（压缩后下载 1.15GB），分批可以控制磁盘峰值。
+- 校验：用官方 gold patch 跑 django__django-11099，判为 resolved，报告路径与 runner 的解析一致。
+
+**冒烟测试**（astropy__astropy-13398，"1-4 hours" 难度，推理 high + v2_spec）发现三个问题：
+1. **patch 丢了新建文件**：agent 新增了模块 `itrs_observed_transforms.py`，但 `get_patch` 只 diff 已跟踪文件，结果 patch 引用了不存在的模块。已修复：子目录里的新文件用 `git add -N` 纳入 patch，仓库根目录的新文件（复现脚本）和测试文件仍排除。修复后 toy / hard2 重新校验全部合格。
+2. **中转站 429 打断长任务**：单 worker 也会遇到 429（"上游负载已饱和"），51 步之后因重试耗尽而终止。SWE-bench 的重试改为 8 次，最长退避 256 秒。
+3. **成本**：这一题用了 318 万输入 token（其中 96% 命中缓存）、3 万输出 token，51 步，13 分钟。
+
+### 2026-10-31 · M2 全量跑（swe-v50-best）：中转站额度耗尽，结果不完整
+
+配置：Responses API + 推理 high + prompt v2_spec，1 worker，每批 6 题。
+
+- 前 22 题正常完成（20 道 django + 2 道 astropy），**16/22 resolved（72.7%）**。
+- 第 23 题起，中转站返回 HTTP 403 `pre_consume_token_quota…`：账户 token 额度用完。剩下 28 题全部是 `llm_error`，其中 13 题已经跑了 2～12 步。
+- 程序汇总的 "16/50 = 32.0%" **不能当成绩**：28 题是基础设施失败。
+- 已完成的 22 题几乎全是 django，比全集容易，72.7% 也不能代表 50 题的水平。
+- 成本：22 道有效题共 1967 万输入 token（95% 命中缓存），平均 29 步、约 5 分钟，估算 $2.09。
+- 教训：403 额度错误不会被重试，而且每题第一步就失败。之后的批次仍会拉 4GB 镜像、白跑一遍。runner 应该在遇到 403 或额度错误时直接停下（待做）。
+- 下一步：中转站充值后，用 `--retry-errors` 补跑这 28 题。预计约 2500 万输入 token，绝大部分命中缓存。
+- 2026-10-31 充值后补跑：第一批 6 题仍然在第一步就收到 403 `pre_consume_token_quota…`。runner 按新加的规则停止，没有白跑后面的批次。在 one-api / new-api 类中转站里，这个错误码指的是**这个 API key（令牌）自己的额度上限**不够，和账户余额是两回事。需要在中转站后台调高该令牌的额度，或者设为无限额度。
+
+### 2026-11-02 · 真实 PR 回放（realpr）+ 换模型补跑
+
+**模型变更**：`gpt-6-luna` 已从中转站下架，补跑改用 `gpt-6.1-terra`。`swe-v50-best` 前 22 题是 luna，其余是 terra，每条结果带 `model` 字段；这是自用项目，不要求单一模型，但报告时要写明。成本估算仍用 luna 单价，terra 实际花费以账单为准。探测时发现，不传系统提示的请求，用量里也有约 4380 token 的 `instructions`，可能是中转站注入的，原因未确认。
+
+**realpr 任务集**（`benchmarks/build_realpr.py`，仓库放在项目目录外，用 `NANOCODER_BENCH_DIR` 指定）：把自己已合并的 PR 做成回放任务，合并前的代码 + issue + PR 自带的测试。这些 PR 不是 nanocoder 写的，这里是事后回放。配置：Responses API + 推理 high + v2_spec，k=1。
+
+| 任务 | issue | 结果 | 步数 | 输入 token（缓存） |
+|---|---|---|---|---|
+| MobileWorld#73 | 原文（列出全部文件） | ✅ | 16 | 31.6 万（20.9 万） |
+| MobileWorld#73 | 只描述现象（回放时另写） | ✅ | 16 | 26.1 万（12.1 万） |
+| MobileAgent#300 | 第三方原文（只有现象） | ❌ 严格判定，12 个测试过 6 个 | 11 | 17.7 万（10.7 万） |
+| lighthouse#80 | 原文 / 只描述现象 | 未跑，依赖下载太慢 | | |
+
+- MobileWorld：两种 issue 的 patch 都改了同样的 5 个文件 5 行，和 PR 的源码改动一致。
+- MobileAgent：判定失败不等于没修好。agent 让 `parse_action` 返回 None，`main` 打印警告后进入下一步（循环受 `max_steps` 限制），修掉了 issue 里的崩溃，也兼容了无换行、\r\n、缺闭合标签。PR 的测试要求抛 `ValueError` 并检查错误信息措辞，这是 PR 的设计选择，issue 没有要求，失败的 6 个都是这一类。和 PR 比，agent 没做"连续解析失败的重试上限"和文档更新。
+- 验证时发现：MobileWorld 依赖缺失时任务注册表为空，`test_every_task_has_exactly_one_language_tag` 会空转通过。回放任务的环境要先确认注册表非空（现在 183 个任务）。
+
+**SWE-bench 补跑受阻（网络）**：WSL 里到 Docker Hub 约 2.5 KB/s，pytorch 约 70 KB/s，清华镜像约 120 KB/s。一个镜像 1.15GB，`docker pull` 30 分钟超时，之后还遇到 Docker Hub 认证失败。还没有题真正开始跑，没花 API 额度。拉取失败的题会记为 `harness_error`，之后可用 `--retry-errors` 重跑。
+
+**2026-11-03 补跑结果（中途又因额度停止）**：网络恢复后跑了两批 12 题。terra 跑完 5 题解决 4 题（`matplotlib-24026`、`django-15957`、`django-7530`、`django-9296` 解决，`matplotlib-25479` 未解决）；`matplotlib-23412` 拉镜像失败（`harness_error`）；其余 6 题中途收到 403 `Insufficient token quota`，第二批结束后 runner 按 403 规则停止。新 key 的额度在回放和这两批加起来约 230 万输入 token 后用完。
+
+累计（不含基础设施失败）：27 题跑完，20 题解决（74.1%）：luna 16/22，terra 4/5。还有 23 题没有有效结果：7 题需重跑，16 题未开始。这 27 题里 django 占 23 题，sphinx、sympy、sklearn 一题都还没跑，不能代表 50 题的水平。
