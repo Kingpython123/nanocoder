@@ -123,9 +123,9 @@ dd { margin: 0; }
 
 <div class="page">
   <header>
-    <div class="eyebrow">P2 · pri/Codingagent · 更新于 2026-11-05</div>
+    <div class="eyebrow">P2 · E:\zlf\nanocoder · 更新于 2026-11-05</div>
     <h1>nanocoder 进度梳理</h1>
-    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。现在缺的不是更多跑分，而是三件收尾工作：弄清 10 题为什么失败、把文档和提交理干净、决定 nanocoder 接下来要不要做成产品。</p>
+    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。你已经决定把 nanocoder 做成产品，它也已拆到独立仓库。接下来要做的是：弄清 10 题为什么失败，选定 MVP 切口。</p>
     <nav aria-label="目录">
       <a href="#status">现状</a><a href="#path">走到这里的路径</a><a href="#swe">SWE-bench 结果</a><a href="#fail">10 道失败题</a><a href="#realpr">PR 回放</a><a href="#dod">完成标准</a><a href="#repo">仓库状态</a><a href="#next">下一步</a><a href="#resume">简历说法</a><a href="#terms">术语</a>
     </nav>
@@ -139,10 +139,10 @@ dd { margin: 0; }
       <div class="step"><b>E7 / E8 消融</b><span class="pill done">完成</span><span class="note">hard2 上从 72.2% 到 97.2%</span></div>
       <div class="step"><b>M1 Docker 沙箱</b><span class="pill done">完成</span><span class="note">断网、限资源，冒烟 13 项通过</span></div>
       <div class="step"><b>M2 SWE-bench 50 题</b><span class="pill done">完成</span><span class="note">40/50，k=1，混用两个模型</span></div>
-      <div class="step"><b>PR 回放</b><span class="pill part">3 个里跑了 2 个</span><span class="note">lighthouse 没跑，缺 torch</span></div>
+      <div class="step"><b>PR 回放</b><span class="pill done">结束</span><span class="note">跑了 2 个 PR，lighthouse 决定不跑</span></div>
       <div class="step"><b>失败归因</b><span class="pill part">只有初步线索</span><span class="note">看了测试日志，没读 patch</span></div>
       <div class="step"><b>A1–A3 小改进</b><span class="pill todo">未开始</span><span class="note">禁改测试、危险命令、配置指纹</span></div>
-      <div class="step"><b>产品化 MVP</b><span class="pill todo">等你决定</span><span class="note">候选 v0.2 CI 修复 / v0.1 PR 审查</span></div>
+      <div class="step"><b>产品化 MVP</b><span class="pill part">已定做，切口待选</span><span class="note">候选 v0.2 CI 修复 / v0.1 PR 审查</span></div>
     </div>
     <p class="prose">项目一开始定了要证明三件事，对照来看：</p>
     <div class="scroll"><table>
@@ -265,7 +265,7 @@ dd { margin: 0; }
       <tr><td><a href="https://github.com/Tongyi-MAI/MobileWorld/pull/73">MobileWorld#73</a></td><td>原文（列出了文件）</td><td><span class="pill done">通过</span></td><td class="n">16</td><td class="n">31.6 万</td><td>issue 是你写的，已透露修法</td></tr>
       <tr><td><a href="https://github.com/Tongyi-MAI/MobileWorld/pull/73">MobileWorld#73</a></td><td>只描述现象</td><td><span class="pill done">通过</span></td><td class="n">16</td><td class="n">26.1 万</td><td>同样的 5 个文件 5 行，与 PR 源码改动一致</td></tr>
       <tr><td><a href="https://github.com/X-PLUG/MobileAgent/pull/300">MobileAgent#300</a></td><td>第三方原文</td><td><span class="pill todo">未通过</span></td><td class="n">11</td><td class="n">17.7 万</td><td>12 个测试过 6 个。修掉了崩溃，但设计不同：返回 None 而不是抛 <code>ValueError</code></td></tr>
-      <tr><td><a href="https://github.com/line/lighthouse/pull/80">lighthouse#80</a></td><td>原文 / 只描述现象</td><td><span class="pill part">未跑</span></td><td class="n">—</td><td class="n">—</td><td>torch 一直下载失败，环境也还没校验</td></tr>
+      <tr><td><a href="https://github.com/line/lighthouse/pull/80">lighthouse#80</a></td><td>原文 / 只描述现象</td><td><span class="pill part">不跑</span></td><td class="n">—</td><td class="n">—</td><td>你决定不跑。之前卡在 torch 下载，环境没有校验过</td></tr>
     </table></div>
     <p class="prose">MobileAgent 这题挺有意思：失败的 6 个测试检查的是抛 <code>ValueError</code> 和错误信息措辞，issue 没有这个要求。它说明严格判定和“修好了没有”是两回事，也说明 agent 没做 PR 里的重试上限和文档更新。</p>
   </section>
@@ -276,21 +276,21 @@ dd { margin: 0; }
       <tr><th>计划文档里的标准</th><th>状态</th><th>差什么</th></tr>
       <tr><td>玩具集 ≥ 80%，单命令复现</td><td><span class="pill done">达成</span></td><td>—</td></tr>
       <tr><td>SWE-bench 50 题有 baseline</td><td><span class="pill done">达成</span></td><td>混用两个模型，k=1</td></tr>
-      <tr><td>≥3 组消融，每组 k=3</td><td><span class="pill part">改在 hard2 上做</span></td><td>hard2 上有 E7、E8 和组合。SWE-bench 上没有</td></tr>
+      <tr><td>≥3 组消融，每组 k=3（已改为只在 hard2 上做）</td><td><span class="pill done">达成</span></td><td>E8、E7 medium、E7 high、E7 high + E8，共 4 组</td></tr>
       <tr><td>每题有 trace 和可浏览页面</td><td><span class="pill part">只有 trace</span></td><td>代码里没有 trace 页面</td></tr>
       <tr><td>评测报告（含失败归因分布）</td><td><span class="pill part">缺归因</span></td><td>数字在文档 §16，归因只有上面的初步线索</td></tr>
-      <tr><td>README 有复现步骤，简历数字真实</td><td><span class="pill part">要更新</span></td><td>README 目录表没列 SWE-bench 和回放，计划文档开头还写着 M0 和 luna</td></tr>
+      <tr><td>README 有复现步骤，简历数字真实</td><td><span class="pill part">差简历定稿</span></td><td>README 已更新；简历说法见下文，加上归因后再定稿</td></tr>
     </table></div>
-    <p class="prose">原计划的 SWE-bench 消融不太现实：按 terra 平均 19.7 万输入 token 算，50 题 × 3 次，<b>每组配置约 2950 万输入 token</b>。建议正式修改这条标准：消融留在 hard2，SWE-bench 只用来报告最优配置。</p>
+    <p class="prose">消融标准是你 11 月 5 日改的：按 terra 平均 19.7 万输入 token 算，在 SWE-bench 上做每组配置约需 2950 万输入 token（50 题 × 3 次）。所以消融留在 hard2，SWE-bench 只报告最优配置。</p>
   </section>
 
   <section id="repo">
     <h2>仓库状态</h2>
     <ul class="prose">
-      <li><b>P2 的代码已经提交</b>（<code>01f114e</code>），但它在 <code>p1-agentic-rag</code> 分支上。<code>p2-coding-agent</code> 分支还停在更早的 <code>405510d</code>。</li>
-      <li><b>未提交：</b>计划文档 §16 里的 50 题结果，还有这份 HTML。</li>
+      <li><b>P2 已是独立仓库</b>：<code>E:\zlf\nanocoder</code>，分支 <code>main</code>，保留了 2 个 P2 提交的历史，自带一份 <code>miniagent</code>。还没有远程仓库。</li>
+      <li><b>agent-learning 不再包含 P2</b>：新提交里已删除 <code>pri/Codingagent</code>。旧提交没有改写，<code>p2-coding-agent</code> 和 <code>p3-mcp-gateway</code> 分支上仍有旧目录。</li>
+      <li><b>P1 和 P3 还混在一起</b>：它们仍共用 agent-learning，P3 的部分提交落在 <code>p1-agentic-rag</code> 分支上。</li>
       <li><b>评测结果不在 git 里。</b><code>runs/</code> 被 <code>.gitignore</code> 忽略，40/50 的原始证据（results、patch、官方报告）只在本机。要拿给别人看的话，需要单独挑一部分入库。</li>
-      <li><b>状态板过时。</b><code>doc/总览与方向.md</code> 还写着 SWE-bench 只完成 22 题、待补跑 28 题。它由汇总会话维护，这次我没有改。</li>
     </ul>
     <p class="small muted">运行环境：SWE-bench 只能在本机 WSL2 跑，因为租用服务器没有 Docker。子集镜像拉取时网络很不稳定，每个镜像约 1.15GB。</p>
   </section>
@@ -301,18 +301,19 @@ dd { margin: 0; }
     <div class="scroll"><table class="wide">
       <tr><th>顺序</th><th>任务</th><th>为什么</th><th>花费</th></tr>
       <tr><td class="n">1</td><td>读 10 个 patch，做失败归因</td><td>完成标准里差的主要是它，面试也最可能追问</td><td>不调用 API</td></tr>
-      <tr><td class="n">2</td><td>更新文档，整理提交和分支，挑选结果入库</td><td>让项目能被别人复现和检查</td><td>不调用 API</td></tr>
-      <tr><td class="n">3</td><td>做 A1–A3，在 hard2 上验证</td><td>工程量小，能补上工具层安全这部分</td><td>12 题 k=1，很少</td></tr>
-      <tr><td class="n">4</td><td>按归因结果做一个改进，重跑这 10 道失败题和一部分已解决的题</td><td>补上“在真实任务上有改进”这个缺口</td><td>视改动而定，开跑前估算</td></tr>
-      <tr><td class="n">5</td><td>产品化 MVP</td><td>从评测器变成别人能用的东西，工作量最大</td><td>取决于方向</td></tr>
+      <tr><td class="n">2</td><td>选定 MVP 切口，写设计文档</td><td>归因结果能说明 agent 现在哪里靠得住，产品要避开哪里</td><td>不调用 API</td></tr>
+      <tr><td class="n">3</td><td>做 A1–A3，在 hard2 上验证</td><td>产品会碰别人的仓库，禁改测试和危险命令拦截都是前提</td><td>12 题 k=1，很少</td></tr>
+      <tr><td class="n">4</td><td>实现 MVP</td><td>从评测器变成别人能用的东西，工作量最大</td><td>取决于切口</td></tr>
     </table></div>
-    <h3>需要你决定的事</h3>
-    <ol class="prose">
-      <li><b>nanocoder 做不做产品？</b>头脑风暴文档推荐 v0.2 CI 修复（CI 变绿就是天然验收标准），v0.1 PR 审查可以作为更快的首发。如果目标只是简历，可以先不做，把时间留给 P1、P3。</li>
-      <li><b>是否修改消融这条完成标准？</b>我建议改，理由见上一节。</li>
-      <li><b>lighthouse 回放还做不做？</b>要先解决 torch 下载，两个变体粗估共 50 万～60 万输入 token。我的看法是优先级不高：它能多一个案例，但 issue 同样由你所写。</li>
-    </ol>
-    <p class="prose muted">单一模型重跑全部 50 题已经被你否决（自用项目，不必这么严谨），不在清单里。</p>
+    <h3>还需要你决定的事</h3>
+    <p class="prose"><b>MVP 先做哪个切口？</b>头脑风暴文档推荐 v0.2 CI 修复（CI 变绿就是天然验收标准），v0.1 PR 审查只读、风险低，可以作为更快的首发。</p>
+    <h3>已经定下的事（2026-11-05）</h3>
+    <ul class="prose">
+      <li>nanocoder 做成产品。</li>
+      <li>消融只在 hard2 上做，SWE-bench 只报告最优配置。</li>
+      <li>lighthouse 回放不跑。</li>
+      <li>单一模型重跑 50 题也不做：自用项目，不必这么严谨。</li>
+    </ul>
   </section>
 
   <section id="resume">
