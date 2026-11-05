@@ -1,0 +1,24 @@
+# 密钥配置（绝对不要提交）
+.env
+
+# 虚拟环境
+.venv/
+venv/
+
+# Python 缓存与构建产物
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# 编辑器 / 系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 实验产物
+runs/
+logs/
