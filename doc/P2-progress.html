@@ -289,7 +289,7 @@ dd { margin: 0; }
     <ul class="prose">
       <li><b>P2 已是独立仓库</b>：<code>E:\zlf\nanocoder</code>，分支 <code>main</code>，保留了 2 个 P2 提交的历史，自带一份 <code>miniagent</code>。还没有远程仓库。</li>
       <li><b>agent-learning 不再包含 P2</b>：新提交里已删除 <code>pri/Codingagent</code>。旧提交没有改写，<code>p2-coding-agent</code> 和 <code>p3-mcp-gateway</code> 分支上仍有旧目录。</li>
-      <li><b>P1 和 P3 还混在一起</b>：它们仍共用 agent-learning，P3 的部分提交落在 <code>p1-agentic-rag</code> 分支上。</li>
+      <li><b>其他项目</b>：P1 已由另一个会话拆到 <code>pri/agenticRAG</code> 里的独立仓库。P3 仍由 agent-learning 跟踪。</li>
       <li><b>评测结果不在 git 里。</b><code>runs/</code> 被 <code>.gitignore</code> 忽略，40/50 的原始证据（results、patch、官方报告）只在本机。要拿给别人看的话，需要单独挑一部分入库。</li>
     </ul>
     <p class="small muted">运行环境：SWE-bench 只能在本机 WSL2 跑，因为租用服务器没有 Docker。子集镜像拉取时网络很不稳定，每个镜像约 1.15GB。</p>
