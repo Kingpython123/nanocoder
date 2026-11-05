@@ -12,6 +12,9 @@
 |---|---|
 | `src/nanocoder/` | Agent 本体：`agent.py` 循环、`tools.py` 工具、`sandbox.py` / `docker_sandbox.py` 沙箱、`responses_llm.py` Responses API、`patch.py` 取 patch |
 | `src/nanocoder/bench/` | 批量运行与评测：`python -m nanocoder.bench`；SWE-bench：`python -m nanocoder.bench.swebench_run` |
+| `src/nanocoder/cifix/` | CI 修复：配置、判定闸门、Docker 环境、报告、CLI |
+| `examples/ci-demo/` | CI 修复的演示仓库，有一个四舍五入 bug |
+| `tests/` | CI 修复的单元测试和端到端测试 |
 | `src/miniagent/` | LLM 客户端、工具注册、trace。从 agent-learning 复制而来，之后在这里独立维护 |
 | `benchmarks/toy/` | 20 道玩具题（测试可见，已饱和：gpt-6-luna 100%） |
 | `benchmarks/hard/` | 16 道 hard v1 题（隐藏测试 + 回归陷阱；pass@1 92%，作对照），由脚本生成，不要手改 |
@@ -43,3 +46,18 @@ python -m nanocoder.bench.swebench_run --run-id <id> --api responses --reasoning
 ```
 
 中断后加 `--retry-errors` 续跑。花钱的实验开跑前先估 token。
+
+## CI 修复（v0.2，开发中）
+
+本地 CLI 已可用，需要 Docker。在仓库里写好 `.nanocoder.yml`（示例见 `examples/ci-demo/`），然后：
+
+```bash
+nanocoder fix-ci --repo path/to/repo --log ci.log   # --log 可选
+```
+
+它只使用已提交的代码，不推送也不开 PR。产物在 `runs/cifix/<时间>/`：`report.md`、`result.json`、`fix.patch` 或 `rejected.patch`。只有 runner 在干净容器里重跑全部检查都通过，才算修好。设计见 [doc/v0.2-ci-fix-design.md](doc/v0.2-ci-fix-design.md)。
+
+```bash
+python -m pytest tests/test_cifix.py         # 单元测试，不需要 docker
+python -m pytest tests/test_cifix_docker.py  # 端到端，需要 docker，不调模型，约 4 分钟
+```

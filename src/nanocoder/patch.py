@@ -25,6 +25,31 @@ _ADD_NEW_FILES = (
 )
 
 
+def get_full_patch(sandbox: Sandbox) -> tuple[str, list[str]]:
+    """CI 修复用：取全部改动，不剔除任何文件（碰了受保护路径由闸门拒绝）。返回 (patch, 改动的文件)。
+
+    --no-renames：重命名显示成一删一增，路径闸门才看得到被移走的测试文件。
+    """
+    r = sandbox.run("git add -A 2>&1", timeout=60)
+    if r.exit_code != 0:
+        raise RuntimeError(f"git add 失败：{r.output[:500]}")
+    names = sandbox.run("git -c core.quotepath=off diff --cached --no-renames --name-only HEAD", timeout=60)
+    if names.exit_code != 0:
+        raise RuntimeError(f"git diff 失败：{names.output[:500]}")
+    patch = sandbox.run("git -c core.quotepath=off diff --cached --no-renames --binary --no-color --no-ext-diff HEAD", timeout=60)
+    if patch.exit_code != 0:
+        raise RuntimeError(f"git diff 失败：{patch.output[:500]}")
+    return patch.output, [line for line in names.output.splitlines() if line.strip()]
+
+
+def apply_patch(sandbox: Sandbox, patch: str) -> str:
+    """把 patch 打到干净的工作区。成功返回空字符串，失败返回错误信息。"""
+    path = ".nanocoder-fix.patch"
+    sandbox.write_file(path, patch)
+    r = sandbox.run(f"git apply --binary {path} 2>&1; code=$?; rm -f {path}; exit $code", timeout=60)
+    return "" if r.exit_code == 0 else (r.output.strip()[:500] or f"git apply exited {r.exit_code}")
+
+
 def get_patch(sandbox: Sandbox) -> str:
     r = sandbox.run(_ADD_NEW_FILES, timeout=60)
     if r.exit_code != 0:

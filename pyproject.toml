@@ -9,7 +9,11 @@ dependencies = [
     "openai==3.26.0",
     "pydantic==2.13.5",
     "python-dotenv==1.2.4",
+    "pyyaml==6.0.3",
 ]
+
+[project.scripts]
+nanocoder = "nanocoder.cifix.__main__:main"
 
 [project.optional-dependencies]
 # 玩具任务集和本地沙箱需要 pytest
@@ -28,3 +32,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/miniagent", "src/nanocoder"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

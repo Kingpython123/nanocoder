@@ -31,11 +31,13 @@ class AgentConfig:
     price_input: float = 0.10
     price_output: float = 0.50
     prompt: str = PROMPT_VERSION  # 系统提示词版本，见 prompts.SYSTEM_PROMPTS
+    max_input_tokens: int | None = None  # 累计输入 token 上限，不依赖单价
+    task_template: str = INSTANCE_TEMPLATE  # 含 {issue}
 
 
 @dataclass
 class AgentResult:
-    exit_reason: str  # submitted / max_steps / cost_limit / wall_timeout / no_action / llm_error
+    exit_reason: str  # submitted / max_steps / cost_limit / token_limit / wall_timeout / no_action / llm_error
     steps: int = 0
     prompt_tokens: int = 0
     completion_tokens: int = 0
@@ -63,7 +65,7 @@ class CodingAgent:
         tools = registry.schemas()
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": SYSTEM_PROMPTS[self.config.prompt]},
-            {"role": "user", "content": INSTANCE_TEMPLATE.format(issue=issue)},
+            {"role": "user", "content": cfg.task_template.format(issue=issue)},
         ]
         result = AgentResult(exit_reason="max_steps", messages=messages)
         self.tracer.log(0, "start", {"prompt_version": self.config.prompt, "model": self.llm.model})
@@ -78,6 +80,9 @@ class CodingAgent:
                 break
             if result.cost > cfg.cost_limit:
                 result.exit_reason = "cost_limit"
+                break
+            if cfg.max_input_tokens is not None and result.prompt_tokens > cfg.max_input_tokens:
+                result.exit_reason = "token_limit"
                 break
 
             try:

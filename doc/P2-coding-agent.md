@@ -511,3 +511,19 @@ v1 保留不动，作为固定的对照。
 - **提交守卫太弱。** 它只看“编辑后跑过 python 或 pytest”，所以 10 题都显示“已验证”。`matplotlib-25479` 也用 `-k` 排除过失败的 `test_pyplot_up_to_date`，那个失败的原因没有查。
 - **更正：`django-11433` 的回归很可能是误判。** 官方报告把 `test_default_not_populated_on_optional_checkbox_input` 记为 P2P 失败，但日志是 `FAILED (failures=4)`，4 个都属于 F2P 测试的 subTest，agent 自己跑 `model_forms` 也是 164 个全过。这更像 harness 的日志解析把它归错了。没有重跑确认。所以真实回归只有 astropy 一题。
 - **解决率不受影响**：这题的 F2P 本来就没过。
+
+### 2026-11-05 · v0.2 M0：本地 CI 修复 CLI
+
+**做了什么**：`nanocoder fix-ci --repo <仓库>`（`src/nanocoder/cifix/`）。从已提交的代码构建 Docker 环境 → 复现闸门 → 断网 agent 修复 → 路径闸门和屏蔽写法检查 → 新容器打 patch 跑全部检查 → 输出报告和 patch。不推送，不开 PR。
+
+**验证**：
+
+| 层次 | 内容 | 结果 |
+|---|---|---|
+| 单元测试 `tests/test_cifix.py` | 闸门、配置、日志截取、任务拼装、报告，假环境 | 72 个通过 |
+| 端到端 `tests/test_cifix_docker.py` | 真实 Docker + 演示仓库 + 写死行为的假 agent，覆盖修好、flaky、改测试、修错、弄坏 lint、加 noqa、新建文件、setup 失败；容器里没有 `.env`、不能联网；快照被清理 | 9 个通过，用时约 4 分钟 |
+| 真实模型 `examples/ci-demo` | `gpt-6.1-terra`，推理 high，修一个四舍五入 bug | 修好，5 步，10,727 输入 token（2,816 缓存），230 输出 token，34 秒 |
+
+**局限**：演示仓库是我为演示写的，bug 很简单，文件里已经 import 了 `ROUND_HALF_UP`，这次运行只说明流程走得通，不能说明它修真实 CI 失败的能力。那要等 M1。
+
+**踩坑**：第一次端到端测试判定 lint 没过，查下来闸门是对的：`/mnt/e` 上的文件在 WSL 里都带可执行位，ruff 报 `EXE002`，和修复无关。真实仓库如果在 WSL 的 `/mnt` 下提交，也可能碰到。

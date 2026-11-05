@@ -125,7 +125,7 @@ dd { margin: 0; }
   <header>
     <div class="eyebrow">P2 · E:\zlf\nanocoder · 更新于 2026-11-05</div>
     <h1>nanocoder 进度梳理</h1>
-    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。你已经决定把 nanocoder 做成 CI 修复机器人（v0.2），它也已拆到独立仓库。10 道失败题的归因和设计稿都完成了，下一步是实现 M0 本地 CLI。</p>
+    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。你已经决定把 nanocoder 做成 CI 修复机器人（v0.2），它也已拆到独立仓库。10 道失败题的归因和 M0 本地 CLI 都完成了，下一步是 M1：用 20 个真实的 CI 失败做评测。</p>
     <nav aria-label="目录">
       <a href="#status">现状</a><a href="#path">走到这里的路径</a><a href="#swe">SWE-bench 结果</a><a href="#fail">10 道失败题</a><a href="#realpr">PR 回放</a><a href="#dod">完成标准</a><a href="#repo">仓库状态</a><a href="#next">下一步</a><a href="#resume">简历说法</a><a href="#terms">术语</a>
     </nav>
@@ -141,8 +141,8 @@ dd { margin: 0; }
       <div class="step"><b>M2 SWE-bench 50 题</b><span class="pill done">完成</span><span class="note">40/50，k=1，混用两个模型</span></div>
       <div class="step"><b>PR 回放</b><span class="pill done">结束</span><span class="note">跑了 2 个 PR，lighthouse 决定不跑</span></div>
       <div class="step"><b>失败归因</b><span class="pill done">完成</span><span class="note">6 题超出 issue、3 题不完整、1 题排除失败测试</span></div>
-      <div class="step"><b>A1–A3 小改进</b><span class="pill part">并入 v0.2</span><span class="note">禁改测试、配置指纹进 M0；危险命令暂缓</span></div>
-      <div class="step"><b>产品化 MVP</b><span class="pill part">设计完成，未实现</span><span class="note">v0.2 CI 修复，见 v0.2-ci-fix-design.md</span></div>
+      <div class="step"><b>A1–A3 小改进</b><span class="pill done">已并入 M0</span><span class="note">禁改测试、配置指纹已实现；危险命令暂缓</span></div>
+      <div class="step"><b>产品化 MVP</b><span class="pill part">M0 完成</span><span class="note">本地 CLI 和三道闸门可用；M1–M3 未开始</span></div>
     </div>
     <p class="prose">项目一开始定了要证明三件事，对照来看：</p>
     <div class="scroll"><table>
@@ -299,7 +299,7 @@ dd { margin: 0; }
     <h3>建议的顺序</h3>
     <div class="scroll"><table class="wide">
       <tr><th>顺序</th><th>任务</th><th>为什么</th><th>花费</th></tr>
-      <tr><td class="n">M0</td><td>本地 CLI：配置文件、三道闸门、验证报告</td><td>核心是“由 runner 判定”，不依赖 GitHub，能先验证</td><td>约 1 题</td></tr>
+      <tr><td class="n">M0</td><td><span class="pill done">完成</span> 本地 CLI、三道闸门、验证报告。72 个单元测试和 9 个 Docker 端到端测试通过，真实模型修好了演示仓库</td><td>演示仓库很简单，只说明流程走得通</td><td>10,727 输入 token</td></tr>
       <tr><td class="n">M1</td><td>20 题 CI 修复评测和基线</td><td>接入前先知道它修得怎么样</td><td>约 400 万输入 token，开跑前确认</td></tr>
       <tr><td class="n">M2</td><td>GitHub Action：评论触发、开修复 PR</td><td>让别人能装上用</td><td>约几题</td></tr>
       <tr><td class="n">M3</td><td>在你自己的仓库上试用</td><td>真实合并率比跑分更有说服力</td><td>按实际</td></tr>

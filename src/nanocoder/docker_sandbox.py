@@ -109,5 +109,17 @@ class DockerSandbox(Sandbox):
     def is_dir(self, path: str) -> bool:
         return self._exec(["test", "-d", self._path(path)], timeout=30).returncode == 0
 
+    def put_tar(self, data: bytes) -> None:
+        """把 tar 包解到工作目录。"""
+        r = self._exec(["tar", "-xf", "-", "-C", self.workdir], timeout=300, stdin=data)
+        if r.returncode != 0:
+            raise SandboxError(f"解包失败：{r.stderr.decode('utf-8', errors='replace').strip()[:500]}")
+
+    def commit(self, tag: str) -> None:
+        """把容器当前状态保存成镜像，之后可以直接从它启动。"""
+        r = subprocess.run([self.docker, "commit", self.name, tag], capture_output=True, text=True, timeout=600)
+        if r.returncode != 0:
+            raise SandboxError(f"docker commit 失败：{r.stderr.strip()[:500]}")
+
     def close(self) -> None:
         subprocess.run([self.docker, "rm", "-f", self.name], capture_output=True, timeout=120)

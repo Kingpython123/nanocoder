@@ -1,0 +1,14 @@
+# python:3.11-slim 没有 git，要在 setup 里装；用带 git 的镜像（如 python:3.12）就不需要第一条。
+# 这里用清华 pip 镜像是因为开发环境在国内，别的环境可以去掉 -i。
+image: python:3.11-slim
+setup:
+  - apt-get update -qq && apt-get install -y -qq git >/dev/null
+  - pip install -q --root-user-action=ignore -i https://pypi.tuna.tsinghua.edu.cn/simple pytest ruff
+checks:
+  - name: test
+    command: python -m pytest -q
+  - name: lint
+    command: ruff check .
+limits:
+  max_input_tokens: 200000
+  max_steps: 20
