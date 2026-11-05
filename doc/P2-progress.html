@@ -1,0 +1,340 @@
+<title>nanocoder 进度梳理</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap">
+<style>
+/* Layout: a single-column engineering logbook, with a milestone strip up top and evidence tables below. */
+:root {
+  --bg: #f4f7f8;
+  --surface: #ffffff;
+  --fg: #16262c;
+  --muted: #566a72;
+  --line: #d3dee2;
+  --accent: #0b6477;
+  --accent-soft: #dcecf0;
+  --good: #1c7a4d;
+  --good-soft: #dcf1e5;
+  --warn: #9a6200;
+  --warn-soft: #f8ecd2;
+  --bad: #b23a3a;
+  --bad-soft: #f8e1e1;
+  --serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10191d; --surface: #182328; --fg: #e4edf0; --muted: #9db0b7; --line: #2f3f46;
+    --accent: #6cc4d6; --accent-soft: #1b3b44;
+    --good: #6fd19d; --good-soft: #17372a; --warn: #e6b865; --warn-soft: #3b2f17; --bad: #ef9191; --bad-soft: #402122;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10191d; --surface: #182328; --fg: #e4edf0; --muted: #9db0b7; --line: #2f3f46;
+  --accent: #6cc4d6; --accent-soft: #1b3b44;
+  --good: #6fd19d; --good-soft: #17372a; --warn: #e6b865; --warn-soft: #3b2f17; --bad: #ef9191; --bad-soft: #402122;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 400 16px/1.8 var(--sans);
+}
+.page {
+  max-width: 880px; margin: 0 auto;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 52px;
+}
+.page > * { min-width: 0; }
+section { display: grid; gap: 16px; scroll-margin-top: 16px; }
+section > * { min-width: 0; }
+h1, h2, h3 { font-family: var(--serif); text-wrap: balance; line-height: 1.35; margin: 0; }
+h1 { font-size: clamp(30px, 6vw, 42px); }
+h2 { font-size: 25px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 18px; margin-top: 8px; }
+p, ul, ol { margin: 0; }
+ul, ol { padding-left: 1.4em; display: grid; gap: 6px; }
+.prose { max-width: 68ch; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; line-height: 1.7; }
+code, .mono { font-family: var(--mono); font-size: .88em; overflow-wrap: anywhere; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+header { display: grid; gap: 12px; }
+.eyebrow { font: 500 13px/1.5 var(--mono); color: var(--muted); letter-spacing: .04em; }
+.summary { font-size: 18px; line-height: 1.8; max-width: 68ch; }
+nav { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; }
+
+/* milestone strip */
+.strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.step { background: var(--surface); padding: 12px 14px; display: grid; gap: 4px; align-content: start; }
+.step b { font-size: 15px; }
+.step span.note { font-size: 13px; line-height: 1.55; color: var(--muted); }
+@media (max-width: 620px) { .strip { grid-template-columns: minmax(0, 1fr); } }
+.pill { font: 500 12px/1.5 var(--sans); padding: 1px 8px; border-radius: 3px; justify-self: start; white-space: nowrap; }
+.done { background: var(--good-soft); color: var(--good); }
+.part { background: var(--warn-soft); color: var(--warn); }
+.todo { background: var(--bad-soft); color: var(--bad); }
+
+/* tables */
+.scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; line-height: 1.65; }
+th, td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+th { font-weight: 500; font-size: 13px; color: var(--muted); white-space: nowrap; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.id { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+tr.total td { font-weight: 700; }
+.wide { min-width: 700px; }
+
+/* hard2 bars: bar width is the pass@1 percentage on a fixed 0–100 scale */
+.bars { display: grid; gap: 10px; background: var(--surface); border: 1px solid var(--line); padding: 16px; }
+.bar { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr); gap: 4px 12px; align-items: center; font-size: 14px; }
+.track { height: 20px; background: var(--accent-soft); position: relative; }
+.fill { height: 100%; background: var(--accent); }
+.val { grid-column: 2; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.axis { display: flex; justify-content: space-between; font: 400 12px var(--mono); color: var(--muted); margin-left: calc(min(11em, 40%) + 12px); }
+@media (max-width: 520px) {
+  .bar { grid-template-columns: minmax(0, 1fr); }
+  .val { grid-column: 1; }
+  .axis { margin-left: 0; }
+}
+
+/* one square per SWE-bench task */
+.sq { display: flex; flex-wrap: wrap; gap: 3px; }
+.sq i { width: 11px; height: 11px; display: block; border: 1.5px solid var(--good); background: var(--good); }
+.sq i.x { background: transparent; border-color: var(--bad); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--muted); align-items: center; }
+.legend .sq { display: inline-flex; margin-right: 6px; vertical-align: middle; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+.two > * { min-width: 0; }
+
+.callout { background: var(--accent-soft); padding: 14px 16px; display: grid; gap: 8px; }
+.quote { background: var(--surface); border: 1px solid var(--line); padding: 14px 16px; }
+dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; font-size: 14.5px; }
+dt { font-family: var(--mono); font-size: 13.5px; }
+dd { margin: 0; }
+@media (max-width: 520px) { dl { grid-template-columns: minmax(0, 1fr); } dd { margin-bottom: 8px; } }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">P2 · pri/Codingagent · 更新于 2026-11-05</div>
+    <h1>nanocoder 进度梳理</h1>
+    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。现在缺的不是更多跑分，而是三件收尾工作：弄清 10 题为什么失败、把文档和提交理干净、决定 nanocoder 接下来要不要做成产品。</p>
+    <nav aria-label="目录">
+      <a href="#status">现状</a><a href="#path">走到这里的路径</a><a href="#swe">SWE-bench 结果</a><a href="#fail">10 道失败题</a><a href="#realpr">PR 回放</a><a href="#dod">完成标准</a><a href="#repo">仓库状态</a><a href="#next">下一步</a><a href="#resume">简历说法</a><a href="#terms">术语</a>
+    </nav>
+  </header>
+
+  <section id="status">
+    <h2>现状</h2>
+    <div class="strip">
+      <div class="step"><b>M0 Agent + 玩具集</b><span class="pill done">完成</span><span class="note">7 个工具、三重上限、20 题 100%</span></div>
+      <div class="step"><b>hard / hard2 任务集</b><span class="pill done">完成</span><span class="note">自建的隐藏测试题，用来做消融</span></div>
+      <div class="step"><b>E7 / E8 消融</b><span class="pill done">完成</span><span class="note">hard2 上从 72.2% 到 97.2%</span></div>
+      <div class="step"><b>M1 Docker 沙箱</b><span class="pill done">完成</span><span class="note">断网、限资源，冒烟 13 项通过</span></div>
+      <div class="step"><b>M2 SWE-bench 50 题</b><span class="pill done">完成</span><span class="note">40/50，k=1，混用两个模型</span></div>
+      <div class="step"><b>PR 回放</b><span class="pill part">3 个里跑了 2 个</span><span class="note">lighthouse 没跑，缺 torch</span></div>
+      <div class="step"><b>失败归因</b><span class="pill part">只有初步线索</span><span class="note">看了测试日志，没读 patch</span></div>
+      <div class="step"><b>A1–A3 小改进</b><span class="pill todo">未开始</span><span class="note">禁改测试、危险命令、配置指纹</span></div>
+      <div class="step"><b>产品化 MVP</b><span class="pill todo">等你决定</span><span class="note">候选 v0.2 CI 修复 / v0.1 PR 审查</span></div>
+    </div>
+    <p class="prose">项目一开始定了要证明三件事，对照来看：</p>
+    <div class="scroll"><table>
+      <tr><th>要证明的事</th><th>状态</th><th>证据</th></tr>
+      <tr><td>能从零写出可用的 Coding Agent</td><td><span class="pill done">已证明</span></td><td>不用框架的 ReAct 循环、Docker 沙箱，能在真实仓库上提交 patch 并通过官方评测</td></tr>
+      <tr><td>能量化它</td><td><span class="pill done">基本证明</span></td><td>官方 harness 的解决率、步数、token 都有；美元成本只是估算</td></tr>
+      <tr><td>能改进它</td><td><span class="pill part">部分证明</span></td><td>改进和归因都只在自建的 hard2 上做过，SWE-bench 上只有一次运行，没有前后对比</td></tr>
+    </table></div>
+  </section>
+
+  <section id="path">
+    <h2>走到这里的路径</h2>
+    <p class="prose">每一步都是上一步的结果逼出来的。理思路时可以按这条线讲。注意不同任务集难度不同，解决率不能横向比较。</p>
+    <div class="scroll"><table class="wide">
+      <tr><th>阶段</th><th class="n">解决率</th><th>发现了什么</th><th>于是下一步</th></tr>
+      <tr><td>M0 玩具集（20 题，k=3）</td><td class="n">100%</td><td>太容易，分不出策略好坏。还见到一次模型看到测试失败却照样提交</td><td>做更难的题</td></tr>
+      <tr><td>hard v1（16 题，k=3）</td><td class="n">91.7%</td><td>隐藏测试和模糊 issue 几乎没增加难度。失败都来自“看起来修好了、其实违反文档约束”</td><td>专门多出这类题</td></tr>
+      <tr><td>hard2（12 题，k=3）</td><td class="n">72.2%</td><td>10 次失败全是漏掉文档里写明的要求，没有一次定位错误</td><td>E8：先列规格清单</td></tr>
+      <tr><td>E8 规格清单 prompt</td><td class="n">86.1%</td><td>4 题变好、0 题变差，但成本约 2.3 倍。能注意到要求，不一定验证到组合情况</td><td>E7：开推理</td></tr>
+      <tr><td>E7 推理 high + E8</td><td class="n">97.2%</td><td>推理性价比最高，两者可以叠加。本地题已经饱和</td><td>上 SWE-bench</td></tr>
+      <tr><td>M1 / M2 流水线</td><td class="n">—</td><td>冒烟发现 patch 丢新建文件、429 打断长任务</td><td>修好后全量跑</td></tr>
+      <tr><td>M2 全量（50 题，k=1）</td><td class="n">80%</td><td>中途额度耗尽多次、luna 下架、Docker 下载慢，最后用 <code>--retry-errors</code> 补齐</td><td>失败归因</td></tr>
+    </table></div>
+
+    <h3>hard2 上的消融结果</h3>
+    <div class="bars" role="img" aria-label="hard2 各配置的 pass@1：基线 72.2%，E8 86.1%，E7 medium 86.1%，E7 high 91.7%，E7 high 加 E8 97.2%">
+      <div class="bar"><span>基线（推理关）</span><div class="track"><div class="fill" style="width:72.2%"></div></div><span class="val">72.2% · pass^3 7/12 · $0.0038/题</span></div>
+      <div class="bar"><span>E8 规格清单</span><div class="track"><div class="fill" style="width:86.1%"></div></div><span class="val">86.1% · pass^3 10/12 · $0.0089/题</span></div>
+      <div class="bar"><span>E7 推理 medium</span><div class="track"><div class="fill" style="width:86.1%"></div></div><span class="val">86.1% · pass^3 9/12 · $0.0056/题</span></div>
+      <div class="bar"><span>E7 推理 high</span><div class="track"><div class="fill" style="width:91.7%"></div></div><span class="val">91.7% · pass^3 11/12 · $0.0063/题</span></div>
+      <div class="bar"><span>E7 high + E8</span><div class="track"><div class="fill" style="width:97.2%"></div></div><span class="val">97.2% · pass^3 11/12 · $0.0108/题</span></div>
+      <div class="axis" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+    </div>
+    <p class="small muted">gpt-6-luna，每题 3 次，共 36 次运行。相对基线的提升：E8 +13.9 个百分点（95% CI +2.8 ~ +27.8），E7 high + E8 +25.0（+5.6 ~ +47.2）。样本小，区间很宽。</p>
+
+    <h3>路上踩过的坑（都是好的面试素材）</h3>
+    <ul class="prose">
+      <li><b>基础设施故障被算成模型失败。</b>“推理 high + E8”第一次只有 66.7%，比基线还低。查下来 12 次失败全是 429 限流。之后 runner 把 <code>llm_error</code>、<code>harness_error</code> 单独分类，比较前先看结束原因分布。</li>
+      <li><b>patch 丢了新建文件。</b>agent 新增的模块没进 <code>git diff</code>，patch 引用了不存在的文件。改成用 <code>git add -N</code> 纳入。</li>
+      <li><b>额度耗尽后白拉镜像。</b>403 不会被重试，每题第一步就失败，却仍要拉 4GB 镜像。runner 现在遇到 403 就在当前批次结束后停下。</li>
+      <li><b>测试空转通过。</b>回放 MobileWorld 时缺 <code>psycopg2</code>，任务注册表为空，测试在合并前的代码上也通过。装好依赖确认有 183 个任务后才复现出问题。</li>
+    </ul>
+  </section>
+
+  <section id="swe">
+    <h2>SWE-bench 结果</h2>
+    <p class="prose">配置：Responses API、推理 high、prompt <code>v2_spec</code>，1 个 worker，官方 harness 判定。子集按仓库分层抽样（seed=42），每题跑一次。</p>
+    <div class="legend"><span><span class="sq"><i></i></span>解决</span><span><span class="sq"><i class="x"></i></span>未解决</span><span>每格一题，共 50 题</span></div>
+    <div class="two">
+      <div class="scroll"><table>
+        <tr><th>仓库</th><th class="n">解决</th><th>题目</th></tr>
+        <tr><td>django</td><td class="n">18/23</td><td><div class="sq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i></div></td></tr>
+        <tr><td>sympy</td><td class="n">7/8</td><td><div class="sq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="x"></i></div></td></tr>
+        <tr><td>sphinx</td><td class="n">5/5</td><td><div class="sq"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
+        <tr><td>sklearn</td><td class="n">3/3</td><td><div class="sq"><i></i><i></i><i></i></div></td></tr>
+        <tr><td>matplotlib</td><td class="n">2/3</td><td><div class="sq"><i></i><i></i><i class="x"></i></div></td></tr>
+        <tr><td>pytest</td><td class="n">2/2</td><td><div class="sq"><i></i><i></i></div></td></tr>
+        <tr><td>astropy</td><td class="n">1/2</td><td><div class="sq"><i></i><i class="x"></i></div></td></tr>
+        <tr><td>xarray</td><td class="n">1/2</td><td><div class="sq"><i></i><i class="x"></i></div></td></tr>
+        <tr><td>requests</td><td class="n">1/1</td><td><div class="sq"><i></i></div></td></tr>
+        <tr><td>pylint</td><td class="n">0/1</td><td><div class="sq"><i class="x"></i></div></td></tr>
+      </table></div>
+      <div style="display:grid;gap:16px;align-content:start">
+        <div class="scroll"><table>
+          <tr><th>数据集标注的难度</th><th class="n">解决</th></tr>
+          <tr><td>&lt;15 分钟</td><td class="n">15/17</td></tr>
+          <tr><td>15 分钟～1 小时</td><td class="n">22/26</td></tr>
+          <tr><td>1～4 小时</td><td class="n">3/6</td></tr>
+          <tr><td>&gt;4 小时</td><td class="n">0/1</td></tr>
+        </table></div>
+        <div class="scroll"><table>
+          <tr><th>模型</th><th class="n">解决</th><th class="n">平均步数</th><th class="n">平均输入</th></tr>
+          <tr><td><code>gpt-6-luna</code></td><td class="n">16/22</td><td class="n">29.2</td><td class="n">89.4 万</td></tr>
+          <tr><td><code>gpt-6.1-terra</code></td><td class="n">24/28</td><td class="n">14.1</td><td class="n">19.7 万</td></tr>
+          <tr class="total"><td>合计</td><td class="n">40/50</td><td class="n">20.7</td><td class="n">50.3 万</td></tr>
+        </table></div>
+      </div>
+    </div>
+    <div class="callout">
+      <b>读这个 80% 时要记住</b>
+      <ul>
+        <li><b>不能比较两个模型。</b>题目按运行顺序分配：luna 跑了 20 题 django 和 2 题 astropy，terra 跑了其余的题和 3 题 django。</li>
+        <li><b>误差不小。</b>k=1、50 题，95% Wilson 区间约 67%～89%。</li>
+        <li><b>难题样本很少。</b>难度标注 1 小时以上的只有 7 题，解决 3 题。解决率主要由简单和中等题撑起来。</li>
+        <li><b>成本不可信。</b>总输入 2517 万 token，85% 命中缓存。$2.678 是按 luna 单价估算的，terra 单价未知，实际花费看中转站后台。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="fail">
+    <h2>10 道失败题</h2>
+    <p class="prose">下面的线索来自官方 harness 的报告和测试日志，这次新整理，没有调用模型。我还没有读 10 个 patch，也没有对照 issue，所以“日志显示”只说明测试怎么失败，不是根因结论。</p>
+    <div class="scroll"><table class="wide">
+      <tr><th>题目</th><th>模型</th><th>难度</th><th class="n">步数</th><th class="n">patch 行</th><th class="n">F2P 失败</th><th class="n">P2P 失败</th><th>日志显示</th></tr>
+      <tr><td class="id">astropy-13398</td><td>luna</td><td>1–4h</td><td class="n">57</td><td class="n">245</td><td class="n">4</td><td class="n">5</td><td>测试给 ITRS 传 <code>location</code> 参数被拒，另有数值误差和 5 个回归</td></tr>
+      <tr><td class="id">django-11087</td><td>luna</td><td>15m–1h</td><td class="n">27</td><td class="n">21</td><td class="n">1</td><td class="n">0</td><td>删除时生成的 SQL 查询字段与测试期望不同</td></tr>
+      <tr><td class="id">django-11433</td><td>luna</td><td>&lt;15m</td><td class="n">30</td><td class="n">39</td><td class="n">1</td><td class="n">1</td><td>多种空值下字段值与期望不符，还多了 1 个回归</td></tr>
+      <tr><td class="id">django-11734</td><td>luna</td><td>15m–1h</td><td class="n">41</td><td class="n">15</td><td class="n">1</td><td class="n">0</td><td><code>exclude</code> + <code>OuterRef</code> 子查询的结果断言失败</td></tr>
+      <tr><td class="id">django-12273</td><td>luna</td><td>15m–1h</td><td class="n">24</td><td class="n">18</td><td class="n">2</td><td class="n">0</td><td>继承模型 pk 设为 None 的两个测试报错（ERROR）</td></tr>
+      <tr><td class="id">django-12325</td><td>luna</td><td>1–4h</td><td class="n">19</td><td class="n">16</td><td class="n">2</td><td class="n">0</td><td>parent link 相关的两个检查测试报错（ERROR）</td></tr>
+      <tr><td class="id">matplotlib-25479</td><td>terra</td><td>&lt;15m</td><td class="n">18</td><td class="n">49</td><td class="n">2</td><td class="n">0</td><td>colormap 相等比较和名字不一致的两个断言失败</td></tr>
+      <tr><td class="id">xarray-6992</td><td>terra</td><td>&gt;4h</td><td class="n">12</td><td class="n">13</td><td class="n">12</td><td class="n">0</td><td><code>reset_index</code> 系列的坐标结果与期望不同</td></tr>
+      <tr><td class="id">pylint-4551</td><td>terra</td><td>1–4h</td><td class="n">17</td><td class="n">75</td><td class="n">10</td><td class="n">未加载</td><td>测试要 import <code>get_annotation</code>，patch 里没有这个函数，整个测试文件加载失败</td></tr>
+      <tr><td class="id">sympy-23950</td><td>terra</td><td>15m–1h</td><td class="n">12</td><td class="n">18</td><td class="n">1</td><td class="n">0</td><td><code>test_as_set</code> 抛异常</td></tr>
+    </table></div>
+    <p class="prose">目前能确定的几点：</p>
+    <ul class="prose">
+      <li>10 题的 patch 都能打上，agent 也都是正常提交。没有题因为步数或成本上限而中断。</li>
+      <li>10 题都记录了“提交前跑过验证”，隐藏测试却全部没过（F2P 通过数都是 0）。这很可能是最值得讲的一点：agent 自己的验证和真实要求之间有差距。要读过 patch 才能确认。</li>
+      <li>7 题没有回归，只是目标行为没做对。有回归的是 astropy-13398 和 django-11433；pylint-4551 的测试文件没加载起来，无法判断。</li>
+      <li>pylint-4551 可能不完全是 agent 的问题：测试依赖一个具体的函数名。要对照 issue 看这个名字有没有写明。</li>
+    </ul>
+  </section>
+
+  <section id="realpr">
+    <h2>PR 回放</h2>
+    <p class="prose">把你已合并的 PR 变成任务：合并前的代码 + issue + PR 自带的测试（对 agent 隐藏）。全部用 terra、推理 high、<code>v2_spec</code>，每个变体跑一次。这些 PR 是之前的 Claude 会话帮你写的，nanocoder 是事后回放。</p>
+    <div class="scroll"><table class="wide">
+      <tr><th>PR</th><th>issue 版本</th><th>结果</th><th class="n">步数</th><th class="n">输入 token</th><th>说明</th></tr>
+      <tr><td><a href="https://github.com/Tongyi-MAI/MobileWorld/pull/73">MobileWorld#73</a></td><td>原文（列出了文件）</td><td><span class="pill done">通过</span></td><td class="n">16</td><td class="n">31.6 万</td><td>issue 是你写的，已透露修法</td></tr>
+      <tr><td><a href="https://github.com/Tongyi-MAI/MobileWorld/pull/73">MobileWorld#73</a></td><td>只描述现象</td><td><span class="pill done">通过</span></td><td class="n">16</td><td class="n">26.1 万</td><td>同样的 5 个文件 5 行，与 PR 源码改动一致</td></tr>
+      <tr><td><a href="https://github.com/X-PLUG/MobileAgent/pull/300">MobileAgent#300</a></td><td>第三方原文</td><td><span class="pill todo">未通过</span></td><td class="n">11</td><td class="n">17.7 万</td><td>12 个测试过 6 个。修掉了崩溃，但设计不同：返回 None 而不是抛 <code>ValueError</code></td></tr>
+      <tr><td><a href="https://github.com/line/lighthouse/pull/80">lighthouse#80</a></td><td>原文 / 只描述现象</td><td><span class="pill part">未跑</span></td><td class="n">—</td><td class="n">—</td><td>torch 一直下载失败，环境也还没校验</td></tr>
+    </table></div>
+    <p class="prose">MobileAgent 这题挺有意思：失败的 6 个测试检查的是抛 <code>ValueError</code> 和错误信息措辞，issue 没有这个要求。它说明严格判定和“修好了没有”是两回事，也说明 agent 没做 PR 里的重试上限和文档更新。</p>
+  </section>
+
+  <section id="dod">
+    <h2>完成标准对照</h2>
+    <div class="scroll"><table>
+      <tr><th>计划文档里的标准</th><th>状态</th><th>差什么</th></tr>
+      <tr><td>玩具集 ≥ 80%，单命令复现</td><td><span class="pill done">达成</span></td><td>—</td></tr>
+      <tr><td>SWE-bench 50 题有 baseline</td><td><span class="pill done">达成</span></td><td>混用两个模型，k=1</td></tr>
+      <tr><td>≥3 组消融，每组 k=3</td><td><span class="pill part">改在 hard2 上做</span></td><td>hard2 上有 E7、E8 和组合。SWE-bench 上没有</td></tr>
+      <tr><td>每题有 trace 和可浏览页面</td><td><span class="pill part">只有 trace</span></td><td>代码里没有 trace 页面</td></tr>
+      <tr><td>评测报告（含失败归因分布）</td><td><span class="pill part">缺归因</span></td><td>数字在文档 §16，归因只有上面的初步线索</td></tr>
+      <tr><td>README 有复现步骤，简历数字真实</td><td><span class="pill part">要更新</span></td><td>README 目录表没列 SWE-bench 和回放，计划文档开头还写着 M0 和 luna</td></tr>
+    </table></div>
+    <p class="prose">原计划的 SWE-bench 消融不太现实：按 terra 平均 19.7 万输入 token 算，50 题 × 3 次，<b>每组配置约 2950 万输入 token</b>。建议正式修改这条标准：消融留在 hard2，SWE-bench 只用来报告最优配置。</p>
+  </section>
+
+  <section id="repo">
+    <h2>仓库状态</h2>
+    <ul class="prose">
+      <li><b>P2 的代码已经提交</b>（<code>01f114e</code>），但它在 <code>p1-agentic-rag</code> 分支上。<code>p2-coding-agent</code> 分支还停在更早的 <code>405510d</code>。</li>
+      <li><b>未提交：</b>计划文档 §16 里的 50 题结果，还有这份 HTML。</li>
+      <li><b>评测结果不在 git 里。</b><code>runs/</code> 被 <code>.gitignore</code> 忽略，40/50 的原始证据（results、patch、官方报告）只在本机。要拿给别人看的话，需要单独挑一部分入库。</li>
+      <li><b>状态板过时。</b><code>doc/总览与方向.md</code> 还写着 SWE-bench 只完成 22 题、待补跑 28 题。它由汇总会话维护，这次我没有改。</li>
+    </ul>
+    <p class="small muted">运行环境：SWE-bench 只能在本机 WSL2 跑，因为租用服务器没有 Docker。子集镜像拉取时网络很不稳定，每个镜像约 1.15GB。</p>
+  </section>
+
+  <section id="next">
+    <h2>下一步</h2>
+    <h3>建议的顺序</h3>
+    <div class="scroll"><table class="wide">
+      <tr><th>顺序</th><th>任务</th><th>为什么</th><th>花费</th></tr>
+      <tr><td class="n">1</td><td>读 10 个 patch，做失败归因</td><td>完成标准里差的主要是它，面试也最可能追问</td><td>不调用 API</td></tr>
+      <tr><td class="n">2</td><td>更新文档，整理提交和分支，挑选结果入库</td><td>让项目能被别人复现和检查</td><td>不调用 API</td></tr>
+      <tr><td class="n">3</td><td>做 A1–A3，在 hard2 上验证</td><td>工程量小，能补上工具层安全这部分</td><td>12 题 k=1，很少</td></tr>
+      <tr><td class="n">4</td><td>按归因结果做一个改进，重跑这 10 道失败题和一部分已解决的题</td><td>补上“在真实任务上有改进”这个缺口</td><td>视改动而定，开跑前估算</td></tr>
+      <tr><td class="n">5</td><td>产品化 MVP</td><td>从评测器变成别人能用的东西，工作量最大</td><td>取决于方向</td></tr>
+    </table></div>
+    <h3>需要你决定的事</h3>
+    <ol class="prose">
+      <li><b>nanocoder 做不做产品？</b>头脑风暴文档推荐 v0.2 CI 修复（CI 变绿就是天然验收标准），v0.1 PR 审查可以作为更快的首发。如果目标只是简历，可以先不做，把时间留给 P1、P3。</li>
+      <li><b>是否修改消融这条完成标准？</b>我建议改，理由见上一节。</li>
+      <li><b>lighthouse 回放还做不做？</b>要先解决 torch 下载，两个变体粗估共 50 万～60 万输入 token。我的看法是优先级不高：它能多一个案例，但 issue 同样由你所写。</li>
+    </ol>
+    <p class="prose muted">单一模型重跑全部 50 题已经被你否决（自用项目，不必这么严谨），不在清单里。</p>
+  </section>
+
+  <section id="resume">
+    <h2>简历说法</h2>
+    <div class="quote">
+      <p>从零实现 Coding Agent（ReAct 循环、Docker 沙箱、可断点续跑的评测流水线），用官方 harness 在 SWE-bench Verified 按仓库分层抽样的 50 题子集上解决 40 题（80%，单次运行）。在自建的隐藏测试任务集上做消融，规格清单与推理叠加后解决率从 72% 提升到 97%（36 次运行）。用已合并的开源 PR 做回放：MobileWorld 的 issue 改写成只描述现象后，agent 仍给出与 PR 一致的修复。</p>
+    </div>
+    <p class="prose">被问到时要主动说明：跑分中途换过模型；PR 不是 nanocoder 写的；回放只跑了几个案例；97% 是自建任务集的结果，题目由自己设计。失败归因做完后，这段可以再加一句失败原因分布。</p>
+  </section>
+
+  <section id="terms">
+    <h2>术语</h2>
+    <dl>
+      <dt>F2P</dt><dd>Fail-to-pass，修复前失败、修复后应通过的测试，检查问题有没有修好。</dd>
+      <dt>P2P</dt><dd>Pass-to-pass，修复前后都应通过的测试，检查有没有改坏别的东西。</dd>
+      <dt>resolved</dt><dd>F2P 和 P2P 全部通过才算解决。</dd>
+      <dt>pass@1</dt><dd>所有运行的平均通过率。</dd>
+      <dt>pass^3</dt><dd>连续 3 次都通过的题目比例，衡量稳定性。</dd>
+      <dt>k</dt><dd>每题重复运行的次数。</dd>
+      <dt>E7 / E8</dt><dd>消融实验编号。E7 是开推理，E8 是规格清单 prompt（<code>v2_spec</code>）。</dd>
+      <dt>harness</dt><dd>SWE-bench 官方评测程序：在镜像里打 patch、跑测试、判定结果。</dd>
+    </dl>
+    <p class="small muted">详细记录见 <code>pri/Codingagent/doc/P2-coding-agent.md</code> §16。</p>
+  </section>
+</div>

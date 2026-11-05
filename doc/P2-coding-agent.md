@@ -1,9 +1,9 @@
 # P2 · Nano Coding Agent：仓库级自动修 Bug
 
-> 状态：M0 完成；hard2 任务集（pass@1 72%）可用于消融（2026-10-30），见第 16 节进展记录。
-> 位置：项目文件已收纳到 `pri/Codingagent/`（代码、任务集、实验产物、本文档），见该目录 README。
-> 前置：`src/miniagent` 的 agent loop 已能跑通（第 1 周练习）。
-> 主力模型：`gpt-6-luna`（中转站 api.gpt.ge），chat/completions + `reasoning_effort=none`（开推理时该接口不支持工具调用）。
+> 状态：M0–M2 完成，SWE-bench 50 题 40/50；下一步是失败归因和产品化（2026-11-05），见第 16 节进展记录。
+> 位置：独立仓库 `E:\zlf\nanocoder`（2026-11-05 从 agent-learning 的 `pri/Codingagent/` 拆出）。第 16 节的旧记录里提到的 `pri/Codingagent/` 就是现在的仓库根目录。
+> 前置：`src/miniagent` 的 agent loop（已复制到本仓库）。
+> 当前模型：`gpt-6.1-terra`（中转站 api.gpt.ge），Responses API + 推理 high + prompt `v2_spec`。`gpt-6-luna` 已下架，早期实验用的是它。
 
 ## 1. 现实需求
 
@@ -24,7 +24,7 @@ Claude Code、Cursor、字节 Trae、腾讯 CodeBuddy 这类 Coding Agent 是目
 **完成标准（Definition of Done）**：
 
 - [ ] 玩具集（≥20 题）解决率 ≥ 80%，单命令可复现：`python -m nanocoder.bench --suite toy`
-- [ ] SWE-bench Lite / Verified 固定子集（50 题）跑出 baseline，并有 ≥3 组消融实验，每组 k=3 次重复
+- [ ] SWE-bench Verified 固定子集（50 题）跑出最优配置的解决率；消融实验只在 hard2 上做，≥3 组，每组 k=3 次重复（2026-11-05 修改：在 SWE-bench 上做每组约需 2950 万输入 token）
 - [ ] 每题有完整 trace（JSONL）和可浏览的 trace 页面
 - [ ] 一份评测报告：解决率、pass^3、平均轮数 / token / 成本 / 耗时、失败归因分布
 - [ ] README 写清复现步骤；简历条目中的 X / Y 全部替换成真实数字
@@ -448,3 +448,41 @@ v1 保留不动，作为固定的对照。
 **2026-11-03 补跑结果（中途又因额度停止）**：网络恢复后跑了两批 12 题。terra 跑完 5 题解决 4 题（`matplotlib-24026`、`django-15957`、`django-7530`、`django-9296` 解决，`matplotlib-25479` 未解决）；`matplotlib-23412` 拉镜像失败（`harness_error`）；其余 6 题中途收到 403 `Insufficient token quota`，第二批结束后 runner 按 403 规则停止。新 key 的额度在回放和这两批加起来约 230 万输入 token 后用完。
 
 累计（不含基础设施失败）：27 题跑完，20 题解决（74.1%）：luna 16/22，terra 4/5。还有 23 题没有有效结果：7 题需重跑，16 题未开始。这 27 题里 django 占 23 题，sphinx、sympy、sklearn 一题都还没跑，不能代表 50 题的水平。
+
+**2026-11-03 M2 跑完（50/50）**：充值后用 `--retry-errors` 跑完剩余 23 题，没有基础设施失败。官方 harness 判定 **40/50 解决（80.0%，k=1，95% Wilson 区间约 67%～89%）**。配置：Responses API、reasoning high、prompt v2_spec；0 次未验证就提交。
+
+| 模型 | 题数 | 解决 | 平均步数 | 平均输入 token | 缓存占比 | 平均耗时 |
+|---|---|---|---|---|---|---|
+| `gpt-6-luna` | 22 | 16 | 29.2 | 893,867 | 95% | 296s |
+| `gpt-6.1-terra` | 28 | 24 | 14.1 | 196,524 | 48% | 104s |
+| 合计 | 50 | 40 | 20.7 | 503,355 | 85% | 188s |
+
+| 仓库 | 解决 | | 难度（数据集标注） | 解决 |
+|---|---|---|---|---|
+| django | 18/23 | | <15 min | 15/17 |
+| sympy | 7/8 | | 15 min - 1 hour | 22/26 |
+| sphinx | 5/5 | | 1-4 hours | 3/6 |
+| matplotlib | 2/3 | | >4 hours | 0/1 |
+| sklearn | 3/3 | | | |
+| astropy | 1/2 | | | |
+| xarray | 1/2 | | | |
+| pytest | 2/2 | | | |
+| pylint | 0/1 | | | |
+| requests | 1/1 | | | |
+
+未解决：`astropy-13398`、`django-11087`、`django-11433`、`django-11734`、`django-12273`、`django-12325`（以上 luna）；`matplotlib-25479`、`xarray-6992`、`pylint-4551`、`sympy-23950`（以上 terra）。还没有逐题分析失败原因。
+
+解读时要注意：
+
+- **不是单一模型的结果**：luna 下架后换成 terra，题目按运行顺序分配，不是随机分配。luna 跑的是 20 题 django 和 2 题 astropy，terra 跑的是其余仓库和 3 题 django，所以上表不能用来比较两个模型。只有 3 题 django 的 terra 3/3 和 luna 15/20 也说明不了什么。
+- **k=1，子集只有 50 题**：误差范围较大，也没有完成原计划的 k=3 和消融实验。
+- **成本不可信**：总成本 $2.678 是按 luna 价格估算的，terra 的实际单价未知，以中转站后台扣费为准。
+
+### 2026-11-05 · 方向决定 + 拆成独立仓库
+
+**用户决定**：
+1. nanocoder 做成产品。MVP 切口（v0.2 CI 修复 / v0.1 PR 审查）还没定。
+2. 消融实验只在 hard2 上做，SWE-bench 只报告最优配置。完成标准已相应修改。
+3. lighthouse 回放不跑，realpr 就停在 MobileWorld 和 MobileAgent。
+
+**拆仓库**：P2 原来和 P1、P3 混在 agent-learning 里，P2 的提交还落在 `p1-agentic-rag` 分支上。现在用 `git subtree split` 导出到独立仓库 `E:\zlf\nanocoder`，2 个 P2 提交的历史保留，文件哈希与原目录一致。`src/miniagent` 复制了一份，之后两边独立维护。`runs/` 也移了过来，仍然被 git 忽略，40/50 的原始证据只在本机。WSL 的 venv 已改指向新路径。
