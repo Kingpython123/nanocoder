@@ -486,3 +486,28 @@ v1 保留不动，作为固定的对照。
 3. lighthouse 回放不跑，realpr 就停在 MobileWorld 和 MobileAgent。
 
 **拆仓库**：P2 原来和 P1、P3 混在 agent-learning 里，P2 的提交还落在 `p1-agentic-rag` 分支上。现在用 `git subtree split` 导出到独立仓库 `E:\zlf\nanocoder`，2 个 P2 提交的历史保留，文件哈希与原目录一致。`src/miniagent` 复制了一份，之后两边独立维护。`runs/` 也移了过来，仍然被 git 忽略，40/50 的原始证据只在本机。WSL 的 venv 已改指向新路径。
+
+### 2026-11-05 · SWE-bench 失败归因 + 选定 v0.2 CI 修复
+
+**MVP 切口**：用户选定 v0.2 CI 修复，设计见 `doc/v0.2-ci-fix-design.md`。
+
+**归因方法**：逐题对照 issue、官方修复、隐藏测试、agent 的 patch 和 agent 跑过的测试，没有调用模型，也没有重新运行 patch。分类是我的判断。“超出 issue”不代表 agent 的修复一定正确，只说明这题的失败不能证明它修错了。
+
+| 类型 | 题目 | 依据 |
+|---|---|---|
+| 验收要求超出 issue（6） | `pylint-4551` | 测试 import `get_annotation`、`infer_node`，issue 没提这两个内部函数，整个测试文件加载失败 |
+| | `sympy-23950` | 官方让 `as_set()` 直接返回集合参数；agent 返回与实数的交集，对含其他符号的情况仍抛错。issue 只说不该返回 Contains |
+| | `matplotlib-25479` | 官方让 `__eq__` 忽略名字，并在注册时改写名字；测试检查这两点。agent 从 rc 参数入手解决名字不一致 |
+| | `xarray-6992` | 官方重写了 `set_index` / `reset_index` 的语义，改了已有测试的期望；agent 只改一行 `coord_names`，已有测试 880 个通过 |
+| | `django-12325` | 官方去掉了 `ImproperlyConfigured`，测试要求不写 parent_link 也合法；agent 修了 issue 里的字段顺序问题 |
+| | `django-11433` | 测试要求 cleaned_data 为空值时回退默认值，issue 没写；agent 的语义是“clean() 改过就优先” |
+| 修复不完整或位置不对（3） | `django-11087` | `only("pk")` 漏了被 `to_field` 引用的字段，也没处理 select_related |
+| | `django-11734` | 只改了官方 3 处中的 `split_exclude` 一处，不再报错，但结果不对 |
+| | `django-12273` | 官方改 `_set_pk_val`；agent 改 `_save_parents` 且依赖 `_state.adding`，已存在的实例上条件不成立 |
+| 看到失败却排除（1） | `astropy-13398` | 看到 5 个 `test_gcrs_altaz_bothroutes` 失败，改用 `-k 'not bothroutes'` 重跑，通过后提交。这 5 个正是官方判定的回归。隐藏测试还用了 issue 里没看到的 `ITRS(location=)`（导出时 issue 截断在 3500 字符，后文没核对） |
+
+**其他发现**：
+
+- **提交守卫太弱。** 它只看“编辑后跑过 python 或 pytest”，所以 10 题都显示“已验证”。`matplotlib-25479` 也用 `-k` 排除过失败的 `test_pyplot_up_to_date`，那个失败的原因没有查。
+- **更正：`django-11433` 的回归很可能是误判。** 官方报告把 `test_default_not_populated_on_optional_checkbox_input` 记为 P2P 失败，但日志是 `FAILED (failures=4)`，4 个都属于 F2P 测试的 subTest，agent 自己跑 `model_forms` 也是 164 个全过。这更像 harness 的日志解析把它归错了。没有重跑确认。所以真实回归只有 astropy 一题。
+- **解决率不受影响**：这题的 F2P 本来就没过。

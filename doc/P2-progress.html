@@ -125,7 +125,7 @@ dd { margin: 0; }
   <header>
     <div class="eyebrow">P2 · E:\zlf\nanocoder · 更新于 2026-11-05</div>
     <h1>nanocoder 进度梳理</h1>
-    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。你已经决定把 nanocoder 做成产品，它也已拆到独立仓库。接下来要做的是：弄清 10 题为什么失败，选定 MVP 切口。</p>
+    <p class="summary">评测主线已经跑通：SWE-bench Verified 50 题解决 <b>40 题（80%）</b>，全部有效。你已经决定把 nanocoder 做成 CI 修复机器人（v0.2），它也已拆到独立仓库。10 道失败题的归因和设计稿都完成了，下一步是实现 M0 本地 CLI。</p>
     <nav aria-label="目录">
       <a href="#status">现状</a><a href="#path">走到这里的路径</a><a href="#swe">SWE-bench 结果</a><a href="#fail">10 道失败题</a><a href="#realpr">PR 回放</a><a href="#dod">完成标准</a><a href="#repo">仓库状态</a><a href="#next">下一步</a><a href="#resume">简历说法</a><a href="#terms">术语</a>
     </nav>
@@ -140,9 +140,9 @@ dd { margin: 0; }
       <div class="step"><b>M1 Docker 沙箱</b><span class="pill done">完成</span><span class="note">断网、限资源，冒烟 13 项通过</span></div>
       <div class="step"><b>M2 SWE-bench 50 题</b><span class="pill done">完成</span><span class="note">40/50，k=1，混用两个模型</span></div>
       <div class="step"><b>PR 回放</b><span class="pill done">结束</span><span class="note">跑了 2 个 PR，lighthouse 决定不跑</span></div>
-      <div class="step"><b>失败归因</b><span class="pill part">只有初步线索</span><span class="note">看了测试日志，没读 patch</span></div>
-      <div class="step"><b>A1–A3 小改进</b><span class="pill todo">未开始</span><span class="note">禁改测试、危险命令、配置指纹</span></div>
-      <div class="step"><b>产品化 MVP</b><span class="pill part">已定做，切口待选</span><span class="note">候选 v0.2 CI 修复 / v0.1 PR 审查</span></div>
+      <div class="step"><b>失败归因</b><span class="pill done">完成</span><span class="note">6 题超出 issue、3 题不完整、1 题排除失败测试</span></div>
+      <div class="step"><b>A1–A3 小改进</b><span class="pill part">并入 v0.2</span><span class="note">禁改测试、配置指纹进 M0；危险命令暂缓</span></div>
+      <div class="step"><b>产品化 MVP</b><span class="pill part">设计完成，未实现</span><span class="note">v0.2 CI 修复，见 v0.2-ci-fix-design.md</span></div>
     </div>
     <p class="prose">项目一开始定了要证明三件事，对照来看：</p>
     <div class="scroll"><table>
@@ -234,26 +234,25 @@ dd { margin: 0; }
 
   <section id="fail">
     <h2>10 道失败题</h2>
-    <p class="prose">下面的线索来自官方 harness 的报告和测试日志，这次新整理，没有调用模型。我还没有读 10 个 patch，也没有对照 issue，所以“日志显示”只说明测试怎么失败，不是根因结论。</p>
+    <p class="prose">逐题对照了 issue、官方修复、隐藏测试、agent 的 patch 和它跑过的测试，没有调用模型，也没有重新运行 patch。分类是我的判断。“超出 issue”不代表 agent 修对了，只说明这题的失败不能证明它修错了。</p>
     <div class="scroll"><table class="wide">
-      <tr><th>题目</th><th>模型</th><th>难度</th><th class="n">步数</th><th class="n">patch 行</th><th class="n">F2P 失败</th><th class="n">P2P 失败</th><th>日志显示</th></tr>
-      <tr><td class="id">astropy-13398</td><td>luna</td><td>1–4h</td><td class="n">57</td><td class="n">245</td><td class="n">4</td><td class="n">5</td><td>测试给 ITRS 传 <code>location</code> 参数被拒，另有数值误差和 5 个回归</td></tr>
-      <tr><td class="id">django-11087</td><td>luna</td><td>15m–1h</td><td class="n">27</td><td class="n">21</td><td class="n">1</td><td class="n">0</td><td>删除时生成的 SQL 查询字段与测试期望不同</td></tr>
-      <tr><td class="id">django-11433</td><td>luna</td><td>&lt;15m</td><td class="n">30</td><td class="n">39</td><td class="n">1</td><td class="n">1</td><td>多种空值下字段值与期望不符，还多了 1 个回归</td></tr>
-      <tr><td class="id">django-11734</td><td>luna</td><td>15m–1h</td><td class="n">41</td><td class="n">15</td><td class="n">1</td><td class="n">0</td><td><code>exclude</code> + <code>OuterRef</code> 子查询的结果断言失败</td></tr>
-      <tr><td class="id">django-12273</td><td>luna</td><td>15m–1h</td><td class="n">24</td><td class="n">18</td><td class="n">2</td><td class="n">0</td><td>继承模型 pk 设为 None 的两个测试报错（ERROR）</td></tr>
-      <tr><td class="id">django-12325</td><td>luna</td><td>1–4h</td><td class="n">19</td><td class="n">16</td><td class="n">2</td><td class="n">0</td><td>parent link 相关的两个检查测试报错（ERROR）</td></tr>
-      <tr><td class="id">matplotlib-25479</td><td>terra</td><td>&lt;15m</td><td class="n">18</td><td class="n">49</td><td class="n">2</td><td class="n">0</td><td>colormap 相等比较和名字不一致的两个断言失败</td></tr>
-      <tr><td class="id">xarray-6992</td><td>terra</td><td>&gt;4h</td><td class="n">12</td><td class="n">13</td><td class="n">12</td><td class="n">0</td><td><code>reset_index</code> 系列的坐标结果与期望不同</td></tr>
-      <tr><td class="id">pylint-4551</td><td>terra</td><td>1–4h</td><td class="n">17</td><td class="n">75</td><td class="n">10</td><td class="n">未加载</td><td>测试要 import <code>get_annotation</code>，patch 里没有这个函数，整个测试文件加载失败</td></tr>
-      <tr><td class="id">sympy-23950</td><td>terra</td><td>15m–1h</td><td class="n">12</td><td class="n">18</td><td class="n">1</td><td class="n">0</td><td><code>test_as_set</code> 抛异常</td></tr>
+      <tr><th>题目</th><th>模型</th><th>难度</th><th class="n">步数</th><th class="n">patch 行</th><th class="n">F2P 失败</th><th class="n">P2P 失败</th><th>归因</th></tr>
+      <tr><td class="id">astropy-13398</td><td>luna</td><td>1–4h</td><td class="n">57</td><td class="n">245</td><td class="n">4</td><td class="n">5</td><td><span class="pill todo">排除失败</span> 看到 5 个测试失败，用 <code>-k 'not bothroutes'</code> 排除后提交，这 5 个就是判定的回归</td></tr>
+      <tr><td class="id">django-11087</td><td>luna</td><td>15m–1h</td><td class="n">27</td><td class="n">21</td><td class="n">1</td><td class="n">0</td><td><span class="pill part">不完整</span> <code>only("pk")</code> 漏了被 <code>to_field</code> 引用的字段</td></tr>
+      <tr><td class="id">django-11433</td><td>luna</td><td>&lt;15m</td><td class="n">30</td><td class="n">39</td><td class="n">1</td><td class="n">1*</td><td><span class="pill done">超出 issue</span> 测试要求空值回退默认值，issue 没写。*这个回归很可能是误判，见下文</td></tr>
+      <tr><td class="id">django-11734</td><td>luna</td><td>15m–1h</td><td class="n">41</td><td class="n">15</td><td class="n">1</td><td class="n">0</td><td><span class="pill part">不完整</span> 只改了官方 3 处中的 1 处，不再报错，但结果不对</td></tr>
+      <tr><td class="id">django-12273</td><td>luna</td><td>15m–1h</td><td class="n">24</td><td class="n">18</td><td class="n">2</td><td class="n">0</td><td><span class="pill part">位置不对</span> 改在 <code>_save_parents</code> 且依赖 <code>_state.adding</code>，已存在的实例上条件不成立</td></tr>
+      <tr><td class="id">django-12325</td><td>luna</td><td>1–4h</td><td class="n">19</td><td class="n">16</td><td class="n">2</td><td class="n">0</td><td><span class="pill done">超出 issue</span> 修了字段顺序问题；测试还要求不写 parent_link 也合法</td></tr>
+      <tr><td class="id">matplotlib-25479</td><td>terra</td><td>&lt;15m</td><td class="n">18</td><td class="n">49</td><td class="n">2</td><td class="n">0</td><td><span class="pill done">超出 issue</span> 测试要求 <code>__eq__</code> 忽略名字、注册时改写名字，issue 没写</td></tr>
+      <tr><td class="id">xarray-6992</td><td>terra</td><td>&gt;4h</td><td class="n">12</td><td class="n">13</td><td class="n">12</td><td class="n">0</td><td><span class="pill done">超出 issue</span> 官方重写了 <code>reset_index</code> 语义并改了已有测试的期望</td></tr>
+      <tr><td class="id">pylint-4551</td><td>terra</td><td>1–4h</td><td class="n">17</td><td class="n">75</td><td class="n">10</td><td class="n">未加载</td><td><span class="pill done">超出 issue</span> 测试 import 内部函数 <code>get_annotation</code>，issue 没提，整个文件加载失败</td></tr>
+      <tr><td class="id">sympy-23950</td><td>terra</td><td>15m–1h</td><td class="n">12</td><td class="n">18</td><td class="n">1</td><td class="n">0</td><td><span class="pill done">超出 issue</span> 测试要求直接返回集合参数；agent 返回与实数的交集，含其他符号时仍抛错</td></tr>
     </table></div>
-    <p class="prose">目前能确定的几点：</p>
+    <p class="prose">分布：<b>6 题验收要求超出 issue，3 题修复不完整或位置不对，1 题看到失败却排除。</b>能得出的结论：</p>
     <ul class="prose">
-      <li>10 题的 patch 都能打上，agent 也都是正常提交。没有题因为步数或成本上限而中断。</li>
-      <li>10 题都记录了“提交前跑过验证”，隐藏测试却全部没过（F2P 通过数都是 0）。这很可能是最值得讲的一点：agent 自己的验证和真实要求之间有差距。要读过 patch 才能确认。</li>
-      <li>7 题没有回归，只是目标行为没做对。有回归的是 astropy-13398 和 django-11433；pylint-4551 的测试文件没加载起来，无法判断。</li>
-      <li>pylint-4551 可能不完全是 agent 的问题：测试依赖一个具体的函数名。要对照 issue 看这个名字有没有写明。</li>
+      <li><b>提交守卫太弱。</b>它只看“编辑后跑过 python 或 pytest”，所以 10 题都显示已验证。astropy-13398 排除了失败测试；matplotlib-25479 也排除过 <code>test_pyplot_up_to_date</code>，那个失败的原因没查。</li>
+      <li><b>真实回归只有 astropy 一题。</b>django-11433 的日志是 <code>FAILED (failures=4)</code>，4 个都属于 F2P 测试，agent 自己跑 <code>model_forms</code> 也全过，很可能是 harness 解析日志时归错了。没有重跑确认，也不影响解决率。</li>
+      <li><b>这些结论直接决定了 CI 修复的设计。</b>失败的测试就在日志里，“超出 issue”这类基本消失；是否变绿由 runner 在干净环境里重跑判定，agent 排除测试也没用。</li>
     </ul>
   </section>
 
@@ -278,7 +277,7 @@ dd { margin: 0; }
       <tr><td>SWE-bench 50 题有 baseline</td><td><span class="pill done">达成</span></td><td>混用两个模型，k=1</td></tr>
       <tr><td>≥3 组消融，每组 k=3（已改为只在 hard2 上做）</td><td><span class="pill done">达成</span></td><td>E8、E7 medium、E7 high、E7 high + E8，共 4 组</td></tr>
       <tr><td>每题有 trace 和可浏览页面</td><td><span class="pill part">只有 trace</span></td><td>代码里没有 trace 页面</td></tr>
-      <tr><td>评测报告（含失败归因分布）</td><td><span class="pill part">缺归因</span></td><td>数字在文档 §16，归因只有上面的初步线索</td></tr>
+      <tr><td>评测报告（含失败归因分布）</td><td><span class="pill done">达成</span></td><td>数字和归因都在文档 §16</td></tr>
       <tr><td>README 有复现步骤，简历数字真实</td><td><span class="pill part">差简历定稿</span></td><td>README 已更新；简历说法见下文，加上归因后再定稿</td></tr>
     </table></div>
     <p class="prose">消融标准是你 11 月 5 日改的：按 terra 平均 19.7 万输入 token 算，在 SWE-bench 上做每组配置约需 2950 万输入 token（50 题 × 3 次）。所以消融留在 hard2，SWE-bench 只报告最优配置。</p>
@@ -300,16 +299,16 @@ dd { margin: 0; }
     <h3>建议的顺序</h3>
     <div class="scroll"><table class="wide">
       <tr><th>顺序</th><th>任务</th><th>为什么</th><th>花费</th></tr>
-      <tr><td class="n">1</td><td>读 10 个 patch，做失败归因</td><td>完成标准里差的主要是它，面试也最可能追问</td><td>不调用 API</td></tr>
-      <tr><td class="n">2</td><td>选定 MVP 切口，写设计文档</td><td>归因结果能说明 agent 现在哪里靠得住，产品要避开哪里</td><td>不调用 API</td></tr>
-      <tr><td class="n">3</td><td>做 A1–A3，在 hard2 上验证</td><td>产品会碰别人的仓库，禁改测试和危险命令拦截都是前提</td><td>12 题 k=1，很少</td></tr>
-      <tr><td class="n">4</td><td>实现 MVP</td><td>从评测器变成别人能用的东西，工作量最大</td><td>取决于切口</td></tr>
+      <tr><td class="n">M0</td><td>本地 CLI：配置文件、三道闸门、验证报告</td><td>核心是“由 runner 判定”，不依赖 GitHub，能先验证</td><td>约 1 题</td></tr>
+      <tr><td class="n">M1</td><td>20 题 CI 修复评测和基线</td><td>接入前先知道它修得怎么样</td><td>约 400 万输入 token，开跑前确认</td></tr>
+      <tr><td class="n">M2</td><td>GitHub Action：评论触发、开修复 PR</td><td>让别人能装上用</td><td>约几题</td></tr>
+      <tr><td class="n">M3</td><td>在你自己的仓库上试用</td><td>真实合并率比跑分更有说服力</td><td>按实际</td></tr>
     </table></div>
     <h3>还需要你决定的事</h3>
-    <p class="prose"><b>MVP 先做哪个切口？</b>头脑风暴文档推荐 v0.2 CI 修复（CI 变绿就是天然验收标准），v0.1 PR 审查只读、风险低，可以作为更快的首发。</p>
+    <p class="prose"><b>M2、M3 用哪个 GitHub 仓库试？</b>需要一个可以放心试的仓库，还要重新登录 <code>gh</code>。M0、M1 不受影响。</p>
     <h3>已经定下的事（2026-11-05）</h3>
     <ul class="prose">
-      <li>nanocoder 做成产品。</li>
+      <li>nanocoder 做成产品，MVP 是 v0.2 CI 修复。</li>
       <li>消融只在 hard2 上做，SWE-bench 只报告最优配置。</li>
       <li>lighthouse 回放不跑。</li>
       <li>单一模型重跑 50 题也不做：自用项目，不必这么严谨。</li>
@@ -321,7 +320,7 @@ dd { margin: 0; }
     <div class="quote">
       <p>从零实现 Coding Agent（ReAct 循环、Docker 沙箱、可断点续跑的评测流水线），用官方 harness 在 SWE-bench Verified 按仓库分层抽样的 50 题子集上解决 40 题（80%，单次运行）。在自建的隐藏测试任务集上做消融，规格清单与推理叠加后解决率从 72% 提升到 97%（36 次运行）。用已合并的开源 PR 做回放：MobileWorld 的 issue 改写成只描述现象后，agent 仍给出与 PR 一致的修复。</p>
     </div>
-    <p class="prose">被问到时要主动说明：跑分中途换过模型；PR 不是 nanocoder 写的；回放只跑了几个案例；97% 是自建任务集的结果，题目由自己设计。失败归因做完后，这段可以再加一句失败原因分布。</p>
+    <p class="prose">被问到时要主动说明：跑分中途换过模型；PR 不是 nanocoder 写的；回放只跑了几个案例；97% 是自建任务集的结果，题目由自己设计。可以再加一句归因：10 道失败题里 6 题的验收要求超出 issue，还发现 agent 会排除失败的测试再提交，因此把提交判定从模型移到 runner。CI 修复还没实现，现在不要写进简历。</p>
   </section>
 
   <section id="terms">
