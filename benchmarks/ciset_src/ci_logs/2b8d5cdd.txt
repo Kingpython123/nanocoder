@@ -1,0 +1,39 @@
+===== build (3.10) =====
+... [447 lines omitted] ...
+
+1 file would be reformatted, 12 files already formatted
+make: *** [Makefile:11: check] Error 1
+##[error]Process completed with exit code 2.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/b802ee30-5737-4738-92ed-1e68ee7b9758' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/more-itertools/more-itertools
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+includeif.gitdir:/home/runner/work/more-itertools/more-itertools/.git.path
+includeif.gitdir:/home/runner/work/more-itertools/more-itertools/.git/worktrees/*.path
+includeif.gitdir:/github/workspace/.git.path
+includeif.gitdir:/github/workspace/.git/worktrees/*.path
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/more-itertools/more-itertools/.git.path
+/home/runner/work/_temp/git-credentials-f6c93d6d-02bd-41a5-9aa7-cba4feafa7f8.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/more-itertools/more-itertools/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-f6c93d6d\-02bd\-41a5\-9aa7\-cba4feafa7f8\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/more-itertools/more-itertools/.git/worktrees/*.path
+/home/runner/work/_temp/git-credentials-f6c93d6d-02bd-41a5-9aa7-cba4feafa7f8.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/more-itertools/more-itertools/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-f6c93d6d\-02bd\-41a5\-9aa7\-cba4feafa7f8\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+/github/runner_temp/git-credentials-f6c93d6d-02bd-41a5-9aa7-cba4feafa7f8.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-f6c93d6d\-02bd\-41a5\-9aa7\-cba4feafa7f8\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+/github/runner_temp/git-credentials-f6c93d6d-02bd-41a5-9aa7-cba4feafa7f8.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-f6c93d6d\-02bd\-41a5\-9aa7\-cba4feafa7f8\.config
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Removing credentials config '/home/runner/work/_temp/git-credentials-f6c93d6d-02bd-41a5-9aa7-cba4feafa7f8.config'
+Cleaning up orphan processes

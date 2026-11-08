@@ -1,0 +1,268 @@
+===== Windows (pypy-3.11, x64) =====
+ache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pylint-trio.lowlevel] PASSED [ 42%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pylint-trio.socket] FAILED [ 42%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pylint-trio.to_thread] PASSED [ 42%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pylint-trio.testing] PASSED [ 42%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[jedi-trio] SKIPPED [ 42%]
+... [14 lines omitted] ...
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.abc] PASSED [ 44%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.from_thread] PASSED [ 44%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.lowlevel] PASSED [ 44%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.socket] FAILED [ 44%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.to_thread] PASSED [ 44%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.testing] PASSED [ 44%]
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_class_members[jedi-trio] SKIPPED [ 44%]
+... [536 lines omitted] ...
+        if tool == "pylint":
+            try:
+                from pylint.lint import PyLinter
+            except ImportError as error:
+                maybe_ignore_import_error(error)
+    
+            linter = PyLinter()
+... [6 lines omitted] ...
+    
+            try:
+                import jedi
+            except ImportError as error:
+                maybe_ignore_import_error(error)
+    
+            # Simulate typing "import trio; trio.<TAB>"
+... [36 lines omitted] ...
+    
+            try:
+                import pyright  # noqa: F401
+            except ImportError as error:
+                maybe_ignore_import_error(error)
+            import subprocess
+    
+... [9 lines omitted] ...
+                if x["name"].startswith(modname)
+            }
+        else:  # pragma: no cover
+            raise AssertionError()
+    
+        # It's expected that the static set will contain more names than the
+        # runtime set:
+... [15 lines omitted] ...
+            print()
+            for name in sorted(missing_names):
+                print(f"    {name}")
+>           raise AssertionError()
+E           AssertionError
+
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py:255: AssertionError
+---------------------------- Captured stdout call -----------------------------
+pylint can't see the following names in trio.socket:
+
+... [41 lines omitted] ...
+        if tool == "pylint":
+            try:
+                from pylint.lint import PyLinter
+            except ImportError as error:
+                maybe_ignore_import_error(error)
+    
+            linter = PyLinter()
+... [6 lines omitted] ...
+    
+            try:
+                import jedi
+            except ImportError as error:
+                maybe_ignore_import_error(error)
+    
+            # Simulate typing "import trio; trio.<TAB>"
+... [36 lines omitted] ...
+    
+            try:
+                import pyright  # noqa: F401
+            except ImportError as error:
+                maybe_ignore_import_error(error)
+            import subprocess
+    
+... [9 lines omitted] ...
+                if x["name"].startswith(modname)
+            }
+        else:  # pragma: no cover
+            raise AssertionError()
+    
+        # It's expected that the static set will contain more names than the
+        # runtime set:
+... [15 lines omitted] ...
+            print()
+            for name in sorted(missing_names):
+                print(f"    {name}")
+>           raise AssertionError()
+E           AssertionError
+
+C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py:255: AssertionError
+---------------------------- Captured stdout call -----------------------------
+pyright_verifytypes can't see the following names in trio.socket:
+
+... [55 lines omitted] ...
+SKIPPED [1] C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\tools\test_gen_exports.py:164: gen_exports is internal, black/isort only runs on CPython
+XFAIL C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_core\_tests\test_ki.py::test_ki_does_not_leak_across_different_calls_to_inner_functions - it was decided not to protect against this case, see discussion in: https://github.com/python-trio/trio/pull/3110#discussion_r1802123644
+XFAIL C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_timeouts.py::test_fail_access_before_entering - not implemented
+FAILED C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pylint-trio.socket] - AssertionError
+FAILED C:\hostedtoolcache\windows\PyPy\3.11.16\x64\Lib\site-packages\trio\_tests\test_exports.py::test_static_tool_sees_all_symbols[pyright_verifytypes-trio.socket] - AssertionError
+====== 2 failed, 822 passed, 72 skipped, 2 xfailed in 193.25s (0:03:13) =======
++ PASSED=false
++ echo ::endgroup::
++ echo ::group::Coverage
+... [417 lines omitted] ...
+==> Verifying GPG signature integrity
+ -> Downloading https://cli.codecov.io/latest/windows/codecov.exe.SHA256SUM
+ -> Downloading https://cli.codecov.io/latest/windows/codecov.exe.SHA256SUM.sig
+ 
+gpg: Signature made Thu Jul  9 01:38:07 2026 CUT
+gpg:                using RSA key 27034E7FDB850E0BBC2C62FF806BB28AED779869
+gpg: Good signature from "Codecov Uploader (Codecov Uploader Verification Key) <security@codecov.io>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 2703 4E7F DB85 0E0B BC2C  62FF 806B B28A ED77 9869
+codecov.exe: OK
+==> CLI integrity verified
+
+ -> Token length: 0
+==> Running upload-coverage
+      ./codecov.exe  upload-coverage --fail-on-error --git-service github --pr 3525 --sha fa3d58bfe5dc1653e18865e3f94f4f11008f3f0a --branch A5rocks:fix-311-ci --flag Windows --flag pypy-3.11 --gcov-executable gcov --name Windows (pypy-3.11, x64)
+info - 2026-10-01 00:09:20,450 -- ci service found: github-actions
+warning - 2026-10-01 00:09:20,586 -- xcrun is not installed or can't be found.
+warning - 2026-10-01 00:09:20,593 -- No gcov data found.
+info - 2026-10-01 00:09:20,595 -- Generating coverage.xml report in D:\a\trio\trio
+
+info - 2026-10-01 00:09:24,881 -- Found 2 coverage files to report
+info - 2026-10-01 00:09:24,881 -- > D:\a\trio\trio\coverage.xml
+info - 2026-10-01 00:09:24,881 -- > D:\a\trio\trio\codecov.exe.SHA256SUM.sig
+info - 2026-10-01 00:09:25,504 -- Your upload is now queued for processing. When finished, results will be available at: https://app.codecov.io/github/python-trio/trio/commit/fa3d58bfe5dc1653e18865e3f94f4f11008f3f0a
+info - 2026-10-01 00:09:25,506 -- Sending upload (76766 bytes) to storage
+info - 2026-10-01 00:09:25,631 -- Upload queued for processing complete
+##[end-action id=__codecov_codecov-action.__run_8;outcome=success;conclusion=success;duration_ms=12785]
+Cleaning up orphan processes
+Terminate orphan process: pid (7532) (vctip)
+
+===== check =====
+﻿2026-10-01T00:09:31.1355964Z Current runner version: '2.337.0'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20260828.587
+Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+Build Date: 2026-08-28T16:44:25Z
+Worker ID: {0ed034d0-c4b0-4fbf-8314-22b2fa8ee068}
+Azure Region: eastus
+##[endgroup]
+##[group]Operating System
+Ubuntu
+24.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20260920.314.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Metadata: read
+##[endgroup]
+Secret source: None
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 're-actors/alls-green@release/v1' (SHA:b5b5b37504aa4183270bd3d855c52a67f212be35)
+Complete job name: check
+##[group]Run re-actors/alls-green@release/v1
+with:
+  jobs: {
+  "smoke-tests": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Windows": {
+    "result": "failure",
+    "outputs": {}
+  },
+  "Ubuntu": {
+    "result": "success",
+    "outputs": {}
+  },
+  "macOS": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Alpine": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Cython": {
+    "result": "success",
+    "outputs": {}
+  },
+  "zizmor": {
+    "result": "success",
+    "outputs": {}
+  }
+}
+  allowed-failures: []
+  allowed-skips: []
+env:
+  dists-artifact-name: python-package-distributions
+  dist-name: trio
+##[endgroup]
+##[start-action display=Decide whether the input jobs succeeded or failed;id=__re-actors_alls-green.outcome]
+##[group]Run python -m normalize_needed_jobs_status \
+python -m normalize_needed_jobs_status \
+  "$INPUT_ALLOWED_FAILURES" \
+  "$INPUT_ALLOWED_SKIPS" \
+  "$INPUT_JOBS"
+shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+env:
+  dists-artifact-name: python-package-distributions
+  dist-name: trio
+  INPUT_ALLOWED_FAILURES: []
+  INPUT_ALLOWED_SKIPS: []
+  INPUT_JOBS: {
+  "smoke-tests": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Windows": {
+    "result": "failure",
+    "outputs": {}
+  },
+  "Ubuntu": {
+    "result": "success",
+    "outputs": {}
+  },
+  "macOS": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Alpine": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Cython": {
+    "result": "success",
+    "outputs": {}
+  },
+  "zizmor": {
+    "result": "success",
+    "outputs": {}
+  }
+}
+  PYTHONPATH: /home/runner/work/_actions/re-actors/alls-green/release/v1/src
+##[endgroup]
+# ❌ Some of the required to succeed jobs failed 😢😢😢
+
+🔮 Job statuses:
+✓ smoke-tests → 🟢 success [required to succeed]
+❌ Windows → 🔴 failure [required to succeed]
+✓ Ubuntu → 🟢 success [required to succeed]
+✓ macOS → 🟢 success [required to succeed]
+✓ Alpine → 🟢 success [required to succeed]
+✓ Cython → 🟢 success [required to succeed]
+✓ zizmor → 🟢 success [required to succeed]
+##[error]Process completed with exit code 1.
+##[end-action id=__re-actors_alls-green.outcome;outcome=failure;conclusion=failure;duration_ms=105]
+Cleaning up orphan processes

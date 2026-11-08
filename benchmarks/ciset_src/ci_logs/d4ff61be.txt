@@ -1,0 +1,135 @@
+===== Python 3.11 windows-latest =====
+... [371 lines omitted] ...
+                                 pragma: full coverage
+                                 if TYPE_CHECKING:
+                                 if typing.TYPE_CHECKING:
+                                 raise NotImplementedError
+                                 py-win32
+                                 py-not-linux
+                      extra_css: None
+... [132 lines omitted] ...
+            # cure it, but maybe using DisconnectEx() would be better.
+            if hasattr(self._sock, 'shutdown') and self._sock.fileno() != -1:
+>               self._sock.shutdown(socket.SHUT_RDWR)
+E               ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\asyncio\proactor_events.py:165: ConnectionResetError
+---------------------------- Captured stdout call -----------------------------
+INFO:     127.0.0.1:52931 - "GET / HTTP/1.1" 204 No Content
+---------------------------- Captured stderr call -----------------------------
+... [7 lines omitted] ...
+INFO:     Shutting down
+INFO:     Finished server process [1904]
+------------------------------ Captured log call ------------------------------
+INFO     uvicorn.error:server.py:103 Started server process [1904]
+INFO     uvicorn.error:on.py:48 Waiting for application startup.
+INFO     uvicorn.error:on.py:94 ASGI 'lifespan' protocol appears unsupported.
+INFO     uvicorn.error:on.py:62 Application startup complete.
+INFO     uvicorn.error:server.py:234 Uvicorn running on https://127.0.0.1:52928 (Press CTRL+C to quit)
+INFO     uvicorn.error:server.py:276 Maximum request limit of 1 exceeded. Terminating process.
+INFO     uvicorn.error:server.py:282 Shutting down
+INFO     uvicorn.error:server.py:282 Shutting down
+INFO     uvicorn.error:server.py:113 Finished server process [1904]
+=========================== short test summary info ===========================
+SKIPPED [2] tests\protocols\test_http.py:458: httptools never upgrades with the keep-alive timer armed
+SKIPPED [1] tests\middleware\test_logging.py:159: require unix-like system
+... [7 lines omitted] ...
+SKIPPED [1] tests\supervisors\test_reload.py:107: Flaky on Windows and MacOS
+SKIPPED [2] tests\test_cli.py:113: require unix-like system
+SKIPPED [2] tests\test_config.py:535: require unix-like system
+SKIPPED [2] tests\test_config.py:556: require unix-like system
+SKIPPED [2] tests\test_config.py:591: require unix-like system
+SKIPPED [1] tests\supervisors\test_multiprocess.py:153: platform unsupports SIGHUP
+SKIPPED [1] tests\supervisors\test_multiprocess.py:172: test spawns real worker processes
+SKIPPED [1] tests\supervisors\test_multiprocess.py:208: platform unsupports SIGTTIN
+SKIPPED [1] tests\supervisors\test_multiprocess.py:223: platform unsupports SIGTTOU
+SKIPPED [1] tests\supervisors\test_reload.py:149: Flaky on Windows and MacOS
+SKIPPED [1] tests\supervisors\test_reload.py:165: Flaky on Windows and MacOS
+SKIPPED [1] tests\supervisors\test_reload.py:200: Flaky on Windows and MacOS
+================= 1 failed, 1326 passed, 32 skipped in 37.30s =================
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.55.0.windows.5
+Temporarily overriding HOME='D:\a\_temp\16e0ed0b-6d72-4e54-813b-0b4db8d1424a' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\uvicorn\uvicorn
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes
+
+===== check =====
+﻿2026-09-21T12:11:23.3931330Z Current runner version: '2.337.0'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20260828.587
+Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+Build Date: 2026-08-28T16:44:25Z
+Worker ID: {15a8102b-3959-4d6c-9c0b-32bbd3bbbe28}
+Azure Region: westus
+##[endgroup]
+##[group]Operating System
+Ubuntu
+24.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20260907.300.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Contents: read
+Metadata: read
+##[endgroup]
+Secret source: Actions
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 're-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35' (SHA:b5b5b37504aa4183270bd3d855c52a67f212be35)
+Complete job name: check
+##[group]Run re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35
+with:
+  jobs: {
+  "tests": {
+    "result": "failure",
+    "outputs": {}
+  }
+}
+  allowed-failures: []
+  allowed-skips: []
+##[endgroup]
+##[start-action display=Decide whether the input jobs succeeded or failed;id=__re-actors_alls-green.outcome]
+##[group]Run python -m normalize_needed_jobs_status \
+python -m normalize_needed_jobs_status \
+  "$INPUT_ALLOWED_FAILURES" \
+  "$INPUT_ALLOWED_SKIPS" \
+  "$INPUT_JOBS"
+shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+env:
+  INPUT_ALLOWED_FAILURES: []
+  INPUT_ALLOWED_SKIPS: []
+  INPUT_JOBS: {
+  "tests": {
+    "result": "failure",
+    "outputs": {}
+  }
+}
+  PYTHONPATH: /home/runner/work/_actions/re-actors/alls-green/b5b5b37504aa4183270bd3d855c52a67f212be35/src
+##[endgroup]
+# ❌ Some of the required to succeed jobs failed 😢😢😢
+
+🔮 Job statuses:
+❌ tests → 🔴 failure [required to succeed]
+##[error]Process completed with exit code 1.
+##[end-action id=__re-actors_alls-green.outcome;outcome=failure;conclusion=failure;duration_ms=74]
+Cleaning up orphan processes

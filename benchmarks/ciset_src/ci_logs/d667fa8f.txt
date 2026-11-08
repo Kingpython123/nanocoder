@@ -1,0 +1,87 @@
+===== check =====
+﻿2026-09-20T10:25:08.5259939Z Current runner version: '2.337.0'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20260828.587
+Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+Build Date: 2026-08-28T16:44:25Z
+Worker ID: {5451ea2c-d40d-4c87-8c82-9d42940306e7}
+Azure Region: centralus
+##[endgroup]
+##[group]Operating System
+Ubuntu
+24.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20260907.300.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Metadata: read
+##[endgroup]
+Secret source: None
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 're-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35' (SHA:b5b5b37504aa4183270bd3d855c52a67f212be35)
+Complete job name: check
+##[group]Run re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35
+with:
+  jobs: {
+  "lint": {
+    "result": "success",
+    "outputs": {}
+  },
+  "test": {
+    "result": "success",
+    "outputs": {}
+  },
+  "coverage": {
+    "result": "failure",
+    "outputs": {}
+  }
+}
+  allowed-failures: []
+  allowed-skips: []
+##[endgroup]
+##[start-action display=Decide whether the input jobs succeeded or failed;id=all-green.outcome]
+##[group]Run python -m normalize_needed_jobs_status \
+python -m normalize_needed_jobs_status \
+  "$INPUT_ALLOWED_FAILURES" \
+  "$INPUT_ALLOWED_SKIPS" \
+  "$INPUT_JOBS"
+shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+env:
+  INPUT_ALLOWED_FAILURES: []
+  INPUT_ALLOWED_SKIPS: []
+  INPUT_JOBS: {
+  "lint": {
+    "result": "success",
+    "outputs": {}
+  },
+  "test": {
+    "result": "success",
+    "outputs": {}
+  },
+  "coverage": {
+    "result": "failure",
+    "outputs": {}
+  }
+}
+  PYTHONPATH: /home/runner/work/_actions/re-actors/alls-green/b5b5b37504aa4183270bd3d855c52a67f212be35/src
+##[endgroup]
+# ❌ Some of the required to succeed jobs failed 😢😢😢
+
+🔮 Job statuses:
+✓ lint → 🟢 success [required to succeed]
+✓ test → 🟢 success [required to succeed]
+❌ coverage → 🔴 failure [required to succeed]
+##[error]Process completed with exit code 1.
+##[end-action id=all-green.outcome;outcome=failure;conclusion=failure;duration_ms=62]
+Evaluate and set job outputs
+Set output 'result'
+Cleaning up orphan processes

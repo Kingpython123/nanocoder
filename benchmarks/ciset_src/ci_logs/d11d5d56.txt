@@ -1,0 +1,260 @@
+===== lint =====
+... [551 lines omitted] ...
+- exit code: 2
+
+uv run mypy pydantic_settings
+pydantic_settings/sources/utils.py:92: error: Name "candidate" is not defined  [name-defined]
+pydantic_settings/sources/utils.py:93: error: Name "candidate" is not defined  [name-defined]
+Found 2 errors in 1 file (checked 22 source files)
+make: *** [Makefile:25: mypy] Error 1
+
+##[error]Process completed with exit code 1.
+##[end-action id=__pre-commit_action.__run_3;outcome=failure;conclusion=failure;duration_ms=5311]
+Post job cleanup.
+##[start-action display=Run actions/cache@v4;id=__9871d3f2-c5d4-446f-a368-7c915da265b2.__actions_cache]
+##[end-action id=__9871d3f2-c5d4-446f-a368-7c915da265b2.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/48efd61a-b420-49e7-8e28-8308f23d7197' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/pydantic-settings/pydantic-settings
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== test py3.10 on ubuntu-latest =====
+... [349 lines omitted] ...
+tests/test_settings.py F                                                 [ 26%]
+tests/test_settings.py:1748 test_env_file_depth_init_kwarg_overrides_config
+tests/test_settings.py F                                                 [ 26%]
+tests/test_settings.py:1763 test_multiple_env_file_depth - NameError…
+tests/test_settings.py F                                                 [ 26%]
+tests/test_settings.py:1783 test_env_file_depth_nearest_wins
+tests/test_settings.py F                                                 [ 26%]
+... [68 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_____________________ test_env_file_depth_from_init_kwarg ______________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_from_init_0')
+... [42 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_______________ test_env_file_depth_init_kwarg_overrides_config ________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_init_kwarg0')
+... [42 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_________________________ test_multiple_env_file_depth _________________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_multiple_env_file_depth0')
+... [45 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_______________________ test_env_file_depth_nearest_wins _______________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_nearest_wi0')
+... [45 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+___________________ test_env_file_depth_nested_relative_path ___________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_nested_rel0')
+... [43 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_______________________ test_read_dotenv_vars_with_depth _______________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_read_dotenv_vars_with_dep0')
+... [33 lines omitted] ...
+    
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+============================= slowest 10 durations =============================
+0.34s call     tests/test_source_aws_secrets_manager.py::TestAWSSecretsManagerSettingsSource::test_repr
+0.21s call     tests/test_source_aws_secrets_manager.py::TestAWSSecretsManagerSettingsSource::test_aws_secrets_manager_settings_source
+... [10 lines omitted] ...
+┃                ┃               ┃  Function      ┃              ┃             ┃
+┃  File          ┃  Function     ┃  Line          ┃  Error Line  ┃  Error      ┃
+┡━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│  tests/test_…  │  test_env_f…  │  1721          │  1732        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1735          │  1746        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1749          │  1760        │  NameError  │
+│  tests/test_…  │  test_multi…  │  1764          │  1778        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1784          │  1798        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1801          │  1813        │  NameError  │
+│  tests/test_…  │  test_read_…  │  1906          │  1912        │  NameError  │
+└────────────────┴───────────────┴────────────────┴──────────────┴─────────────┘
+Results (11.71s):
+         7 failed
+       700 passed
+         6 skipped
+make: *** [Makefile:29: test] Error 1
+##[error]Process completed with exit code 2.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/56db4aeb-cb2e-423b-8a8f-1a0749bf2551' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/pydantic-settings/pydantic-settings
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+
+===== test py3.11 on ubuntu-latest =====
+... [348 lines omitted] ...
+tests/test_settings.py F                                                 [ 26%]
+tests/test_settings.py:1748 test_env_file_depth_init_kwarg_overrides_config
+tests/test_settings.py F                                                 [ 26%]
+tests/test_settings.py:1763 test_multiple_env_file_depth - NameError…
+tests/test_settings.py F                                                 [ 26%]
+tests/test_settings.py:1783 test_env_file_depth_nearest_wins
+tests/test_settings.py F                                                 [ 26%]
+... [73 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_____________________ test_env_file_depth_from_init_kwarg ______________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_from_init_0')
+... [47 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_______________ test_env_file_depth_init_kwarg_overrides_config ________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_init_kwarg0')
+... [47 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_________________________ test_multiple_env_file_depth _________________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_multiple_env_file_depth0')
+... [50 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_______________________ test_env_file_depth_nearest_wins _______________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_nearest_wi0')
+... [50 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+___________________ test_env_file_depth_nested_relative_path ___________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_env_file_depth_nested_rel0')
+... [48 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+_______________________ test_read_dotenv_vars_with_depth _______________________
+
+cd_tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_read_dotenv_vars_with_dep0')
+... [38 lines omitted] ...
+        for parent in islice(Path.cwd().parents, depth):
+>           if candidate.is_file() or (allow_fifo and candidate.is_fifo()):
+               ^^^^^^^^^
+E           NameError: name 'candidate' is not defined
+
+/home/runner/work/pydantic-settings/pydantic-settings/pydantic_settings/sources/utils.py:92: NameError
+============================= slowest 10 durations =============================
+0.36s call     tests/test_source_aws_secrets_manager.py::TestAWSSecretsManagerSettingsSource::test_repr
+0.21s call     tests/test_source_aws_secrets_manager.py::TestAWSSecretsManagerSettingsSource::test___call__
+... [10 lines omitted] ...
+┃                ┃               ┃  Function      ┃              ┃             ┃
+┃  File          ┃  Function     ┃  Line          ┃  Error Line  ┃  Error      ┃
+┡━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│  tests/test_…  │  test_env_f…  │  1721          │  1732        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1735          │  1746        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1749          │  1760        │  NameError  │
+│  tests/test_…  │  test_multi…  │  1764          │  1778        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1784          │  1798        │  NameError  │
+│  tests/test_…  │  test_env_f…  │  1801          │  1813        │  NameError  │
+│  tests/test_…  │  test_read_…  │  1906          │  1912        │  NameError  │
+└────────────────┴───────────────┴────────────────┴──────────────┴─────────────┘
+Results (12.08s):
+         7 failed
+       700 passed
+         6 skipped
+make: *** [Makefile:29: test] Error 1
+##[error]Process completed with exit code 2.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/3b7422c1-40c1-41db-bef8-0c17e5352e45' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/pydantic-settings/pydantic-settings
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

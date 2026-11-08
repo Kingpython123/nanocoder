@@ -1,0 +1,50 @@
+===== test (3.11, ubuntu-latest) =====
+... [1384 lines omitted] ...
+tests/test_format.py::test_simple_format[overlong_commented_rhs] 
+[gw1] [ 70%] PASSED tests/test_format.py::test_simple_format[fmtskip_opening_bracket_conditional] 
+tests/test_format.py::test_simple_format[fmtskip_after_multiline_import] 
+[gw1] [ 70%] FAILED tests/test_format.py::test_simple_format[fmtskip_after_multiline_import] 
+tests/test_format.py::test_simple_format[remove_parens] 
+[gw3] [ 70%] PASSED tests/test_format.py::test_simple_format[overlong_commented_rhs] 
+tests/test_format.py::test_simple_format[fmtonoff9] 
+... [433 lines omitted] ...
+    
+>       assert actual == expected
+               ^^^^^^^^^^^^^^^^^^
+E       AssertionError
+
+tests/util.py:86: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Tree Diff:
+--- expected tree
+... [76 lines omitted] ...
+tests/test_schedule_formatting.py               42      0      4      0   100%
+tests/test_schema.py                             7      0      0      0   100%
+tests/test_tokenize.py                          31      5      2      1    82%
+tests/test_trans.py                             41      0      2      0   100%
+tests/util.py                                  176     15     36      0    93%
+------------------------------------------------------------------------------
+TOTAL                                        10854    853   3970    272    91%
+=========================== short test summary info ============================
+FAILED tests/test_format.py::test_simple_format[fmtskip_after_multiline_import] - AssertionError
+======== 1 failed, 649 passed, 2 skipped, 31 subtests passed in 57.78s =========
+ci-py311: exit 1 (58.19 seconds) /home/runner/work/black/black> pytest tests --run-optional no_jupyter --numprocesses auto --cov -v --color=yes pid=2830
+  ci-py311: FAIL code 1 (64.15=setup[2.26]+cmd[3.60,0.10,58.19] seconds)
+  evaluation failed :( (64.17 seconds)
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.56.0
+Temporarily overriding HOME='/home/runner/work/_temp/5edfce78-dd17-4d39-bfa1-c38202c7c6c8' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/black/black
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

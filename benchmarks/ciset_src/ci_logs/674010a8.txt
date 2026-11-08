@@ -1,0 +1,32 @@
+===== 🔍 tox env type-min on ubuntu =====
+... [1212 lines omitted] ...
+  FORCE_COLOR: 1
+  UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+  UV_PYTHON: 3.15
+##[endgroup]
+type-min: skip building and installing the package
+type-min: freeze> python -m pip freeze --all
+type-min: anyio==4.15.1,argcomplete==3.7.2,argon2-cffi==25.1.0,argon2-cffi-bindings==26.1.0,attrs==26.1.0,build==1.6.1,cachetools==7.2.7,certifi==2026.10.23,cffi==2.1.1,chardet==7.7.0,charset-normalizer==3.5.2,check-manifest==0.51,colorama==0.4.6,covdefaults==2.3.0,coverage==7.17.0,defusedxml==0.7.1,detect-test-pollution==1.2.0,devpi-client==7.3.0,devpi-common==4.1.2,devpi-process==1.3.2,devpi-server==6.21.0,diff_cover==11.0.0,distlib==0.4.4,docutils==0.23,execnet==2.1.2,filelock==4.2.4,flaky==3.8.1,h11==0.16.0,hatch-fancy-pypi-readme==25.1.0,hatch-vcs==0.5.0,hatchling==1.33.0,httpcore==1.0.9,httpx==0.28.1,hupper==1.12.1,idna==3.20,iniconfig==2.3.1,itsdangerous==2.2.0,Jinja2==3.1.6,lazy==2.0,MarkupSafe==3.0.4,packaging==26.3,packaging-legacy==23.0.post0,passlib==1.7.4,PasteDeploy==3.1.0,pathspec==1.1.1,pdm-backend==2.5.0,pip==26.2.2,pkginfo==2.0,plaster==1.1.2,plaster-pastedeploy==1.0.1,platformdirs==4.14.0,pluggy==1.7.0,psutil==7.2.2,py==1.11.0,pycparser==3.12,Pygments==2.21.0,pyproject-api==1.12.2,pyproject_hooks==1.3.3,pyramid==2.1,pytest==9.2.0,pytest-cov==7.1.0,pytest-mock==3.17.0,pytest-timeout==2.4.0,pytest-xdist==3.8.0,python-dateutil==3.0.0,python-discovery==1.6.7,re-assert==1.1.0,regex==2026.9.29,repoze-lru==0.8,requests==2.34.2,ruamel.yaml==0.19.1,setuptools==81.0.0,setuptools-scm==10.3.4,six==1.17.0,strictyaml==1.7.3,time-machine==3.6.0,tombi==1.9.8,tomli_w==1.2.0,tomlkit==0.15.2,tox @ file:///home/runner/work/tox/tox/.tox/.tmp/package/1/tox-4.67.5.dev45%2Bge01e82aef-py3-none-any.whl#sha256=5c968c415ef51cae10b6713e41ca24e59f78510771fb509efcca4a67211b8530,translationstring==1.4,trove-classifiers==2026.9.21.13,ty==0.0.95,types-colorama==0.4.15.20260508,typing_extensions==4.16.0,tzdata==2026.6,urllib3==2.8.0,vcs-versioning==2.6.0,venusian==3.1.1,virtualenv==21.15.1,waitress==3.0.2,WebOb==1.8.11,wheel==0.48.0,zope.deprecation==6.0,zope.interface==8.7
+type-min: commands[0]> ty check --python-version 3.11 --python-platform all --output-format concise --error-on-warning src tests
+src/tox/tox_env/python/virtual_env/package/cmd_builder.py:139:35: error[unresolved-attribute] Object of type `PackageMetadata` has no attribute `get`
+Found 1 diagnostic
+type-min: exit 1 (0.43 seconds) /home/runner/work/tox/tox> ty check --python-version 3.11 --python-platform all --output-format concise --error-on-warning src tests pid=3030
+  type-min: FAIL code 1 (0.82=setup[0.39]+cmd[0.43] seconds)
+  evaluation failed :( (0.87 seconds)
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.56.0
+Temporarily overriding HOME='/home/runner/work/_temp/1a140fcd-d852-4e92-bd7c-413d4986146f' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/tox/tox
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

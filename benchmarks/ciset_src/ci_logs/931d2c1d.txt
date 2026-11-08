@@ -1,0 +1,32 @@
+===== nox -s lint =====
+... [271 lines omitted] ...
+rst ``inline code`` next to normal text..................................Passed
+mypy.....................................................................Failed
+- hook id: mypy
+- exit code: 1
+
+  src/packaging/markers.py:230: error: Incompatible return value type (got "Sequence[MarkerAtom]", expected "str")  [return-value]
+  Found 1 error in 1 file (checked 73 source files)
+typos....................................................................Passed
+zizmor...................................................................Passed
+Lint GitHub Actions workflow files.......................................Passed
+Check frozen pre-commit revs match tags..................................Passed
+nox > Command prek run --all-files --show-diff-on-failure failed with exit code 1
+nox > Session lint failed.
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.54.0
+Temporarily overriding HOME='/home/runner/work/_temp/a731bed8-e149-49ce-a983-7572029817a7' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/packaging/packaging
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

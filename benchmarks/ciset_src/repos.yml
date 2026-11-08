@@ -1,0 +1,55 @@
+# CI 修复评测集的候选仓库：纯 Python、测试快、PR 多。setup 和 test 由人写，能不能用由 build_ciset.py validate 验证。
+- {repo: pallets/click, setup: "pip install -e . pytest", test: "python -m pytest -q tests"}
+- {repo: pallets/flask, setup: "pip install -e . pytest asgiref python-dotenv", test: "python -m pytest -q tests"}
+- {repo: pallets/jinja, setup: "pip install -e . pytest trio", test: "python -m pytest -q tests"}
+- {repo: pallets/itsdangerous, setup: "pip install -e . pytest freezegun", test: "python -m pytest -q tests"}
+- {repo: python-attrs/attrs, setup: "pip install -e . pytest hypothesis cloudpickle pympler", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: pytest-dev/pluggy, setup: "pip install -e . pytest", test: "python -m pytest -q testing"}
+- {repo: pypa/packaging, setup: "pip install -e . pytest pretend", test: "python -m pytest -q tests"}
+- {repo: more-itertools/more-itertools, setup: "pip install -e . pytest", test: "python -m pytest -q tests"}
+- {repo: marshmallow-code/marshmallow, setup: "pip install -e . pytest simplejson", test: "python -m pytest -q tests"}
+- {repo: fastapi/typer, setup: "pip install -e . pytest coverage shellingham", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: fastapi/sqlmodel, setup: "pip install -e . pytest httpx fastapi dirty-equals", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: Textualize/rich, setup: "pip install -e . pytest attrs", test: "python -m pytest -q tests"}
+- {repo: Delgan/loguru, setup: "pip install -e . pytest freezegun colorama", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: hynek/structlog, setup: "pip install -e . pytest pretend simplejson freezegun time-machine greenlet", test: "python -m pytest -q tests"}
+- {repo: jd/tenacity, setup: "pip install -e . pytest tornado typeguard", test: "python -m pytest -q tests"}
+- {repo: tqdm/tqdm, setup: "pip install -e . pytest pytest-timeout", test: "python -m pytest -q tests"}
+- {repo: python-poetry/tomlkit, setup: "pip install -e . pytest pyyaml", test: "python -m pytest -q tests"}
+- {repo: mahmoud/boltons, setup: "pip install -e . pytest", test: "python -m pytest -q tests"}
+- {repo: agronholm/typeguard, setup: "pip install -e . pytest mypy", test: "python -m pytest -q tests"}
+- {repo: pygments/pygments, setup: "pip install -e . pytest", test: "python -m pytest -q tests"}
+- {repo: PyCQA/isort, setup: "pip install -e . pytest hypothesis natsort", test: "python -m pytest -q tests/unit"}
+- {repo: PyCQA/flake8, setup: "pip install -e . pytest", test: "python -m pytest -q tests"}
+- {repo: python-jsonschema/jsonschema, setup: "pip install -e . pytest", test: "python -m pytest -q jsonschema/tests"}
+- {repo: joke2k/faker, setup: "pip install -e . pytest freezegun validators", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: dateutil/dateutil, setup: "pip install -e . pytest freezegun hypothesis", test: "python -m pytest -q tests"}
+- {repo: encode/starlette, setup: "pip install -e . pytest httpx trio anyio python-multipart itsdangerous jinja2 pyyaml", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: pydantic/pydantic-settings, setup: "pip install -e . pytest pytest-mock pyyaml", test: "python -m pytest -q tests"}
+- {repo: tiangolo/asyncer, setup: "pip install -e . pytest anyio", test: "python -m pytest -q tests"}
+- {repo: Kludex/python-multipart, setup: "pip install -e . pytest pyyaml", test: "python -m pytest -q tests"}
+- {repo: pallets/markupsafe, setup: "pip install -e . pytest", test: "python -m pytest -q tests"}
+- {repo: pallets/werkzeug, setup: "pip install -e . pytest pytest-timeout ephemeral-port-reserve watchdog cryptography", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: pytest-dev/pytest, setup: "pip install -e . xmlschema hypothesis attrs pexpect pygments", test: "python -m pytest -q testing -x --maxfail=50 -n0 -p no:cacheprovider testing/test_config.py testing/test_mark.py testing/test_assertion.py"}
+- {repo: pylint-dev/astroid, setup: "pip install -e . pytest", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: psf/black, setup: "pip install -e .[d,jupyter] pytest", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: tox-dev/tox, setup: "pip install -e . pytest", test: "python -m pytest -q tests/config -x --maxfail=50"}
+- {repo: encode/httpx, setup: "pip install -e .[brotli,cli,http2,socks,zstd] pytest trustme uvicorn trio chardet", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: urllib3/urllib3, setup: "pip install -e . pytest", test: "python -m pytest -q test --ignore=test/with_dummyserver --ignore=test/contrib -x --maxfail=50"}
+- {repo: Textualize/textual, setup: "pip install -e . pytest pytest-asyncio", test: "python -m pytest -q tests --ignore=tests/snapshot_tests -x --maxfail=50"}
+- {repo: scrapy/scrapy, setup: "pip install -e . pytest testfixtures pexpect", test: "python -m pytest -q tests/test_http_request.py tests/test_utils_misc -x --maxfail=50"}
+- {repo: networkx/networkx, setup: "pip install -e . pytest numpy scipy", test: "python -m pytest -q networkx -x --maxfail=50"}
+- {repo: mkdocs/mkdocs, setup: "pip install -e . pytest", test: "python -m unittest discover -s mkdocs/tests -p '*tests.py'"}
+- {repo: jazzband/pip-tools, setup: "pip install -e . pytest pytest-rerunfailures pytest-xdist", test: "python -m pytest -q tests/test_utils.py tests/test_writer.py"}
+- {repo: PyCQA/bandit, setup: "pip install -e . pytest", test: "python -m pytest -q tests/unit -x --maxfail=50"}
+- {repo: python-trio/trio, setup: "pip install -e . pytest astor trustme", test: "python -m pytest -q src/trio/_tests -x --maxfail=50"}
+- {repo: agronholm/anyio, setup: "pip install -e . pytest trio trustme", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: Kludex/uvicorn, setup: "pip install -e . pytest httpx a2wsgi websockets wsproto pyyaml python-dotenv", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: nedbat/coveragepy, setup: "pip install -e . pytest flaky hypothesis pytest-xdist", test: "python -m pytest -q tests/test_misc.py tests/test_config.py"}
+- {repo: fastapi/fastapi, setup: "pip install -e .[all] pytest httpx dirty-equals", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: cookiecutter/cookiecutter, setup: "pip install -e . pytest pytest-mock freezegun", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: hgrecco/pint, setup: "pip install -e . pytest pytest-subtests", test: "python -m pytest -q pint/testsuite -x --maxfail=50"}
+- {repo: litestar-org/litestar, setup: "pip install -e . pytest", test: "python -m pytest -q tests/unit/test_utils -x --maxfail=50"}
+- {repo: instructor-ai/instructor, setup: "pip install -e . pytest", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: pydantic/logfire, setup: "pip install -e . pytest", test: "python -m pytest -q tests -x --maxfail=50"}
+- {repo: BerriAI/litellm, setup: "pip install -e . pytest", test: "python -m pytest -q tests/test_litellm/test_utils.py"}

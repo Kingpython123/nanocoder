@@ -1,0 +1,122 @@
+===== Python 3.12 windows-latest =====
+... [381 lines omitted] ...
+                                 pragma: full coverage
+                                 if TYPE_CHECKING:
+                                 if typing.TYPE_CHECKING:
+                                 raise NotImplementedError
+                                 py-win32
+                                 py-not-linux
+                                 py-gte-39
+... [110 lines omitted] ...
+  UV_PYTHON: 3.12
+##[endgroup]
++ uv run coverage combine
+Combined 14 files, skipped 7
++ uv run coverage report
+Name                                  Stmts   Miss   Cover   Missing
+--------------------------------------------------------------------
+uvicorn\protocols\http\zttp_impl.py     315      1  99.68%   159
+--------------------------------------------------------------------
+TOTAL                                  6857      1  99.99%
+
+67 files skipped due to complete coverage.
+Coverage failure: total of 99.99 is less than fail-under=100.00
+##[error]Process completed with exit code 2.
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.55.0.windows.3
+Temporarily overriding HOME='D:\a\_temp\be980b13-dc8a-4807-a897-600dec55040b' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\uvicorn\uvicorn
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes
+
+===== Python 3.12 ubuntu-latest =====
+... [412 lines omitted] ...
+                                 pragma: full coverage
+                                 if TYPE_CHECKING:
+                                 if typing.TYPE_CHECKING:
+                                 raise NotImplementedError
+                                 py-not-win32
+                                 py-linux
+                                 py-gte-39
+... [91 lines omitted] ...
+  UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+##[endgroup]
++ uv run coverage combine
+Combined 12 files, skipped 3
++ uv run coverage report
+Name                                  Stmts   Miss   Cover   Missing
+--------------------------------------------------------------------
+uvicorn/protocols/http/zttp_impl.py     315      1  99.68%   159
+--------------------------------------------------------------------
+TOTAL                                  7379      1  99.99%
+
+69 files skipped due to complete coverage.
+Coverage failure: total of 99.99 is less than fail-under=100.00
+##[error]Process completed with exit code 2.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.54.0
+Temporarily overriding HOME='/home/runner/work/_temp/828c7378-7e09-408f-93bc-2ff504aabffd' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/uvicorn/uvicorn
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+
+===== Python 3.12 macos-latest =====
+... [380 lines omitted] ...
+                                 pragma: full coverage
+                                 if TYPE_CHECKING:
+                                 if typing.TYPE_CHECKING:
+                                 raise NotImplementedError
+                                 py-not-win32
+                                 py-not-linux
+                                 py-darwin
+... [100 lines omitted] ...
+##[endgroup]
++ uv run coverage combine
+Combined 12 files, skipped 2
++ uv run coverage report
+Name                                  Stmts   Miss   Cover   Missing
+--------------------------------------------------------------------
+uvicorn/protocols/http/zttp_impl.py     315      1  99.68%   159
+--------------------------------------------------------------------
+TOTAL                                  7312      1  99.99%
+
+69 files skipped due to complete coverage.
+Coverage failure: total of 99.99 is less than fail-under=100.00
+##[error]Process completed with exit code 2.
+Post job cleanup.
+[command]/opt/homebrew/bin/git version
+git version 2.55.0
+Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/ff98f598-b7e6-4e22-9a6f-0156edb16525/.gitconfig'
+Temporarily overriding HOME='/Users/runner/work/_temp/ff98f598-b7e6-4e22-9a6f-0156edb16525' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/uvicorn/uvicorn
+Removing SSH command configuration
+[command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

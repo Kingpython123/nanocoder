@@ -1,0 +1,107 @@
+===== tests (3.10.19, min-default-reactor) =====
+alue, StopDownload)
+E       AssertionError
+
+tests/utils/bases/download_handlers_http.py:1491: AssertionError
+______________________ test_crawlerrunner_accepts_crawler ______________________
+[gw1] linux -- Python 3.10.19 /home/runner/work/scrapy/scrapy/.tox/min-default-reactor/bin/python
+
+... [308 lines omitted] ...
+                )
+            )
+>       assert "Got response 200" in caplog.text
+E       AssertionError: assert 'Got response 200' in 'INFO     scrapy.addons:addons.py:49 Enabled addons:\n[]\nINFO     scrapy.extensions.telnet:telnet.py:88 Telnet Passwo..., 11, 13, 603435, tzinfo=datetime.timezone.utc)}\nINFO     scrapy.core.engine:engine.py:861 Spider closed (finished)\n'
+E        +  where 'INFO     scrapy.addons:addons.py:49 Enabled addons:\n[]\nINFO     scrapy.extensions.telnet:telnet.py:88 Telnet Passwo..., 11, 13, 603435, tzinfo=datetime.timezone.utc)}\nINFO     scrapy.core.engine:engine.py:861 Spider closed (finished)\n' = <_pytest.logging.LogCaptureFixture object at 0x7f68b2676d70>.text
+
+tests/test_crawler_runners.py:241: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     scrapy.addons:addons.py:49 Enabled addons:
+[]
+... [32 lines omitted] ...
+INFO     scrapy.core.engine:engine.py:669 Spider opened
+INFO     scrapy.extensions.logstats:logstats.py:65 Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+INFO     scrapy.extensions.telnet:telnet.py:100 Telnet console listening on 127.0.0.1:6024
+ERROR    scrapy.core.scraper:scraper.py:280 Error downloading <GET http://127.0.0.1:46743/status?n=200>
+Traceback (most recent call last):
+  File "/home/runner/work/scrapy/scrapy/.tox/min-default-reactor/lib/python3.10/site-packages/twisted/internet/defer.py", line 1657, in _inlineCallbacks
+    result = current_context.run(
+  File "/home/runner/work/scrapy/scrapy/.tox/min-default-reactor/lib/python3.10/site-packages/twisted/python/failure.py", line 500, in throwExceptionIntoGenerator
+... [24 lines omitted] ...
+    response: Response = await self.handlers.download_request_async(request)
+  File "/home/runner/work/scrapy/scrapy/scrapy/core/downloader/handlers/__init__.py", line 173, in download_request_async
+    _in_download_handler.reset(token)
+ValueError: <Token var=<ContextVar name='_in_download_handler' default=False at 0x7f68b6c0cea0> at 0x7f68b269ce40> was created in a different Context
+INFO     scrapy.core.engine:engine.py:806 Closing spider (finished)
+INFO     scrapy.statscollectors:statscollectors.py:107 Dumping Scrapy stats:
+{'downloader/exception_count': 1,
+ 'downloader/exception_type_count/builtins.ValueError': 1,
+ 'downloader/request_bytes': 232,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+... [1 lines omitted] ...
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2026, 9, 22, 7, 11, 13, 625044, tzinfo=datetime.timezone.utc),
+ 'items_per_minute': None,
+ 'log_count/ERROR': 1,
+ 'log_count/INFO': 3,
+ 'memusage/max': 134488064,
+ 'memusage/startup': 134488064,
+... [330 lines omitted] ...
+            await ensure_awaitable(runner.join())
+    
+>       assert "Got response 200" in caplog.text
+E       AssertionError: assert 'Got response 200' in 'WARNING  scrapy.middleware:middleware.py:100 Disabled scrapy.extensions.remote_control.RemoteControl: RemoteControl r..., 11, 13, 978900, tzinfo=datetime.timezone.utc)}\nINFO     scrapy.core.engine:engine.py:861 Spider closed (finished)\n'
+E        +  where 'WARNING  scrapy.middleware:middleware.py:100 Disabled scrapy.extensions.remote_control.RemoteControl: RemoteControl r..., 11, 13, 978900, tzinfo=datetime.timezone.utc)}\nINFO     scrapy.core.engine:engine.py:861 Spider closed (finished)\n' = <_pytest.logging.LogCaptureFixture object at 0x7f68b2741840>.text
+
+tests/test_crawler_runners.py:269: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  scrapy.middleware:middleware.py:100 Disabled scrapy.extensions.remote_control.RemoteControl: RemoteControl requires the asyncio support. You can set the REMOTE_CONTROL_ENABLED setting to False to remove this warning.
+WARNING  scrapy.middleware:middleware.py:100 Disabled scrapy.extensions.remote_control.RemoteControl: RemoteControl requires the asyncio support. You can set the REMOTE_CONTROL_ENABLED setting to False to remove this warning.
+ERROR    scrapy.core.scraper:scraper.py:280 Error downloading <GET http://127.0.0.1:46743/status?n=200>
+Traceback (most recent call last):
+  File "/home/runner/work/scrapy/scrapy/.tox/min-default-reactor/lib/python3.10/site-packages/twisted/internet/defer.py", line 1657, in _inlineCallbacks
+    result = current_context.run(
+  File "/home/runner/work/scrapy/scrapy/.tox/min-default-reactor/lib/python3.10/site-packages/twisted/python/failure.py", line 500, in throwExceptionIntoGenerator
+... [24 lines omitted] ...
+    response: Response = await self.handlers.download_request_async(request)
+  File "/home/runner/work/scrapy/scrapy/scrapy/core/downloader/handlers/__init__.py", line 173, in download_request_async
+    _in_download_handler.reset(token)
+ValueError: <Token var=<ContextVar name='_in_download_handler' default=False at 0x7f68b6c0cea0> at 0x7f68b1429a40> was created in a different Context
+INFO     scrapy.core.engine:engine.py:806 Closing spider (finished)
+INFO     scrapy.statscollectors:statscollectors.py:107 Dumping Scrapy stats:
+{'downloader/exception_count': 1,
+ 'downloader/exception_type_count/builtins.ValueError': 1,
+ 'downloader/request_bytes': 232,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+... [40477 lines omitted] ...
+==> CLI integrity verified
+
+ -> Token length: 0
+==> Running upload-coverage
+      ./codecov  upload-coverage --git-service github --pr 8207 --sha 955267524e9683afc15d0e283c73ad9310faa805 --branch AdrianAtZyte:await-request --gcov-executable gcov --report-type test_results
+info - 2026-09-22 07:13:26,754 -- ci service found: github-actions
+info - 2026-09-22 07:13:26,790 -- Creating a commit for an unprotected branch: AdrianAtZyte:await-request
+info - 2026-09-22 07:13:27,176 -- Commit creating complete
+info - 2026-09-22 07:13:27,203 -- Found 1 test_results files to report
+info - 2026-09-22 07:13:27,203 -- > /home/runner/work/scrapy/scrapy/min.junit.xml
+info - 2026-09-22 07:13:27,741 -- Sending upload (201404 bytes) to storage
+info - 2026-09-22 07:13:28,067 -- Upload queued for processing complete
+##[end-action id=__codecov_codecov-action_2.__run_8;outcome=success;conclusion=success;duration_ms=2561]
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/17de6c0e-ca9d-4510-baab-a31c10dcd31e/.gitconfig'
+Temporarily overriding HOME='/home/runner/work/_temp/17de6c0e-ca9d-4510-baab-a31c10dcd31e' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/scrapy/scrapy
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

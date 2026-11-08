@@ -1,0 +1,134 @@
+===== tests (windows, 3.11.9, min-extra-deps) =====
+... [333 lines omitted] ...
+4 workers [7203 items]
+
+Unhandled Error
+Traceback (most recent call last):
+Failure: builtins.Exception: Consumer asked us to stop producing
+
+Unhandled Error
+Traceback (most recent call last):
+Failure: builtins.Exception: Consumer asked us to stop producing
+
+Unhandled Error
+Traceback (most recent call last):
+Failure: builtins.Exception: Consumer asked us to stop producing
+
+Unhandled Error
+Traceback (most recent call last):
+Failure: builtins.Exception: Consumer asked us to stop producing
+
+.....................................................................s.. [  0%]
+... [29 lines omitted] ...
+.....sss......................s......................................... [ 30%]
+.................x..x..x........s..............................s....x.x. [ 31%]
+
+Traceback (most recent call last):
+  File "D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\twisted\python\log.py", line 96, in callWithLogger
+    return callWithContext({"system": lp}, func, *args, **kw)
+  File "D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\twisted\python\log.py", line 80, in callWithContext
+... [34 lines omitted] ...
+  File "D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\_pytest\logging.py", line 384, in emit
+    super().emit(record)
+  File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\logging\__init__.py", line 1118, in emit
+    self.handleError(record)
+  File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\logging\__init__.py", line 1110, in emit
+    msg = self.format(record)
+  File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\logging\__init__.py", line 953, in format
+... [7 lines omitted] ...
+  File "D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\hyperframe\frame.py", line 78, in __repr__
+    body = binascii.hexlify(self.serialize_body()).decode('ascii')
+  File "D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\hyperframe\frame.py", line 162, in serialize_body
+    raise NotImplementedError()
+builtins.NotImplementedError: 
+
+x......xFxx...xxx.......................xx...xx..............s.........x [ 32%]
+x....xxx.......ssss.............................x............xx...x..... [ 33%]
+Unhandled error in Deferred:
+
+Traceback (most recent call last):
+  File "D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\twisted\internet\asyncioreactor.py", line 253, in run
+    self._asyncioEventloop.run_forever()
+  File "C:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\asyncio\base_events.py", line 608, in run_forever
+... [15 lines omitted] ...
+    if cachedresponse is None and await self._wait_for_download(request):
+  File "D:\a\scrapy\scrapy\scrapy\downloadermiddlewares\httpcache.py", line 144, in _wait_for_download
+    await maybe_deferred_to_future(waiter)
+asyncio.exceptions.CancelledError: 
+
+........................xx..............................xxx............. [ 34%]
+.......s.........x...................................................... [ 35%]
+... [80 lines omitted] ...
+
+    async def download_request(self, request: Request) -> Response:
+        if urlparse_cached(request).scheme == "http":
+            raise UnsupportedURLSchemeError(
+                f"{type(self).__name__} doesn't support plain HTTP."
+            )
+        agent = _ScrapyH2Agent(
+... [43 lines omitted] ...
+        try:
+            yield
+        except SchemeNotSupported as e:
+            raise UnsupportedURLSchemeError(str(e)) from e
+        except CancelledError as e:
+            raise DownloadCancelledError(str(e)) from e
+        except TxConnectionRefusedError as e:
+            raise DownloadConnectionRefusedError(str(e)) from e
+        except DNSLookupError as e:
+            raise CannotResolveHostError(str(e)) from e
+        except ResponseFailed as e:
+>           raise DownloadFailedError(str(e)) from e
+E           scrapy.exceptions.DownloadFailedError: [ConnectionLost('Connection lost')]
+
+scrapy\utils\_download_handlers.py:67: DownloadFailedError
+============================== warnings summary ===============================
+.tox\min-extra-deps\Lib\site-packages\twisted\web\http.py:103
+.tox\min-extra-deps\Lib\site-packages\twisted\web\http.py:103
+... [120 lines omitted] ...
+
+tests/test_utils_reactor.py::TestListenTcp::test_no_free_port
+  D:\a\scrapy\scrapy\tests\test_utils_reactor.py:109: ResourceWarning: unclosed <socket.socket fd=3920, family=2, type=1, proto=0>
+    with pytest.raises(CannotListenError):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+... [19 lines omitted] ...
+4.65s call     tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess::test_shutdown_graceful_no_stop
+4.62s call     tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess::test_shutdown_fast_no_stop
+=========================== short test summary info ===========================
+FAILED tests/test_downloader_handler_twisted_http2.py::TestHttp2::test_download_unknown_h2_frame
+========================== warnings summary (final) ===========================
+.tox\min-extra-deps\Lib\site-packages\pytest_cov\plugin.py:396
+  D:\a\scrapy\scrapy\.tox\min-extra-deps\Lib\site-packages\pytest_cov\plugin.py:396: CovDisabledWarning: Coverage disabled via --no-cov switch!
+... [393 lines omitted] ...
+==> CLI integrity verified
+
+ -> Token length: 0
+==> Running upload-coverage
+      ./codecov.exe  upload-coverage --git-service github --pr 8460 --sha e20dadcf348f321ae0dde3a1a078d495625f8708 --branch AdrianAtZyte:response-cycles --flag Windows-3.11.9-min-extra-deps --gcov-executable gcov --report-type test_results
+info - 2026-11-04 12:49:36,738 -- ci service found: github-actions
+info - 2026-11-04 12:49:36,887 -- Creating a commit for an unprotected branch: AdrianAtZyte:response-cycles
+info - 2026-11-04 12:49:37,465 -- Commit creating complete
+info - 2026-11-04 12:49:37,558 -- Found 1 test_results files to report
+info - 2026-11-04 12:49:37,558 -- > D:\a\scrapy\scrapy\min.junit.xml
+info - 2026-11-04 12:49:37,962 -- Sending upload (138435 bytes) to storage
+info - 2026-11-04 12:49:38,390 -- Upload queued for processing complete
+##[end-action id=__codecov_codecov-action_2.__run_8;outcome=success;conclusion=success;duration_ms=7366]
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.56.0.windows.4
+Copying 'C:\Users\runneradmin\.gitconfig' to 'D:\a\_temp\339135e5-03fb-45f8-90b9-2c47f44a9213\.gitconfig'
+Temporarily overriding HOME='D:\a\_temp\339135e5-03fb-45f8-90b9-2c47f44a9213' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\scrapy\scrapy
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes

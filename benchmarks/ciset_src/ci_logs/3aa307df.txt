@@ -1,0 +1,281 @@
+===== 🧪 test 3.15 on windows =====
+... [7491 lines omitted] ...
+tests/config/loader/test_replace.py::test_dont_replace[py37-{base,i18n},b-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[py37-{i18n,base},b-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{toxinidir,}-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{env}-MatchError\\('No variable name was supplied in {env} substitution'\\)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{factor}-MatchError\\('No label was supplied in {factor} substitution'\\)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_replace_factor_ini_uses_fallback PASSED [ 71%]
+tests/config/loader/test_replace.py::test_match_expression_repr[match_expression0-MatchExpression(expr=[['posargs']], term_pos=None)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_match_expression_repr[match_expression1-MatchExpression(expr=[['posargs']], term_pos=1)] PASSED [ 71%]
+... [1451 lines omitted] ...
+tests/session/cmd/test_show_config.py::test_show_config_select_only PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_alias PASSED     [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_description_normalize PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_comment_path FAILED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_path_with_hash[command-directory] PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_path_with_hash[environment-directory] PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_env_file_with_hash PASSED [ 88%]
+... [214 lines omitted] ...
+tests/test_report.py::test_setup_report[5-off] PASSED                    [ 90%]
+tests/test_report.py::test_setup_report[6-on] PASSED                     [ 90%]
+tests/test_report.py::test_setup_report[6-off] PASSED                    [ 90%]
+tests/test_run.py::test_exit_code_minus_2_on_expected_exit[HandledError] PASSED [ 90%]
+tests/test_run.py::test_exit_code_minus_2_on_expected_exit[KeyboardInterrupt] PASSED [ 90%]
+tests/test_run.py::test_re_raises_on_unexpected_exit PASSED              [ 90%]
+tests/test_run.py::test_custom_work_dir PASSED                           [ 90%]
+... [851 lines omitted] ...
+self = code: 2
+cmd: D:\a\tox\tox\.tox\3.15\Scripts\python.EXE -m tox r -e py
+cwd: C:\Users\runneradmin\AppData\Local\Temp\pyt... in os.environ.items()))"
+  py: FAIL code 2 (0.07=setup[0.06]+cmd[0.00] seconds)
+  evaluation failed :( (0.12 seconds)
+
+
+    def assert_success(self) -> None:
+>       assert self.success, repr(self)  # ruff:ignore[assert]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: code: 2
+E         cmd: D:\a\tox\tox\.tox\3.15\Scripts\python.EXE -m tox r -e py
+E         cwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic
+E         standard output
+E         py: commands[0]> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"
+E         py: Exception running subprocess [WinError 2] The system cannot find the file specified
+E         py: exit 2 (0.00 seconds) C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"
+E           py: FAIL code 2 (0.07=setup[0.06]+cmd[0.00] seconds)
+E           evaluation failed :( (0.12 seconds)
+E         
+E       assert False
+E        +  where False = code: 2\ncmd: D:\a\tox\tox\.tox\3.15\Scripts\python.EXE -m tox r -e py\ncwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic\nstandard output\npy: commands[0]> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"\npy: Exception running subprocess [WinError 2] The system cannot find the file specified\npy: exit 2 (0.00 seconds) C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"\n  py: FAIL code 2 (0.07=setup[0.06]+cmd[0.00] seconds)\n  evaluation failed :( (0.12 seconds)\n.success
+
+.tox\3.15\Lib\site-packages\tox\pytest.py:353: AssertionError
+------------ generated xml file: D:\a\tox\tox\.tox\junit.3.15.xml -------------
+============================== slowest durations ==============================
+16.67s setup    tests/test_provision.py::test_provision_requires_ok
+... [172 lines omitted] ...
+
+(26041 durations < 0.5s hidden.)
+=========================== short test summary info ===========================
+FAILED tests/session/cmd/test_show_config.py::test_show_config_ini_comment_path - AssertionError: code: 2
+  cmd: D:\a\tox\tox\.tox\3.15\Scripts\python.EXE -m tox r -e py
+  cwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic
+  standard output
+... [28 lines omitted] ...
+  UV_PYTHON: 3.15
+##[endgroup]
+With the provided path, there will be 1 file uploaded
+Artifact name is valid!
+Root directory input is valid!
+Uploading artifact: junit-3.15-windows.zip
+Beginning upload of artifact content to blob storage
+Uploaded bytes 57786
+Finished uploading artifact content to blob storage!
+SHA256 digest of uploaded artifact is 466b7ec957090a46b6e741ab714198b95444b4f348ec6353ec79026f3667331e
+Finalizing artifact upload
+Artifact junit-3.15-windows successfully finalized. Artifact ID 12924342586
+Artifact junit-3.15-windows has been successfully uploaded! Final size is 57786 bytes. Artifact ID is 12924342586
+Artifact download URL: https://github.com/tox-dev/tox/actions/runs/40934312534/artifacts/12924342586
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.56.0.windows.2
+Temporarily overriding HOME='D:\a\_temp\6c0fe1ae-4764-4cdb-879d-5ba58a707562' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\tox\tox
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes
+
+===== 🧪 test 3.14 on windows =====
+... [7504 lines omitted] ...
+tests/config/loader/test_replace.py::test_dont_replace[py37-{base,i18n},b-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[py37-{i18n,base},b-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{toxinidir,}-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{env}-MatchError\\('No variable name was supplied in {env} substitution'\\)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{factor}-MatchError\\('No label was supplied in {factor} substitution'\\)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_replace_factor_ini_uses_fallback PASSED [ 71%]
+tests/config/loader/test_replace.py::test_match_expression_repr[match_expression0-MatchExpression(expr=[['posargs']], term_pos=None)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_match_expression_repr[match_expression1-MatchExpression(expr=[['posargs']], term_pos=1)] PASSED [ 71%]
+... [1451 lines omitted] ...
+tests/session/cmd/test_show_config.py::test_show_config_select_only PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_alias PASSED     [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_description_normalize PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_comment_path FAILED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_path_with_hash[command-directory] PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_path_with_hash[environment-directory] PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_env_file_with_hash PASSED [ 88%]
+... [214 lines omitted] ...
+tests/test_report.py::test_setup_report[5-off] PASSED                    [ 90%]
+tests/test_report.py::test_setup_report[6-on] PASSED                     [ 90%]
+tests/test_report.py::test_setup_report[6-off] PASSED                    [ 90%]
+tests/test_run.py::test_exit_code_minus_2_on_expected_exit[HandledError] PASSED [ 90%]
+tests/test_run.py::test_exit_code_minus_2_on_expected_exit[KeyboardInterrupt] PASSED [ 90%]
+tests/test_run.py::test_re_raises_on_unexpected_exit PASSED              [ 90%]
+tests/test_run.py::test_custom_work_dir PASSED                           [ 90%]
+... [851 lines omitted] ...
+self = code: 2
+cmd: D:\a\tox\tox\.tox\3.14\Scripts\python.EXE -m tox r -e py
+cwd: C:\Users\runneradmin\AppData\Local\Temp\pyt... in os.environ.items()))"
+  py: FAIL code 2 (0.06=setup[0.06]+cmd[0.00] seconds)
+  evaluation failed :( (0.12 seconds)
+
+
+    def assert_success(self) -> None:
+>       assert self.success, repr(self)  # ruff:ignore[assert]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: code: 2
+E         cmd: D:\a\tox\tox\.tox\3.14\Scripts\python.EXE -m tox r -e py
+E         cwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic
+E         standard output
+E         py: commands[0]> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"
+E         py: Exception running subprocess [WinError 2] The system cannot find the file specified
+E         py: exit 2 (0.00 seconds) C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"
+E           py: FAIL code 2 (0.06=setup[0.06]+cmd[0.00] seconds)
+E           evaluation failed :( (0.12 seconds)
+E         
+E       assert False
+E        +  where False = code: 2\ncmd: D:\a\tox\tox\.tox\3.14\Scripts\python.EXE -m tox r -e py\ncwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic\nstandard output\npy: commands[0]> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"\npy: Exception running subprocess [WinError 2] The system cannot find the file specified\npy: exit 2 (0.00 seconds) C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"\n  py: FAIL code 2 (0.06=setup[0.06]+cmd[0.00] seconds)\n  evaluation failed :( (0.12 seconds)\n.success
+
+.tox\3.14\Lib\site-packages\tox\pytest.py:353: AssertionError
+------------ generated xml file: D:\a\tox\tox\.tox\junit.3.14.xml -------------
+============================== slowest durations ==============================
+16.61s setup    tests/test_provision.py::test_provision_requires_ok
+... [164 lines omitted] ...
+
+(26049 durations < 0.5s hidden.)
+=========================== short test summary info ===========================
+FAILED tests/session/cmd/test_show_config.py::test_show_config_ini_comment_path - AssertionError: code: 2
+  cmd: D:\a\tox\tox\.tox\3.14\Scripts\python.EXE -m tox r -e py
+  cwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic
+  standard output
+... [28 lines omitted] ...
+  UV_PYTHON: 3.15
+##[endgroup]
+With the provided path, there will be 1 file uploaded
+Artifact name is valid!
+Root directory input is valid!
+Uploading artifact: junit-3.14-windows.zip
+Beginning upload of artifact content to blob storage
+Uploaded bytes 57287
+Finished uploading artifact content to blob storage!
+SHA256 digest of uploaded artifact is 120ada474e8791786b7971064388b8ad2dac8f052c8a62a679efd3ae8d0ebaa4
+Finalizing artifact upload
+Artifact junit-3.14-windows successfully finalized. Artifact ID 12923878612
+Artifact junit-3.14-windows has been successfully uploaded! Final size is 57287 bytes. Artifact ID is 12923878612
+Artifact download URL: https://github.com/tox-dev/tox/actions/runs/40934312534/artifacts/12923878612
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.56.0.windows.2
+Temporarily overriding HOME='D:\a\_temp\0b0f1382-40f5-4e8b-aba1-f0982613f5d8' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\tox\tox
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes
+
+===== 🧪 test 3.13 on windows =====
+... [7489 lines omitted] ...
+tests/config/loader/test_replace.py::test_dont_replace[py37-{base,i18n},b-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[py37-{i18n,base},b-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{toxinidir,}-None] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{env}-MatchError\\('No variable name was supplied in {env} substitution'\\)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_dont_replace[{factor}-MatchError\\('No label was supplied in {factor} substitution'\\)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_replace_factor_ini_uses_fallback PASSED [ 71%]
+tests/config/loader/test_replace.py::test_match_expression_repr[match_expression0-MatchExpression(expr=[['posargs']], term_pos=None)] PASSED [ 71%]
+tests/config/loader/test_replace.py::test_match_expression_repr[match_expression1-MatchExpression(expr=[['posargs']], term_pos=1)] PASSED [ 71%]
+... [1451 lines omitted] ...
+tests/session/cmd/test_show_config.py::test_show_config_select_only PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_alias PASSED     [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_description_normalize PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_comment_path FAILED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_path_with_hash[command-directory] PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_path_with_hash[environment-directory] PASSED [ 88%]
+tests/session/cmd/test_show_config.py::test_show_config_ini_reference_env_file_with_hash PASSED [ 88%]
+... [214 lines omitted] ...
+tests/test_report.py::test_setup_report[5-off] PASSED                    [ 90%]
+tests/test_report.py::test_setup_report[6-on] PASSED                     [ 90%]
+tests/test_report.py::test_setup_report[6-off] PASSED                    [ 90%]
+tests/test_run.py::test_exit_code_minus_2_on_expected_exit[HandledError] PASSED [ 90%]
+tests/test_run.py::test_exit_code_minus_2_on_expected_exit[KeyboardInterrupt] PASSED [ 90%]
+tests/test_run.py::test_re_raises_on_unexpected_exit PASSED              [ 90%]
+tests/test_run.py::test_custom_work_dir PASSED                           [ 90%]
+... [851 lines omitted] ...
+self = code: 2
+cmd: D:\a\tox\tox\.tox\3.13\Scripts\python.EXE -m tox r -e py
+cwd: C:\Users\runneradmin\AppData\Local\Temp\pyt... in os.environ.items()))"
+  py: FAIL code 2 (0.06=setup[0.05]+cmd[0.00] seconds)
+  evaluation failed :( (0.09 seconds)
+
+
+    def assert_success(self) -> None:
+>       assert self.success, repr(self)  # ruff:ignore[assert]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: code: 2
+E         cmd: D:\a\tox\tox\.tox\3.13\Scripts\python.EXE -m tox r -e py
+E         cwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic
+E         standard output
+E         py: commands[0]> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"
+E         py: Exception running subprocess [WinError 2] The system cannot find the file specified
+E         py: exit 2 (0.00 seconds) C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"
+E           py: FAIL code 2 (0.06=setup[0.05]+cmd[0.00] seconds)
+E           evaluation failed :( (0.09 seconds)
+E         
+E       assert False
+E        +  where False = code: 2\ncmd: D:\a\tox\tox\.tox\3.13\Scripts\python.EXE -m tox r -e py\ncwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic\nstandard output\npy: commands[0]> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"\npy: Exception running subprocess [WinError 2] The system cannot find the file specified\npy: exit 2 (0.00 seconds) C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic> C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0#magic\.tox\py\Scripts\python.exe -c "import os; print(os.linesep.join(f\"{k}={v}\" for k, v in os.environ.items()))"\n  py: FAIL code 2 (0.06=setup[0.05]+cmd[0.00] seconds)\n  evaluation failed :( (0.09 seconds)\n.success
+
+.tox\3.13\Lib\site-packages\tox\pytest.py:353: AssertionError
+------------ generated xml file: D:\a\tox\tox\.tox\junit.3.13.xml -------------
+============================== slowest durations ==============================
+15.44s setup    tests/test_provision.py::test_provision_requires_ok
+... [117 lines omitted] ...
+
+(26096 durations < 0.5s hidden.)
+=========================== short test summary info ===========================
+FAILED tests/session/cmd/test_show_config.py::test_show_config_ini_comment_path - AssertionError: code: 2
+  cmd: D:\a\tox\tox\.tox\3.13\Scripts\python.EXE -m tox r -e py
+  cwd: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_show_config_ini_comment_p0\#magic
+  standard output
+... [28 lines omitted] ...
+  UV_PYTHON: 3.15
+##[endgroup]
+With the provided path, there will be 1 file uploaded
+Artifact name is valid!
+Root directory input is valid!
+Uploading artifact: junit-3.13-windows.zip
+Beginning upload of artifact content to blob storage
+Uploaded bytes 56974
+Finished uploading artifact content to blob storage!
+SHA256 digest of uploaded artifact is 96134a5fcee2b97c416fe2d5215aaf45756b57134449057448e2f9f03e886f55
+Finalizing artifact upload
+Artifact junit-3.13-windows successfully finalized. Artifact ID 12923174624
+Artifact junit-3.13-windows has been successfully uploaded! Final size is 56974 bytes. Artifact ID is 12923174624
+Artifact download URL: https://github.com/tox-dev/tox/actions/runs/40934312534/artifacts/12923174624
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.56.0.windows.2
+Temporarily overriding HOME='D:\a\_temp\2269e445-7ea4-48db-a44e-a487b4557b61' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\tox\tox
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes

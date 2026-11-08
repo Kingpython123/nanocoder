@@ -1,0 +1,185 @@
+===== Tests (Python: 3.10, OS: ubuntu-latest, Compiled: true) =====
+...
++++ .:after	2026-08-18 16:06:06.849398
+@@ -1 +1 @@
+-Õí񱠢ûmê+񀋩ß𔙜Ç𼄦!k¸k󁍛6񔀏.
+ERROR: /home/runner/work/isort/isort/isort/main.py Imports are incorrectly sorted and/or formatted.
+ERROR: /tmp/pytest-of-runner/pytest-0/test_git_hook_lazy0/test_has_problems.py Imports are incorrectly sorted and/or formatted.
+tests/unit/test_hooks.py .s.s
+tests/unit/test_identify.py ......
+usage: __main__.py [-h] [-V] [--vn] [-v] [--only-modified] [--dedup-headings]
+... [35 lines omitted] ...
+                   [--virtual-env VIRTUAL_ENV] [--conda-env CONDA_ENV]
+                   [--py {all,2,27,3,310,311,312,313,314,315,36,37,38,39,auto}]
+                   [files ...]
+__main__.py: error: argument -s/--skip: expected one argument
+tests/unit/test_importable.py .
+tests/unit/test_io.py ...
+tests/unit/test_isort.py ......................................from-type place_module for b returned THIRDPARTY
+from-type place_module for a returned THIRDPARTY
+ERROR:  Imports are incorrectly sorted and/or formatted.
+ERROR:  Imports are incorrectly sorted and/or formatted.
+.............................................# -*- coding: utf-8 -*-
+import logging
+
+... [8 lines omitted] ...
+
+Fixing /tmp/tmpjlyfa2jtpy
+Fixing /tmp/tmpygejj57ipy
+ERROR: /tmp/pytest-of-runner/pytest-0/test_settings_path_skip_issue_0/project/file_glob_skip.py Imports are incorrectly sorted and/or formatted.
+ERROR: /tmp/pytest-of-runner/pytest-0/test_settings_path_skip_issue_0/project/file_to_be_skipped.py Imports are incorrectly sorted and/or formatted.
+.....................................Fixing /tmp/pytest-of-runner/pytest-0/test_pyi_formatting_issue_9420/source.pyi
+..import os
+import xml
+... [1 lines omitted] ...
+.....................................................
+tests/unit/test_lazy_imports.py ...............
+tests/unit/test_literal.py ........................
+ERROR: /tmp/pytest-of-runner/pytest-0/test_sort_imports0/file.py Imports are incorrectly sorted and/or formatted.
+tests/unit/test_main.py .Fixing /tmp/pytest-of-runner/pytest-0/test_sort_imports0/file.py
+ERROR: Found os import while parsing, but THIRDPARTY was not included in the `sections` setting of your config. Please add it before continuing
+See https://isort.readthedocs.io/en/latest/index.html#custom-sections-and-ordering for more info.
+ERROR: it is dangerous to operate recursively on '/'
+ERROR: use --allow-root to override this failsafe
+Fatal Python error: Segmentation fault
+
+Current thread 0x00007fe842855b80 (most recent call first):
+  File "/home/runner/work/isort/isort/.tox/py/lib/python3.10/site-packages/pluggy/_callers.py", line 121 in _multicall
+... [33 lines omitted] ...
+
+Extension modules: isort.settings, isort.stdlibs, isort.stdlibs.all, isort.stdlibs.py2, isort.stdlibs.py27, isort.stdlibs.py3, isort.stdlibs.py36, isort.stdlibs.py37, isort.stdlibs.py38, isort.stdlibs.py39, isort.stdlibs.py310, isort.stdlibs.py311, isort.stdlibs.py312, isort.stdlibs.py313, isort.stdlibs.py314, isort.stdlibs.py315, isort.profiles, isort.sections, isort.utils, isort.wrap_modes, isort.comments, isort._vendored.tomli, isort._vendored.tomli._parser, isort._vendored.tomli._re, isort._version, isort.api, isort.core, isort.literal, isort.output, isort.format, isort._parse_utils, isort.parse, isort.place, isort.sorting, isort.wrap, isort.identify, isort.files, isort.io, isort, black.const, black.mode, black.cache, black._width_table, blib2to3.pgen2.token, blib2to3.pgen2.grammar, blib2to3.pytree, black.strings, pytokens, blib2to3.pgen2.tokenize, blib2to3.pgen2.parse, blib2to3.pgen2.pgen, blib2to3.pgen2.driver, blib2to3.pygram, black.nodes, black.comments, black.handle_ipynb_magics, black.brackets, black.lines, black.numerics, black.rusty, black.trans, black.linegen, black.parsing, black.ranges, black, isort.hooks, isort.logo, isort.main (total: 68)
+.s........py: exit -11 (10.00 seconds) /home/runner/work/isort/isort> coverage run -m pytest tests/unit/ -s pid=2747
+py: FAIL ✖ in 10.21 seconds
+coverage_report-ci: venv> .venv/bin/uv venv -p /home/runner/work/isort/isort/.venv/bin/python --allow-existing --python-preference system /home/runner/work/isort/isort/.tox/coverage_report-ci
+coverage_report-ci: uv-sync> uv sync --locked --python-preference system --no-default-groups --group dev -p /home/runner/work/isort/isort/.venv/bin/python
+coverage_report-ci: freeze> .venv/bin/uv --color never pip freeze
+... [1 lines omitted] ...
+coverage_report-ci: commands_pre[0]> coverage combine
+No data to combine
+coverage_report-ci: exit 1 (0.16 seconds) /home/runner/work/isort/isort> coverage combine pid=3246
+coverage_report-ci: command failed but is marked ignore outcome so handling it as success
+coverage_report-ci: commands[0]> coverage report --fail-under=0
+No data to report.
+coverage_report-ci: exit 1 (0.09 seconds) /home/runner/work/isort/isort> coverage report --fail-under=0 pid=3258
+... [11 lines omitted] ...
+Temporarily overriding HOME='/home/runner/work/_temp/ff7b45a5-2c14-4954-8633-ddf7b8e7fea2' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/isort/isort
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+includeif.gitdir:/home/runner/work/isort/isort/.git.path
+includeif.gitdir:/home/runner/work/isort/isort/.git/worktrees/*.path
+includeif.gitdir:/github/workspace/.git.path
+includeif.gitdir:/github/workspace/.git/worktrees/*.path
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/isort/isort/.git.path
+/home/runner/work/_temp/git-credentials-30d69995-f2ac-4ade-af33-f5e2d6cd5773.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/isort/isort/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-30d69995\-f2ac\-4ade\-af33\-f5e2d6cd5773\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/isort/isort/.git/worktrees/*.path
+/home/runner/work/_temp/git-credentials-30d69995-f2ac-4ade-af33-f5e2d6cd5773.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/isort/isort/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-30d69995\-f2ac\-4ade\-af33\-f5e2d6cd5773\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+/github/runner_temp/git-credentials-30d69995-f2ac-4ade-af33-f5e2d6cd5773.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-30d69995\-f2ac\-4ade\-af33\-f5e2d6cd5773\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+/github/runner_temp/git-credentials-30d69995-f2ac-4ade-af33-f5e2d6cd5773.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-30d69995\-f2ac\-4ade\-af33\-f5e2d6cd5773\.config
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Removing credentials config '/home/runner/work/_temp/git-credentials-30d69995-f2ac-4ade-af33-f5e2d6cd5773.config'
+Cleaning up orphan processes
+
+===== Tests (Python: 3.10, OS: windows-latest, Compiled: true) =====
+... [494 lines omitted] ...
++++ .:after	2026-08-18 16:02:58.585873
+@@ -1 +1 @@
+-Õí񱠢ûmê+񀋩ß𔙜Ç𼄦!k¸k󁍛6񔀏.
+ERROR: D:\a\isort\isort\isort\main.py Imports are incorrectly sorted and/or formatted.
+ERROR: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_git_hook_lazy0\test_has_problems.py Imports are incorrectly sorted and/or formatted.
+tests\unit\test_hooks.py .s.s
+usage: __main__.py [-h] [-V] [--vn] [-v] [--only-modified] [--dedup-headings]
+                   [-q] [-d] [--overwrite-in-place] [--show-config]
+... [34 lines omitted] ...
+                   [--virtual-env VIRTUAL_ENV] [--conda-env CONDA_ENV]
+                   [--py {all,2,27,3,310,311,312,313,314,315,36,37,38,39,auto}]
+                   [files ...]
+__main__.py: error: argument -s/--skip: expected one argument
+tests\unit\test_identify.py ......
+tests\unit\test_importable.py .
+tests\unit\test_io.py s..
+tests\unit\test_isort.py ......................................from-type place_module for b returned THIRDPARTY
+from-type place_module for a returned THIRDPARTY
+ERROR:  Imports are incorrectly sorted and/or formatted.
+ERROR:  Imports are incorrectly sorted and/or formatted.
+.............................................# -*- coding: utf-8 -*-
+import logging
+
+... [19 lines omitted] ...
+.....................................................
+tests\unit\test_lazy_imports.py ...............
+tests\unit\test_literal.py ........................
+ERROR: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_sort_imports0\file.py Imports are incorrectly sorted and/or formatted.
+tests\unit\test_main.py .Fixing C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_sort_imports0\file.py
+ERROR: Found os import while parsing, but THIRDPARTY was not included in the `sections` setting of your config. Please add it before continuing
+See https://isort.readthedocs.io/en/latest/index.html#custom-sections-and-ordering for more info.
+ERROR: it is dangerous to operate recursively on '/'
+ERROR: use --allow-root to override this failsafe
+.s........py: exit 3221225477 (12.52 seconds) D:\a\isort\isort> coverage run -m pytest tests/unit/ -s pid=4980
+py: FAIL ! in 13.02 seconds
+
+coverage_report-ci: venv> .venv\Scripts\uv.exe venv -p D:\a\isort\isort\.venv\Scripts\python.exe --allow-existing --python-preference system D:\a\isort\isort\.tox\coverage_report-ci
+coverage_report-ci: uv-sync> uv sync --locked --python-preference system --no-default-groups --group dev -p D:\a\isort\isort\.venv\Scripts\python.exe
+... [2 lines omitted] ...
+coverage_report-ci: commands_pre[0]> coverage combine
+No data to combine
+coverage_report-ci: exit 1 (0.27 seconds) D:\a\isort\isort> coverage combine pid=7596
+coverage_report-ci: command failed but is marked ignore outcome so handling it as success
+coverage_report-ci: commands[0]> coverage report --fail-under=0
+No data to report.
+coverage_report-ci: exit 1 (0.16 seconds) D:\a\isort\isort> coverage report --fail-under=0 pid=5080
+coverage_report-ci: commands_post[0]> coverage xml --fail-under=0
+No data to report.
+coverage_report-ci: exit 1 (0.14 seconds) D:\a\isort\isort> coverage xml --fail-under=0 pid=1436
+  py: FAIL code 3221225477 (13.02=setup[0.50]+cmd[12.52] seconds)
+  coverage_report-ci: FAIL code 1 (1.12=setup[0.56]+cmd[0.27,0.16,0.14] seconds)
+  evaluation failed :( (14.20 seconds)
+
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.55.0.windows.3
+... [1 lines omitted] ...
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\isort\isort
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+includeif.gitdir:D:/a/isort/isort/.git.path
+includeif.gitdir:D:/a/isort/isort/.git/worktrees/*.path
+includeif.gitdir:/github/workspace/.git.path
+includeif.gitdir:/github/workspace/.git/worktrees/*.path
+[command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/isort/isort/.git.path
+D:\a\_temp\git-credentials-eae63f16-368b-47a7-8cfb-f1d2a73a8c5f.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/isort/isort/.git.path D\:\\a\\_temp\\git\-credentials\-eae63f16\-368b\-47a7\-8cfb\-f1d2a73a8c5f\.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/isort/isort/.git/worktrees/*.path
+D:\a\_temp\git-credentials-eae63f16-368b-47a7-8cfb-f1d2a73a8c5f.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/isort/isort/.git/worktrees/*.path D\:\\a\\_temp\\git\-credentials\-eae63f16\-368b\-47a7\-8cfb\-f1d2a73a8c5f\.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+/github/runner_temp/git-credentials-eae63f16-368b-47a7-8cfb-f1d2a73a8c5f.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-eae63f16\-368b\-47a7\-8cfb\-f1d2a73a8c5f\.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+/github/runner_temp/git-credentials-eae63f16-368b-47a7-8cfb-f1d2a73a8c5f.config
+[command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-eae63f16\-368b\-47a7\-8cfb\-f1d2a73a8c5f\.config
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Removing credentials config 'D:\a\_temp\git-credentials-eae63f16-368b-47a7-8cfb-f1d2a73a8c5f.config'
+Cleaning up orphan processes
+Terminate orphan process: pid (8268) (vctip)

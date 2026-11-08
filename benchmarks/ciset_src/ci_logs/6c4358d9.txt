@@ -1,0 +1,284 @@
+===== ubuntu-24.04 / pypy-3.11 / supported =====
+mmand to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.__main__')' returned non-zero exit status 1.
+
+/opt/hostedtoolcache/PyPy/3.11.15/x64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///home/runner/work/pip-tools/pip-tools/piptools/__main__.py\/home/runner/work/pip-tools/pip-tools/piptools/__main__.py]8;;\", line 5, in <module>
+    from piptools.scripts import compile, sync
+... [32 lines omitted] ...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.cache')' returned non-zero exit status 1.
+
+/opt/hostedtoolcache/PyPy/3.11.15/x64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///home/runner/work/pip-tools/pip-tools/piptools/cache.py\/home/runner/work/pip-tools/pip-tools/piptools/cache.py]8;;\", line 14, in <module>
+    from .utils import as_tuple, key_from_req, lookup_table_from_tuples
+... [32 lines omitted] ...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories')' returned non-zero exit status 1.
+
+/opt/hostedtoolcache/PyPy/3.11.15/x64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///home/runner/work/pip-tools/pip-tools/piptools/repositories/__init__.py\/home/runner/work/pip-tools/pip-tools/piptools/repositories/__init__.py]8;;\", line 3, in <module>
+    from .local import LocalRequirementsRepository
+... [14196 lines omitted] ...
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.repositories.local] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories.local')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.repositories.pypi] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories.pypi')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.resolver] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.resolver')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.compile] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.compile')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.options] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.options')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.sync] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.sync')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.sync] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.sync')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.utils] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.utils')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.writer] - subprocess.CalledProcessError: Command '('/home/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.writer')' returned non-zero exit status 1.
+======================== 13 failed, 1 warning in 12.16s ========================
+pipsupported: 14978 C exit 1 (13.55 seconds) /home/runner/work/pip-tools/pip-tools> pytest --continue-on-collection-errors --full-trace --last-failed --numprocesses=0 --showlocals --trace-config -rA -vvvvv pid=8039 [tox/execute/api.py:309]
+  pipsupported: FAIL code 1 (14.44=setup[0.57]+cmd[0.32,13.55] seconds)
+  evaluation failed :( (14.62 seconds)
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/62048aa4-55e9-4f1a-a59d-c38280beda70' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/pip-tools/pip-tools
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+
+===== macos-26 / pypy-3.11 / supported =====
+args, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.__main__')' returned non-zero exit status 1.
+
+../../../hostedtoolcache/PyPy/3.11.15/arm64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///Users/runner/work/pip-tools/pip-tools/piptools/__main__.py\/Users/runner/work/pip-tools/pip-tools/piptools/__main__.py]8;;\", line 5, in <module>
+    from piptools.scripts import compile, sync
+... [32 lines omitted] ...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.cache')' returned non-zero exit status 1.
+
+../../../hostedtoolcache/PyPy/3.11.15/arm64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///Users/runner/work/pip-tools/pip-tools/piptools/cache.py\/Users/runner/work/pip-tools/pip-tools/piptools/cache.py]8;;\", line 14, in <module>
+    from .utils import as_tuple, key_from_req, lookup_table_from_tuples
+... [32 lines omitted] ...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories')' returned non-zero exit status 1.
+
+../../../hostedtoolcache/PyPy/3.11.15/arm64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///Users/runner/work/pip-tools/pip-tools/piptools/repositories/__init__.py\/Users/runner/work/pip-tools/pip-tools/piptools/repositories/__init__.py]8;;\", line 3, in <module>
+    from .local import LocalRequirementsRepository
+... [14191 lines omitted] ...
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.repositories.pypi] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories.pypi')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.resolver] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.resolver')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.compile] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.compile')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.options] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.options')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.sync] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.sync')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.sync] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.sync')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.utils] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.utils')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.writer] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.writer')' returned non-zero exit status 1.
+======================== 13 failed, 1 warning in 12.67s ========================
+pipsupported: 17335 C exit 1 (14.94 seconds) /Users/runner/work/pip-tools/pip-tools> pytest --continue-on-collection-errors --full-trace --last-failed --numprocesses=0 --showlocals --trace-config -rA -vvvvv pid=8194 [tox/execute/api.py:309]
+  pipsupported: FAIL code 1 (16.37=setup[1.01]+cmd[0.43,14.94] seconds)
+  evaluation failed :( (16.64 seconds)
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/opt/homebrew/bin/git version
+git version 2.55.0
+Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/1803c271-4f1a-4348-bae1-ca93f5155209/.gitconfig'
+Temporarily overriding HOME='/Users/runner/work/_temp/1803c271-4f1a-4348-bae1-ca93f5155209' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/pip-tools/pip-tools
+Removing SSH command configuration
+[command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+
+===== macos-26-intel / pypy-3.11 / supported =====
+...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.__main__')' returned non-zero exit status 1.
+
+../../../hostedtoolcache/PyPy/3.11.15/x64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///Users/runner/work/pip-tools/pip-tools/piptools/__main__.py\/Users/runner/work/pip-tools/pip-tools/piptools/__main__.py]8;;\", line 5, in <module>
+    from piptools.scripts import compile, sync
+... [32 lines omitted] ...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.cache')' returned non-zero exit status 1.
+
+../../../hostedtoolcache/PyPy/3.11.15/x64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///Users/runner/work/pip-tools/pip-tools/piptools/cache.py\/Users/runner/work/pip-tools/pip-tools/piptools/cache.py]8;;\", line 14, in <module>
+    from .utils import as_tuple, key_from_req, lookup_table_from_tuples
+... [32 lines omitted] ...
+    def check_call(*popenargs, **kwargs):
+        """Run command with arguments.  Wait for command to complete.  If
+        the exit code was zero then return, otherwise raise
+        CalledProcessError.  The CalledProcessError object will have the
+        return code in the returncode attribute.
+    
+        The arguments are the same as for the call function.  Example:
+... [5 lines omitted] ...
+            cmd = kwargs.get("args")
+            if cmd is None:
+                cmd = popenargs[0]
+>           raise CalledProcessError(retcode, cmd)
+E           subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories')' returned non-zero exit status 1.
+
+../../../hostedtoolcache/PyPy/3.11.15/x64/lib/pypy3.11/subprocess.py:413: CalledProcessError
+----------------------------- Captured stderr call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "]8;;file:///Users/runner/work/pip-tools/pip-tools/piptools/repositories/__init__.py\/Users/runner/work/pip-tools/pip-tools/piptools/repositories/__init__.py]8;;\", line 3, in <module>
+    from .local import LocalRequirementsRepository
+... [14197 lines omitted] ...
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.repositories.pypi] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.repositories.pypi')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.resolver] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.resolver')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.compile] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.compile')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.options] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.options')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.scripts.sync] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.scripts.sync')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.sync] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.sync')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.utils] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.utils')' returned non-zero exit status 1.
+FAILED tests/test_circular_imports.py::test_no_warnings[piptools.writer] - subprocess.CalledProcessError: Command '('/Users/runner/work/pip-tools/pip-tools/.tox/pipsupported/bin/python', '-W', 'error', '-c', 'import piptools.writer')' returned non-zero exit status 1.
+======================== 13 failed, 1 warning in 19.22s ========================
+pipsupported: 23490 C exit 1 (21.13 seconds) /Users/runner/work/pip-tools/pip-tools> pytest --continue-on-collection-errors --full-trace --last-failed --numprocesses=0 --showlocals --trace-config -rA -vvvvv pid=78850 [tox/execute/api.py:309]
+  pipsupported: FAIL code 1 (22.54=setup[0.88]+cmd[0.52,21.13] seconds)
+  evaluation failed :( (22.83 seconds)
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/local/bin/git version
+git version 2.55.0
+Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/2da20a90-38d7-40b4-98d9-ce09980fd46d/.gitconfig'
+Temporarily overriding HOME='/Users/runner/work/_temp/2da20a90-38d7-40b4-98d9-ce09980fd46d' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/local/bin/git config --global --add safe.directory /Users/runner/work/pip-tools/pip-tools
+Removing SSH command configuration
+[command]/usr/local/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/local/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/local/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/local/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/local/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes

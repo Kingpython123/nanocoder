@@ -1,0 +1,32 @@
+===== tox env type on windows =====
+... [1388 lines omitted] ...
+  UV_PYTHON: 3.15
+##[endgroup]
+type: skip building and installing the package
+type: freeze> python -m pip freeze --all
+type: accessible-pygments==0.0.5,alabaster==1.0.0,anyio==4.15.1,argcomplete==3.7.2,argon2-cffi==25.1.0,argon2-cffi-bindings==26.1.0,ast_serialize==0.12.1,attrs==26.1.0,babel==2.18.0,beautifulsoup4==4.15.0,build==1.6.1,cachetools==7.2.1,certifi==2026.7.22,cffi==2.1.1,cfgv==3.5.0,chardet==7.6.0,charset-normalizer==3.5.2,check-manifest==0.51,click==8.5.0,colorama==0.4.6,covdefaults==2.3.0,coverage==7.16.2,defusedxml==0.7.1,detect-test-pollution==1.2.0,devpi-client==7.3.0,devpi-common==4.1.1,devpi-process==1.2.0,devpi-server==6.20.3,diff_cover==10.6.0,distlib==0.4.3,docutils==0.22.4,execnet==2.1.2,filelock==4.1.0,flaky==3.8.1,furo==2025.12.19,gitdb==4.0.12,GitPython==3.2.0,h11==0.16.0,hatch-vcs==0.5.0,hatchling==1.32.4,httpcore==1.0.9,httpx==0.28.1,hupper==1.12.1,identify==2.6.20,idna==3.20,imagesize==2.0.1,iniconfig==2.3.1,itsdangerous==2.2.0,Jinja2==3.1.6,lazy==2.0,legacy-cgi==2.6.4,librt==0.16.0,MarkupSafe==3.0.4,mypy==2.4.0,mypy_extensions==1.1.0,nodeenv==1.11.0,packaging==26.3,packaging-legacy==23.0.post0,passlib==1.7.4,PasteDeploy==3.1.0,pathspec==1.1.1,pdm-backend==2.5.0,pip==26.2.1,pkginfo==1.13,plaster==1.1.2,plaster-pastedeploy==1.0.1,platformdirs==4.12.4,pluggy==1.6.0,pre_commit==4.6.2,psutil==7.2.2,py==1.11.0,pycparser==3.11,Pygments==2.21.0,pyproject-api==1.11.5,pyproject_hooks==1.3.3,pyramid==2.1,pyrefly==1.3.2,pytest==9.1.1,pytest-cov==7.1.0,pytest-mock==3.16.0,pytest-timeout==2.4.0,pytest-xdist==3.8.0,python-dateutil==2.9.0.post0,python-discovery==1.6.2,PyYAML==6.0.3,re-assert==1.1.0,regex==2026.9.29,repoze-lru==0.8,requests==2.34.2,roman-numerals==4.1.0,ruamel.yaml==0.19.1,setuptools==81.0.0,setuptools-scm==10.3.4,six==1.17.0,smmap==5.0.3,snowballstemmer==3.1.1,soupsieve==3.0.1,Sphinx==9.1.0,sphinx-argparse-cli==1.23.0,sphinx-autodoc-typehints==3.13.9,sphinx-basic-ng==1.0.0b2,sphinx-copybutton==0.5.2,sphinx-issues==6.0.0,sphinx-llm==1.0.0,sphinx-markdown-builder==0.6.11,sphinx-reredirects==1.1.0,sphinx_inline_tabs==2025.12.21.14,sphinxcontrib-applehelp==2.0.0,sphinxcontrib-devhelp==2.0.0,sphinxcontrib-htmlhelp==2.1.0,sphinxcontrib-jsmath==1.0.1,sphinxcontrib-mermaid==2.1.1,sphinxcontrib-qthelp==2.0.0,sphinxcontrib-serializinghtml==2.0.0,sphinxcontrib-towncrier==0.5.0a0,strictyaml==1.7.3,tabulate==0.10.0,time-machine==3.5.1,tombi==1.8.0,tomli_w==1.2.0,tomlkit==0.15.1,towncrier==26.9.0,tox @ file:///D:/a/tox/tox/.tox/.tmp/package/1/tox-4.65.3.dev5%2Bg0c1d97849-py3-none-any.whl#sha256=fc0e95b128d5a334515c6167f7cf6fcedcb9fb596569918cb1a744cf9d4df46b,translationstring==1.4,trove-classifiers==2026.9.21.13,truststore==0.10.4,ty==0.0.86,types-colorama==0.4.15.20260508,types-docutils==0.23.0.20260923,typing_extensions==4.16.0,urllib3==2.8.0,vcs-versioning==2.6.0,venusian==3.1.1,virtualenv==21.14.6,waitress==3.0.2,WebOb==1.8.11,wheel==0.48.0,zope.deprecation==6.0,zope.interface==8.6
+type: commands[0]> ty check --python-platform all --output-format concise --error-on-warning .
+All checks passed!
+type: commands[1]> mypy
+src\tox\session\env_select.py:144: error: Incompatible types in assignment (expression has type "ArgumentParser", variable has type "_ArgumentGroup")  [assignment]
+Found 1 error in 1 file (checked 131 source files)
+type: exit 1 (2.87 seconds) D:\a\tox\tox> mypy pid=1548
+  type: FAIL code 1 (3.90=setup[0.55]+cmd[0.48,2.87] seconds)
+  evaluation failed :( (3.94 seconds)
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]"C:\Program Files\Git\bin\git.exe" version
+git version 2.55.0.windows.5
+Temporarily overriding HOME='D:\a\_temp\543a07d7-cf82-4969-b96c-5dcd46c9e295' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\tox\tox
+Removing SSH command configuration
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+Removing HTTP extra header
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+Removing includeIf entries pointing to credentials config files
+[command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+Cleaning up orphan processes

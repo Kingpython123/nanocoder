@@ -1,0 +1,135 @@
+===== test (3.14) / test =====
+... [649 lines omitted] ...
+........................................................................ [ 99%]
+................E..                                                      [100%]
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_subprocess_async_client ________________
+[gw0] linux -- Python 3.14.8 /home/runner/work/litestar/litestar/.venv/bin/python
+
+    @pytest.fixture(name="async_client")
+... [32 lines omitted] ...
+            retry_timeout: Timeout in seconds to wait between retries
+    
+        Raises:
+            StartupError: If the application fails to start with given retry count and timeout
+        """
+        port = _get_available_port()
+        output = None if capture_output else subprocess.DEVNULL
+... [11 lines omitted] ...
+                    httpx.get(url, timeout=0.1)
+                    application_started = True
+                    break
+                except httpx.TransportError:
+                    time.sleep(retry_timeout)
+    
+            if not application_started:
+                proc.kill()
+>               raise StartupError("Application failed to start")
+E               litestar.testing.client.subprocess_client.StartupError: Application failed to start
+
+litestar/testing/client/subprocess_client.py:64: StartupError
+---------------------------- Captured stderr setup -----------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/litestar/litestar/.venv/bin/litestar", line 10, in <module>
+    sys.exit(run_cli())
+             ~~~~~~~^^
+... [292 lines omitted] ...
+86 files skipped due to complete coverage.
+Required test coverage of 50.0% reached. Total coverage: 73.02%
+=========================== short test summary info ============================
+ERROR docs/examples/testing/test_subprocess_sse.py::test_subprocess_async_client - litestar.testing.client.subprocess_client.StartupError: Application failed to start
+= 5608 passed, 5 skipped, 5 xfailed, 16 xpassed, 1 error in 141.17s (0:02:21) ==
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/7b3f32ec-5edc-41ae-9f7a-f06d5ce054f8' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/litestar/litestar
+Removing SSH command configuration
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Removing HTTP extra header
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Removing includeIf entries pointing to credentials config files
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+includeif.gitdir:/home/runner/work/litestar/litestar/.git.path
+includeif.gitdir:/home/runner/work/litestar/litestar/.git/worktrees/*.path
+includeif.gitdir:/github/workspace/.git.path
+includeif.gitdir:/github/workspace/.git/worktrees/*.path
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/litestar/litestar/.git.path
+/home/runner/work/_temp/git-credentials-0652e305-94e8-4d3a-a918-a492476749b9.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/litestar/litestar/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-0652e305\-94e8\-4d3a\-a918\-a492476749b9\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/litestar/litestar/.git/worktrees/*.path
+/home/runner/work/_temp/git-credentials-0652e305-94e8-4d3a-a918-a492476749b9.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/litestar/litestar/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-0652e305\-94e8\-4d3a\-a918\-a492476749b9\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+/github/runner_temp/git-credentials-0652e305-94e8-4d3a-a918-a492476749b9.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-0652e305\-94e8\-4d3a\-a918\-a492476749b9\.config
+[command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+/github/runner_temp/git-credentials-0652e305-94e8-4d3a-a918-a492476749b9.config
+[command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-0652e305\-94e8\-4d3a\-a918\-a492476749b9\.config
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Removing credentials config '/home/runner/work/_temp/git-credentials-0652e305-94e8-4d3a-a918-a492476749b9.config'
+Cleaning up orphan processes
+
+===== test_success =====
+﻿2026-10-12T19:25:55.9561190Z Current runner version: '2.337.0'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20261002.596
+Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+Build Date: 2026-10-02T22:28:27Z
+Worker ID: {41e77e4c-0809-4d03-84d7-59996e4f9399}
+Region: westus3
+Cloud: Azure
+##[endgroup]
+##[group]Operating System
+Ubuntu
+24.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20261004.327.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Actions: write
+ArtifactMetadata: write
+Attestations: write
+Checks: write
+CodeQuality: write
+Contents: write
+CopilotRequests: write
+Deployments: write
+Discussions: write
+Drives: write
+Issues: write
+Metadata: read
+Models: read
+Packages: write
+Pages: write
+PullRequests: write
+RepositoryProjects: write
+SecurityEvents: write
+Statuses: write
+VulnerabilityAlerts: read
+##[endgroup]
+Secret source: Actions
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Complete job name: test_success
+##[group]Run echo "test workflow exited with failure"
+echo "test workflow exited with failure"
+exit 1
+shell: /usr/bin/bash -e {0}
+env:
+  UV_LOCKED: 1
+##[endgroup]
+test workflow exited with failure
+##[error]Process completed with exit code 1.
+Cleaning up orphan processes

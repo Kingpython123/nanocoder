@@ -1,0 +1,127 @@
+===== check =====
+﻿2026-10-23T03:53:41.0227989Z Current runner version: '2.338.0'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20261012.601
+Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+Build Date: 2026-10-12T17:48:21Z
+Worker ID: {6785acfc-9902-4d0f-b0b5-a797d802783e}
+Region: eastus2
+Cloud: Azure
+##[endgroup]
+##[group]Operating System
+Ubuntu
+24.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-24.04
+Version: 20261012.334.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Metadata: read
+##[endgroup]
+Secret source: None
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 're-actors/alls-green@release/v1' (SHA:b5b5b37504aa4183270bd3d855c52a67f212be35)
+Complete job name: check
+##[group]Run re-actors/alls-green@release/v1
+with:
+  jobs: {
+  "smoke-tests": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Windows": {
+    "result": "cancelled",
+    "outputs": {}
+  },
+  "Ubuntu": {
+    "result": "failure",
+    "outputs": {}
+  },
+  "macOS": {
+    "result": "cancelled",
+    "outputs": {}
+  },
+  "Alpine": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Cython": {
+    "result": "success",
+    "outputs": {}
+  },
+  "zizmor": {
+    "result": "success",
+    "outputs": {}
+  }
+}
+  allowed-failures: []
+  allowed-skips: []
+env:
+  dists-artifact-name: python-package-distributions
+  dist-name: trio
+##[endgroup]
+##[start-action display=Decide whether the input jobs succeeded or failed;id=__re-actors_alls-green.outcome]
+##[group]Run python -m normalize_needed_jobs_status \
+python -m normalize_needed_jobs_status \
+  "$INPUT_ALLOWED_FAILURES" \
+  "$INPUT_ALLOWED_SKIPS" \
+  "$INPUT_JOBS"
+shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+env:
+  dists-artifact-name: python-package-distributions
+  dist-name: trio
+  INPUT_ALLOWED_FAILURES: []
+  INPUT_ALLOWED_SKIPS: []
+  INPUT_JOBS: {
+  "smoke-tests": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Windows": {
+    "result": "cancelled",
+    "outputs": {}
+  },
+  "Ubuntu": {
+    "result": "failure",
+    "outputs": {}
+  },
+  "macOS": {
+    "result": "cancelled",
+    "outputs": {}
+  },
+  "Alpine": {
+    "result": "success",
+    "outputs": {}
+  },
+  "Cython": {
+    "result": "success",
+    "outputs": {}
+  },
+  "zizmor": {
+    "result": "success",
+    "outputs": {}
+  }
+}
+  PYTHONPATH: /home/runner/work/_actions/re-actors/alls-green/release/v1/src
+##[endgroup]
+# ❌ Some of the required to succeed jobs failed 😢😢😢
+
+🔮 Job statuses:
+✓ smoke-tests → 🟢 success [required to succeed]
+❌ Windows → ⚫ cancelled [required to succeed]
+❌ Ubuntu → 🔴 failure [required to succeed]
+❌ macOS → ⚫ cancelled [required to succeed]
+✓ Alpine → 🟢 success [required to succeed]
+✓ Cython → 🟢 success [required to succeed]
+✓ zizmor → 🟢 success [required to succeed]
+##[error]Process completed with exit code 1.
+##[end-action id=__re-actors_alls-green.outcome;outcome=failure;conclusion=failure;duration_ms=100]
+Cleaning up orphan processes
