@@ -1,0 +1,30 @@
+name: nanocoder fix-ci
+description: Reproduce a failing CI check in a clean container, fix it, and open a pull request only if every check passes.
+inputs:
+  token:
+    description: Fine-grained token with contents and pull requests write access. GITHUB_TOKEN cannot trigger CI on the fix.
+    required: true
+  llm-api-key:
+    description: API key for an OpenAI-compatible endpoint with the Responses API.
+    required: true
+  llm-base-url:
+    description: Base URL of that endpoint.
+    required: true
+  model:
+    description: Model name.
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - shell: bash
+      run: pip install --quiet "$GITHUB_ACTION_PATH"
+    - shell: bash
+      run: nanocoder action
+      env:
+        NANOCODER_TOKEN: ${{ inputs.token }}
+        OPENAI_API_KEY: ${{ inputs.llm-api-key }}
+        OPENAI_BASE_URL: ${{ inputs.llm-base-url }}
+        MODEL_NAME: ${{ inputs.model }}

@@ -1,6 +1,6 @@
 # P2 · Nano Coding Agent：仓库级自动修 Bug
 
-> 状态：M0–M2 完成，SWE-bench 50 题 40/50；下一步是失败归因和产品化（2026-11-05），见第 16 节进展记录。
+> 状态：SWE-bench 50 题 40/50；v0.2 CI 修复的 M0、M1 完成，M1 基线 17 题变绿 16 题，M2 待真实仓库验证（2026-11-07），见第 16 节进展记录。
 > 位置：独立仓库 `E:\zlf\nanocoder`（2026-11-05 从 agent-learning 的 `pri/Codingagent/` 拆出）。第 16 节的旧记录里提到的 `pri/Codingagent/` 就是现在的仓库根目录。
 > 前置：`src/miniagent` 的 agent loop（已复制到本仓库）。
 > 当前模型：`gpt-6.1-terra`（中转站 api.gpt.ge），Responses API + 推理 high + prompt `v2_spec`。`gpt-6-luna` 已下架，早期实验用的是它。
@@ -527,3 +527,15 @@ v1 保留不动，作为固定的对照。
 **局限**：演示仓库是我为演示写的，bug 很简单，文件里已经 import 了 `ROUND_HALF_UP`，这次运行只说明流程走得通，不能说明它修真实 CI 失败的能力。那要等 M1。
 
 **踩坑**：第一次端到端测试判定 lint 没过，查下来闸门是对的：`/mnt/e` 上的文件在 WSL 里都带可执行位，ruff 报 `EXE002`，和修复无关。真实仓库如果在 WSL 的 `/mnt` 下提交，也可能碰到。
+
+### 2026-11-07 · v0.2 M1 基线 + M2 GitHub Action 代码
+
+**M1 任务集**：从约 55 个 Python 仓库的已合并 PR 里挖“某提交 CI 红、下一个只改源码的提交变绿”的提交对（`benchmarks/build_ciset.py`），115 个候选里给 50 个写了检查配置，每题修复前后各在容器里跑 3 次，再锁定版本复核，最后选 17 题（每个仓库最多 3 题）。
+
+**M1 结果**（gpt-6.1-terra，推理 high，k=1）：16/17 变绿，按类型是 lint 10/10、类型检查 5/5、测试 1/2。累计 62.6 万输入 token，约 17 分钟。人工逐题对照人写的修复：8 题相同，5 题等价，1 题类型写得更宽松，2 题改了库的公开类型存根而不是示例（要维护者判断），1 题（black）存疑。唯一没变绿的题其实修对了，是变绿闸门碰上了一个计时不稳定的测试。详见 `v0.2-ci-fix-design.md` 第 8 节。
+
+**解读**：任务集偏简单，lint 占了 10 题，测试类只有 2 题。所以这个结果说明它能稳定地照着 linter 和类型检查的提示改，不能说明它会修测试失败。
+
+**M2**：`action.yml`（composite action）、`cifix/action.py`、`cifix/github.py`、`examples/nano-fix-ci.yml`，由 PR 评论触发。拒绝 fork 来的 PR；只有有写权限的人能触发；配置从 base 分支读；宿主机不执行 PR 里的代码；`@` 会被处理掉，不会通知到人。`tests/test_cifix_action.py` 用假的 GitHub 接口和本地裸仓库测试，通过。还没在真实 GitHub 仓库上走通。
+
+**踩坑**：WSL 连 GitHub 的 TLS 经常被断开，网络相关的 git 命令都加了重试；本地已有的提交不再重新拉取。
